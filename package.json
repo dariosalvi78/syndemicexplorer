@@ -1,0 +1,23 @@
+{
+  "name": "syndemicexplorer",
+  "version": "0.0.0",
+  "description": "A proof of concept for a syndemic dashboard",
+  "main": "src/app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dariosalvi78/syndemicexplorer.git"
+  },
+  "keywords": [
+    "covid19",
+    "dashboard"
+  ],
+  "author": "Dario Salvi",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/dariosalvi78/syndemicexplorer/issues"
+  },
+  "homepage": "https://github.com/dariosalvi78/syndemicexplorer#readme"
+}
