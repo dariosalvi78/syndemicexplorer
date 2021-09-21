@@ -1,5 +1,6 @@
 {
   "name": "syndemicexplorer",
+  "type": "module",
   "version": "0.0.0",
   "description": "A proof of concept for a syndemic dashboard",
   "main": "src/app.js",
@@ -19,5 +20,10 @@
   "bugs": {
     "url": "https://github.com/dariosalvi78/syndemicexplorer/issues"
   },
-  "homepage": "https://github.com/dariosalvi78/syndemicexplorer#readme"
+  "homepage": "https://github.com/dariosalvi78/syndemicexplorer#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1"
+  }
 }
