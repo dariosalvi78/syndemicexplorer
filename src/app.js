@@ -2,7 +2,7 @@ import express from 'express'
 import cors from 'cors'
 import dotenv from 'dotenv'
 import routes from './routes.js'
-import {initDB} from './dbPool.js'
+import {initDB} from './db.js'
 
 dotenv.config()
 initDB()

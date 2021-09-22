@@ -1,4 +1,4 @@
-import {Pool} from '../dbPool.js'
+import {Pool} from '../db.js'
 
 
 export default {
