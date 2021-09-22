@@ -46,3 +46,21 @@ latitude: ST_Y(ST_Centroid(geom))
 
 longitude: ST_X(ST_Centroid(geom)),
 
+docker run --name syndemicdb2 -e POSTGRES_PASSWORD=syndemic -p 5432:5432 -v /Users/aj6373/Documents/Research/Projects/covid19db/syndemicexplorer/src/initsql:/docker-entrypoint-initdb.d -d postgis/postgis:13-3.1
+
+
+upsert query for epidemilogy
+INSERT INTO epidemiology (source, country_code, area1_code , area2_code, area3_code, gid, date, tested)  VALUES
+    (
+      'DARIO',
+      'ITA',
+      'Campania',
+      'Napoli',
+      'Centro',
+      'ITA.1.1_1.1',
+      '2020-03-26',
+      1002
+    )
+    ON CONFLICT (source, date, country_code, COALESCE(area1_code, ''), COALESCE(area2_code, ''), COALESCE(area3_code, ''))
+    DO UPDATE SET
+    tested= 1002 ;
