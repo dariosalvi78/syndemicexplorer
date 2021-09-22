@@ -14,7 +14,19 @@ change /path/to/src/initsql to the actual path.
 
 This will create a running instance of Postgres with Postgis and a preloaded dataset for Sweden.
 The database name, username and password are specified inside the file /initsql/0_structure.sql
-Feel free to change them there, but remember to change the content of the .env file to use the actual database name, user name and password.
+Feel free to change them there.
+
+Create a .env file inside the root folder of this project like the follwing:
+
+```
+PORT=5000
+PG_HOST=localhost
+PG_PORT=5432
+PG_DATABASE=syndemic
+PG_USER=syndemic
+PG_PASSWORD=syndemic
+```
+Make sure the details for connecting to the database are correct.
 
 ## Run
 
@@ -25,6 +37,8 @@ node ./src/app.js
 ## Develop
 
 
+
+## Dump of stuff I need later:
 docker exec -it syndemicdb /bin/bash
 
 
