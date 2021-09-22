@@ -1,8 +1,11 @@
 import express from 'express'
 import cors from 'cors'
 import dotenv from 'dotenv'
+import routes from './routes.js'
+import {initDB} from './dbPool.js'
 
 dotenv.config()
+initDB()
 
 const app = express()
 
@@ -14,6 +17,7 @@ app.use(express.json())
 
 // Routes
 app.get('/', (req, res) => { res.send(`🚀 Syndemic explorer API is up and running!`) })
+app.use('/api/v1', routes)
 
 let port = process.env.PORT || 8080
 app.listen(port, () => {
