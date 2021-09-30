@@ -3,9 +3,12 @@ import cors from 'cors'
 import dotenv from 'dotenv'
 import routes from './routes.js'
 import {initDB} from './db.js'
+import {startFetchers} from './fetchers.js'
 
 dotenv.config()
 initDB()
+
+startFetchers()
 
 const app = express()
 
