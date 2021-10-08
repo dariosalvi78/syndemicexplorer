@@ -1,0 +1,631 @@
+﻿year;district;indicator;number
+2020;Centrum;demographics_age_0-5_men;2104
+2020;Centrum;demographics_age_6-15_men;2035
+2020;Centrum;demographics_age_16-19_men;734
+2020;Centrum;demographics_age_20-64_men;20058
+2020;Centrum;demographics_age_65-79_men;2592
+2020;Centrum;demographics_age_80+_men;571
+2020;Centrum;demographics_age_total_men;28094
+2020;Centrum;demographics_age_0-5_women;1938
+2020;Centrum;demographics_age_6-15_women;2148
+2020;Centrum;demographics_age_16-19_women;779
+2020;Centrum;demographics_age_20-64_women;20021
+2020;Centrum;demographics_age_65-79_women;2860
+2020;Centrum;demographics_age_80+_women;1017
+2020;Centrum;demographics_age_total_women;28763
+2020;Centrum;demographics_age_0-5_all;4042
+2020;Centrum;demographics_age_6-15_all;4183
+2020;Centrum;demographics_age_16-19_all;1513
+2020;Centrum;demographics_age_20-64_all;40079
+2020;Centrum;demographics_age_65-79_all;5452
+2020;Centrum;demographics_age_80+_all;1588
+2020;Centrum;demographics_age_total_all;56857
+2020;Södra Innerstaden;demographics_age_0-5_men;1268
+2020;Södra Innerstaden;demographics_age_6-15_men;1427
+2020;Södra Innerstaden;demographics_age_16-19_men;470
+2020;Södra Innerstaden;demographics_age_20-64_men;13552
+2020;Södra Innerstaden;demographics_age_65-79_men;1264
+2020;Södra Innerstaden;demographics_age_80+_men;296
+2020;Södra Innerstaden;demographics_age_total_men;18277
+2020;Södra Innerstaden;demographics_age_0-5_women;1257
+2020;Södra Innerstaden;demographics_age_6-15_women;1369
+2020;Södra Innerstaden;demographics_age_16-19_women;421
+2020;Södra Innerstaden;demographics_age_20-64_women;13291
+2020;Södra Innerstaden;demographics_age_65-79_women;1310
+2020;Södra Innerstaden;demographics_age_80+_women;490
+2020;Södra Innerstaden;demographics_age_total_women;18138
+2020;Södra Innerstaden;demographics_age_0-5_all;2525
+2020;Södra Innerstaden;demographics_age_6-15_all;2796
+2020;Södra Innerstaden;demographics_age_16-19_all;891
+2020;Södra Innerstaden;demographics_age_20-64_all;26843
+2020;Södra Innerstaden;demographics_age_65-79_all;2574
+2020;Södra Innerstaden;demographics_age_80+_all;786
+2020;Södra Innerstaden;demographics_age_total_all;36415
+2020;Västra Innerstaden;demographics_age_0-5_men;1187
+2020;Västra Innerstaden;demographics_age_6-15_men;1486
+2020;Västra Innerstaden;demographics_age_16-19_men;475
+2020;Västra Innerstaden;demographics_age_20-64_men;10471
+2020;Västra Innerstaden;demographics_age_65-79_men;2174
+2020;Västra Innerstaden;demographics_age_80+_men;595
+2020;Västra Innerstaden;demographics_age_total_men;16388
+2020;Västra Innerstaden;demographics_age_0-5_women;1109
+2020;Västra Innerstaden;demographics_age_6-15_women;1411
+2020;Västra Innerstaden;demographics_age_16-19_women;475
+2020;Västra Innerstaden;demographics_age_20-64_women;11817
+2020;Västra Innerstaden;demographics_age_65-79_women;2858
+2020;Västra Innerstaden;demographics_age_80+_women;1363
+2020;Västra Innerstaden;demographics_age_total_women;19033
+2020;Västra Innerstaden;demographics_age_0-5_all;2296
+2020;Västra Innerstaden;demographics_age_6-15_all;2897
+2020;Västra Innerstaden;demographics_age_16-19_all;950
+2020;Västra Innerstaden;demographics_age_20-64_all;22288
+2020;Västra Innerstaden;demographics_age_65-79_all;5032
+2020;Västra Innerstaden;demographics_age_80+_all;1958
+2020;Västra Innerstaden;demographics_age_total_all;35421
+2020;Limhamn-Bunkeflo;demographics_age_0-5_men;2360
+2020;Limhamn-Bunkeflo;demographics_age_6-15_men;4573
+2020;Limhamn-Bunkeflo;demographics_age_16-19_men;1348
+2020;Limhamn-Bunkeflo;demographics_age_20-64_men;15024
+2020;Limhamn-Bunkeflo;demographics_age_65-79_men;3219
+2020;Limhamn-Bunkeflo;demographics_age_80+_men;873
+2020;Limhamn-Bunkeflo;demographics_age_total_men;27397
+2020;Limhamn-Bunkeflo;demographics_age_0-5_women;2286
+2020;Limhamn-Bunkeflo;demographics_age_6-15_women;4346
+2020;Limhamn-Bunkeflo;demographics_age_16-19_women;1248
+2020;Limhamn-Bunkeflo;demographics_age_20-64_women;15711
+2020;Limhamn-Bunkeflo;demographics_age_65-79_women;3433
+2020;Limhamn-Bunkeflo;demographics_age_80+_women;1305
+2020;Limhamn-Bunkeflo;demographics_age_total_women;28329
+2020;Limhamn-Bunkeflo;demographics_age_0-5_all;4646
+2020;Limhamn-Bunkeflo;demographics_age_6-15_all;8919
+2020;Limhamn-Bunkeflo;demographics_age_16-19_all;2596
+2020;Limhamn-Bunkeflo;demographics_age_20-64_all;30735
+2020;Limhamn-Bunkeflo;demographics_age_65-79_all;6652
+2020;Limhamn-Bunkeflo;demographics_age_80+_all;2178
+2020;Limhamn-Bunkeflo;demographics_age_total_all;55726
+2020;Hyllie;demographics_age_0-5_men;1677
+2020;Hyllie;demographics_age_6-15_men;2330
+2020;Hyllie;demographics_age_16-19_men;739
+2020;Hyllie;demographics_age_20-64_men;11011
+2020;Hyllie;demographics_age_65-79_men;2429
+2020;Hyllie;demographics_age_80+_men;1042
+2020;Hyllie;demographics_age_total_men;19228
+2020;Hyllie;demographics_age_0-5_women;1554
+2020;Hyllie;demographics_age_6-15_women;2181
+2020;Hyllie;demographics_age_16-19_women;718
+2020;Hyllie;demographics_age_20-64_women;11001
+2020;Hyllie;demographics_age_65-79_women;2940
+2020;Hyllie;demographics_age_80+_women;1895
+2020;Hyllie;demographics_age_total_women;20289
+2020;Hyllie;demographics_age_0-5_all;3231
+2020;Hyllie;demographics_age_6-15_all;4511
+2020;Hyllie;demographics_age_16-19_all;1457
+2020;Hyllie;demographics_age_20-64_all;22012
+2020;Hyllie;demographics_age_65-79_all;5369
+2020;Hyllie;demographics_age_80+_all;2937
+2020;Hyllie;demographics_age_total_all;39517
+2020;Fosie;demographics_age_0-5_men;2064
+2020;Fosie;demographics_age_6-15_men;2986
+2020;Fosie;demographics_age_16-19_men;1037
+2020;Fosie;demographics_age_20-64_men;14344
+2020;Fosie;demographics_age_65-79_men;2324
+2020;Fosie;demographics_age_80+_men;695
+2020;Fosie;demographics_age_total_men;23450
+2020;Fosie;demographics_age_0-5_women;2044
+2020;Fosie;demographics_age_6-15_women;2815
+2020;Fosie;demographics_age_16-19_women;907
+2020;Fosie;demographics_age_20-64_women;13111
+2020;Fosie;demographics_age_65-79_women;2615
+2020;Fosie;demographics_age_80+_women;1143
+2020;Fosie;demographics_age_total_women;22635
+2020;Fosie;demographics_age_0-5_all;4108
+2020;Fosie;demographics_age_6-15_all;5801
+2020;Fosie;demographics_age_16-19_all;1944
+2020;Fosie;demographics_age_20-64_all;27455
+2020;Fosie;demographics_age_65-79_all;4939
+2020;Fosie;demographics_age_80+_all;1838
+2020;Fosie;demographics_age_total_all;46085
+2020;Oxie;demographics_age_0-5_men;573
+2020;Oxie;demographics_age_6-15_men;1120
+2020;Oxie;demographics_age_16-19_men;373
+2020;Oxie;demographics_age_20-64_men;3909
+2020;Oxie;demographics_age_65-79_men;876
+2020;Oxie;demographics_age_80+_men;198
+2020;Oxie;demographics_age_total_men;7049
+2020;Oxie;demographics_age_0-5_women;546
+2020;Oxie;demographics_age_6-15_women;1055
+2020;Oxie;demographics_age_16-19_women;328
+2020;Oxie;demographics_age_20-64_women;3839
+2020;Oxie;demographics_age_65-79_women;886
+2020;Oxie;demographics_age_80+_women;258
+2020;Oxie;demographics_age_total_women;6912
+2020;Oxie;demographics_age_0-5_all;1119
+2020;Oxie;demographics_age_6-15_all;2175
+2020;Oxie;demographics_age_16-19_all;701
+2020;Oxie;demographics_age_20-64_all;7748
+2020;Oxie;demographics_age_65-79_all;1762
+2020;Oxie;demographics_age_80+_all;456
+2020;Oxie;demographics_age_total_all;13961
+2020;Rosengård;demographics_age_0-5_men;1217
+2020;Rosengård;demographics_age_6-15_men;1835
+2020;Rosengård;demographics_age_16-19_men;681
+2020;Rosengård;demographics_age_20-64_men;6772
+2020;Rosengård;demographics_age_65-79_men;946
+2020;Rosengård;demographics_age_80+_men;233
+2020;Rosengård;demographics_age_total_men;11684
+2020;Rosengård;demographics_age_0-5_women;1203
+2020;Rosengård;demographics_age_6-15_women;1802
+2020;Rosengård;demographics_age_16-19_women;614
+2020;Rosengård;demographics_age_20-64_women;6267
+2020;Rosengård;demographics_age_65-79_women;1078
+2020;Rosengård;demographics_age_80+_women;326
+2020;Rosengård;demographics_age_total_women;11290
+2020;Rosengård;demographics_age_0-5_all;2420
+2020;Rosengård;demographics_age_6-15_all;3637
+2020;Rosengård;demographics_age_16-19_all;1295
+2020;Rosengård;demographics_age_20-64_all;13039
+2020;Rosengård;demographics_age_65-79_all;2024
+2020;Rosengård;demographics_age_80+_all;559
+2020;Rosengård;demographics_age_total_all;22974
+2020;Husie;demographics_age_0-5_men;1025
+2020;Husie;demographics_age_6-15_men;1761
+2020;Husie;demographics_age_16-19_men;586
+2020;Husie;demographics_age_20-64_men;6624
+2020;Husie;demographics_age_65-79_men;1373
+2020;Husie;demographics_age_80+_men;537
+2020;Husie;demographics_age_total_men;11906
+2020;Husie;demographics_age_0-5_women;917
+2020;Husie;demographics_age_6-15_women;1667
+2020;Husie;demographics_age_16-19_women;577
+2020;Husie;demographics_age_20-64_women;6581
+2020;Husie;demographics_age_65-79_women;1454
+2020;Husie;demographics_age_80+_women;787
+2020;Husie;demographics_age_total_women;11983
+2020;Husie;demographics_age_0-5_all;1942
+2020;Husie;demographics_age_6-15_all;3428
+2020;Husie;demographics_age_16-19_all;1163
+2020;Husie;demographics_age_20-64_all;13205
+2020;Husie;demographics_age_65-79_all;2827
+2020;Husie;demographics_age_80+_all;1324
+2020;Husie;demographics_age_total_all;23889
+2020;Kirseberg;demographics_age_0-5_men;600
+2020;Kirseberg;demographics_age_6-15_men;998
+2020;Kirseberg;demographics_age_16-19_men;305
+2020;Kirseberg;demographics_age_20-64_men;5306
+2020;Kirseberg;demographics_age_65-79_men;867
+2020;Kirseberg;demographics_age_80+_men;219
+2020;Kirseberg;demographics_age_total_men;8295
+2020;Kirseberg;demographics_age_0-5_women;613
+2020;Kirseberg;demographics_age_6-15_women;834
+2020;Kirseberg;demographics_age_16-19_women;268
+2020;Kirseberg;demographics_age_20-64_women;4839
+2020;Kirseberg;demographics_age_65-79_women;831
+2020;Kirseberg;demographics_age_80+_women;317
+2020;Kirseberg;demographics_age_total_women;7702
+2020;Kirseberg;demographics_age_0-5_all;1213
+2020;Kirseberg;demographics_age_6-15_all;1832
+2020;Kirseberg;demographics_age_16-19_all;573
+2020;Kirseberg;demographics_age_20-64_all;10145
+2020;Kirseberg;demographics_age_65-79_all;1698
+2020;Kirseberg;demographics_age_80+_all;536
+2020;Kirseberg;demographics_age_total_all;15997
+2019;Centrum;demographics_age_0-5_men;2147
+2019;Centrum;demographics_age_6-15_men;1974
+2019;Centrum;demographics_age_16-19_men;668
+2019;Centrum;demographics_age_20-64_men;19743
+2019;Centrum;demographics_age_65-79_men;2526
+2019;Centrum;demographics_age_80+_men;575
+2019;Centrum;demographics_age_total_men;27633
+2019;Centrum;demographics_age_0-5_women;1948
+2019;Centrum;demographics_age_6-15_women;2092
+2019;Centrum;demographics_age_16-19_women;721
+2019;Centrum;demographics_age_20-64_women;19720
+2019;Centrum;demographics_age_65-79_women;2841
+2019;Centrum;demographics_age_80+_women;1008
+2019;Centrum;demographics_age_total_women;28330
+2019;Centrum;demographics_age_0-5_all;4095
+2019;Centrum;demographics_age_6-15_all;4066
+2019;Centrum;demographics_age_16-19_all;1389
+2019;Centrum;demographics_age_20-64_all;39463
+2019;Centrum;demographics_age_65-79_all;5367
+2019;Centrum;demographics_age_80+_all;1583
+2019;Centrum;demographics_age_total_all;55963
+2019;Södra Innerstaden;demographics_age_0-5_men;1303
+2019;Södra Innerstaden;demographics_age_6-15_men;1428
+2019;Södra Innerstaden;demographics_age_16-19_men;489
+2019;Södra Innerstaden;demographics_age_20-64_men;13724
+2019;Södra Innerstaden;demographics_age_65-79_men;1233
+2019;Södra Innerstaden;demographics_age_80+_men;286
+2019;Södra Innerstaden;demographics_age_total_men;18463
+2019;Södra Innerstaden;demographics_age_0-5_women;1280
+2019;Södra Innerstaden;demographics_age_6-15_women;1394
+2019;Södra Innerstaden;demographics_age_16-19_women;395
+2019;Södra Innerstaden;demographics_age_20-64_women;13312
+2019;Södra Innerstaden;demographics_age_65-79_women;1266
+2019;Södra Innerstaden;demographics_age_80+_women;533
+2019;Södra Innerstaden;demographics_age_total_women;18180
+2019;Södra Innerstaden;demographics_age_0-5_all;2583
+2019;Södra Innerstaden;demographics_age_6-15_all;2822
+2019;Södra Innerstaden;demographics_age_16-19_all;884
+2019;Södra Innerstaden;demographics_age_20-64_all;27036
+2019;Södra Innerstaden;demographics_age_65-79_all;2499
+2019;Södra Innerstaden;demographics_age_80+_all;819
+2019;Södra Innerstaden;demographics_age_total_all;36643
+2019;Västra Innerstaden;demographics_age_0-5_men;1228
+2019;Västra Innerstaden;demographics_age_6-15_men;1442
+2019;Västra Innerstaden;demographics_age_16-19_men;474
+2019;Västra Innerstaden;demographics_age_20-64_men;10537
+2019;Västra Innerstaden;demographics_age_65-79_men;2131
+2019;Västra Innerstaden;demographics_age_80+_men;618
+2019;Västra Innerstaden;demographics_age_total_men;16430
+2019;Västra Innerstaden;demographics_age_0-5_women;1148
+2019;Västra Innerstaden;demographics_age_6-15_women;1431
+2019;Västra Innerstaden;demographics_age_16-19_women;468
+2019;Västra Innerstaden;demographics_age_20-64_women;11821
+2019;Västra Innerstaden;demographics_age_65-79_women;2832
+2019;Västra Innerstaden;demographics_age_80+_women;1399
+2019;Västra Innerstaden;demographics_age_total_women;19099
+2019;Västra Innerstaden;demographics_age_0-5_all;2376
+2019;Västra Innerstaden;demographics_age_6-15_all;2873
+2019;Västra Innerstaden;demographics_age_16-19_all;942
+2019;Västra Innerstaden;demographics_age_20-64_all;22358
+2019;Västra Innerstaden;demographics_age_65-79_all;4963
+2019;Västra Innerstaden;demographics_age_80+_all;2017
+2019;Västra Innerstaden;demographics_age_total_all;35529
+2019;Limhamn-Bunkeflo;demographics_age_0-5_men;2354
+2019;Limhamn-Bunkeflo;demographics_age_6-15_men;4185
+2019;Limhamn-Bunkeflo;demographics_age_16-19_men;1213
+2019;Limhamn-Bunkeflo;demographics_age_20-64_men;14253
+2019;Limhamn-Bunkeflo;demographics_age_65-79_men;3080
+2019;Limhamn-Bunkeflo;demographics_age_80+_men;864
+2019;Limhamn-Bunkeflo;demographics_age_total_men;25949
+2019;Limhamn-Bunkeflo;demographics_age_0-5_women;2219
+2019;Limhamn-Bunkeflo;demographics_age_6-15_women;4014
+2019;Limhamn-Bunkeflo;demographics_age_16-19_women;1117
+2019;Limhamn-Bunkeflo;demographics_age_20-64_women;14794
+2019;Limhamn-Bunkeflo;demographics_age_65-79_women;3301
+2019;Limhamn-Bunkeflo;demographics_age_80+_women;1288
+2019;Limhamn-Bunkeflo;demographics_age_total_women;26733
+2019;Limhamn-Bunkeflo;demographics_age_0-5_all;4573
+2019;Limhamn-Bunkeflo;demographics_age_6-15_all;8199
+2019;Limhamn-Bunkeflo;demographics_age_16-19_all;2330
+2019;Limhamn-Bunkeflo;demographics_age_20-64_all;29047
+2019;Limhamn-Bunkeflo;demographics_age_65-79_all;6381
+2019;Limhamn-Bunkeflo;demographics_age_80+_all;2152
+2019;Limhamn-Bunkeflo;demographics_age_total_all;52682
+2019;Hyllie;demographics_age_0-5_men;1673
+2019;Hyllie;demographics_age_6-15_men;2267
+2019;Hyllie;demographics_age_16-19_men;712
+2019;Hyllie;demographics_age_20-64_men;10679
+2019;Hyllie;demographics_age_65-79_men;2395
+2019;Hyllie;demographics_age_80+_men;1039
+2019;Hyllie;demographics_age_total_men;18765
+2019;Hyllie;demographics_age_0-5_women;1611
+2019;Hyllie;demographics_age_6-15_women;2127
+2019;Hyllie;demographics_age_16-19_women;720
+2019;Hyllie;demographics_age_20-64_women;10753
+2019;Hyllie;demographics_age_65-79_women;2948
+2019;Hyllie;demographics_age_80+_women;1912
+2019;Hyllie;demographics_age_total_women;20071
+2019;Hyllie;demographics_age_0-5_all;3284
+2019;Hyllie;demographics_age_6-15_all;4394
+2019;Hyllie;demographics_age_16-19_all;1432
+2019;Hyllie;demographics_age_20-64_all;21432
+2019;Hyllie;demographics_age_65-79_all;5343
+2019;Hyllie;demographics_age_80+_all;2951
+2019;Hyllie;demographics_age_total_all;38836
+2019;Fosie;demographics_age_0-5_men;2200
+2019;Fosie;demographics_age_6-15_men;2984
+2019;Fosie;demographics_age_16-19_men;1041
+2019;Fosie;demographics_age_20-64_men;14436
+2019;Fosie;demographics_age_65-79_men;2310
+2019;Fosie;demographics_age_80+_men;687
+2019;Fosie;demographics_age_total_men;23658
+2019;Fosie;demographics_age_0-5_women;2102
+2019;Fosie;demographics_age_6-15_women;2838
+2019;Fosie;demographics_age_16-19_women;938
+2019;Fosie;demographics_age_20-64_women;13180
+2019;Fosie;demographics_age_65-79_women;2652
+2019;Fosie;demographics_age_80+_women;1167
+2019;Fosie;demographics_age_total_women;22877
+2019;Fosie;demographics_age_0-5_all;4302
+2019;Fosie;demographics_age_6-15_all;5822
+2019;Fosie;demographics_age_16-19_all;1979
+2019;Fosie;demographics_age_20-64_all;27616
+2019;Fosie;demographics_age_65-79_all;4962
+2019;Fosie;demographics_age_80+_all;1854
+2019;Fosie;demographics_age_total_all;46535
+2019;Oxie;demographics_age_0-5_men;576
+2019;Oxie;demographics_age_6-15_men;1082
+2019;Oxie;demographics_age_16-19_men;368
+2019;Oxie;demographics_age_20-64_men;3854
+2019;Oxie;demographics_age_65-79_men;868
+2019;Oxie;demographics_age_80+_men;200
+2019;Oxie;demographics_age_total_men;6948
+2019;Oxie;demographics_age_0-5_women;545
+2019;Oxie;demographics_age_6-15_women;1004
+2019;Oxie;demographics_age_16-19_women;336
+2019;Oxie;demographics_age_20-64_women;3721
+2019;Oxie;demographics_age_65-79_women;876
+2019;Oxie;demographics_age_80+_women;256
+2019;Oxie;demographics_age_total_women;6738
+2019;Oxie;demographics_age_0-5_all;1121
+2019;Oxie;demographics_age_6-15_all;2086
+2019;Oxie;demographics_age_16-19_all;704
+2019;Oxie;demographics_age_20-64_all;7575
+2019;Oxie;demographics_age_65-79_all;1744
+2019;Oxie;demographics_age_80+_all;456
+2019;Oxie;demographics_age_total_all;13686
+2019;Rosengård;demographics_age_0-5_men;1302
+2019;Rosengård;demographics_age_6-15_men;1852
+2019;Rosengård;demographics_age_16-19_men;729
+2019;Rosengård;demographics_age_20-64_men;6811
+2019;Rosengård;demographics_age_65-79_men;952
+2019;Rosengård;demographics_age_80+_men;210
+2019;Rosengård;demographics_age_total_men;11856
+2019;Rosengård;demographics_age_0-5_women;1260
+2019;Rosengård;demographics_age_6-15_women;1792
+2019;Rosengård;demographics_age_16-19_women;648
+2019;Rosengård;demographics_age_20-64_women;6440
+2019;Rosengård;demographics_age_65-79_women;1036
+2019;Rosengård;demographics_age_80+_women;333
+2019;Rosengård;demographics_age_total_women;11509
+2019;Rosengård;demographics_age_0-5_all;2562
+2019;Rosengård;demographics_age_6-15_all;3644
+2019;Rosengård;demographics_age_16-19_all;1377
+2019;Rosengård;demographics_age_20-64_all;13251
+2019;Rosengård;demographics_age_65-79_all;1988
+2019;Rosengård;demographics_age_80+_all;543
+2019;Rosengård;demographics_age_total_all;23365
+2019;Husie;demographics_age_0-5_men;1007
+2019;Husie;demographics_age_6-15_men;1693
+2019;Husie;demographics_age_16-19_men;541
+2019;Husie;demographics_age_20-64_men;6510
+2019;Husie;demographics_age_65-79_men;1360
+2019;Husie;demographics_age_80+_men;540
+2019;Husie;demographics_age_total_men;11651
+2019;Husie;demographics_age_0-5_women;920
+2019;Husie;demographics_age_6-15_women;1644
+2019;Husie;demographics_age_16-19_women;544
+2019;Husie;demographics_age_20-64_women;6527
+2019;Husie;demographics_age_65-79_women;1465
+2019;Husie;demographics_age_80+_women;785
+2019;Husie;demographics_age_total_women;11885
+2019;Husie;demographics_age_0-5_all;1927
+2019;Husie;demographics_age_6-15_all;3337
+2019;Husie;demographics_age_16-19_all;1085
+2019;Husie;demographics_age_20-64_all;13037
+2019;Husie;demographics_age_65-79_all;2825
+2019;Husie;demographics_age_80+_all;1325
+2019;Husie;demographics_age_total_all;23536
+2019;Kirseberg;demographics_age_0-5_men;667
+2019;Kirseberg;demographics_age_6-15_men;974
+2019;Kirseberg;demographics_age_16-19_men;310
+2019;Kirseberg;demographics_age_20-64_men;5415
+2019;Kirseberg;demographics_age_65-79_men;847
+2019;Kirseberg;demographics_age_80+_men;237
+2019;Kirseberg;demographics_age_total_men;8450
+2019;Kirseberg;demographics_age_0-5_women;606
+2019;Kirseberg;demographics_age_6-15_women;827
+2019;Kirseberg;demographics_age_16-19_women;303
+2019;Kirseberg;demographics_age_20-64_women;4890
+2019;Kirseberg;demographics_age_65-79_women;820
+2019;Kirseberg;demographics_age_80+_women;343
+2019;Kirseberg;demographics_age_total_women;7789
+2019;Kirseberg;demographics_age_0-5_all;1273
+2019;Kirseberg;demographics_age_6-15_all;1801
+2019;Kirseberg;demographics_age_16-19_all;613
+2019;Kirseberg;demographics_age_20-64_all;10305
+2019;Kirseberg;demographics_age_65-79_all;1667
+2019;Kirseberg;demographics_age_80+_all;580
+2019;Kirseberg;demographics_age_total_all;16239
+2018;Västra Innerstaden;demographics_age_0-5_women;1156
+2018;Västra Innerstaden;demographics_age_16-19_women;447
+2018;Västra Innerstaden;demographics_age_20-64_women;11732
+2018;Västra Innerstaden;demographics_age_6-15_women;1371
+2018;Västra Innerstaden;demographics_age_65-79_women;2804
+2018;Västra Innerstaden;demographics_age_80+_women;1448
+2018;Västra Innerstaden;demographics_age_total_women;18958
+2018;Västra Innerstaden;demographics_age_0-5_men;1250
+2018;Västra Innerstaden;demographics_age_16-19_men;445
+2018;Västra Innerstaden;demographics_age_20-64_men;10528
+2018;Västra Innerstaden;demographics_age_6-15_men;1385
+2018;Västra Innerstaden;demographics_age_65-79_men;2100
+2018;Västra Innerstaden;demographics_age_80+_men;628
+2018;Västra Innerstaden;demographics_age_total_men;16336
+2018;Västra Innerstaden;demographics_age_0-5_all;2406
+2018;Västra Innerstaden;demographics_age_16-19_all;892
+2018;Västra Innerstaden;demographics_age_20-64_all;22260
+2018;Västra Innerstaden;demographics_age_6-15_all;2756
+2018;Västra Innerstaden;demographics_age_65-79_all;4904
+2018;Västra Innerstaden;demographics_age_80+_all;2076
+2018;Västra Innerstaden;demographics_age_total_all;35294
+2018;Södra Innerstaden;demographics_age_0-5_women;1317
+2018;Södra Innerstaden;demographics_age_16-19_women;414
+2018;Södra Innerstaden;demographics_age_20-64_women;13361
+2018;Södra Innerstaden;demographics_age_6-15_women;1309
+2018;Södra Innerstaden;demographics_age_65-79_women;1223
+2018;Södra Innerstaden;demographics_age_80+_women;534
+2018;Södra Innerstaden;demographics_age_total_women;18158
+2018;Södra Innerstaden;demographics_age_0-5_men;1316
+2018;Södra Innerstaden;demographics_age_16-19_men;530
+2018;Södra Innerstaden;demographics_age_20-64_men;13586
+2018;Södra Innerstaden;demographics_age_6-15_men;1418
+2018;Södra Innerstaden;demographics_age_65-79_men;1211
+2018;Södra Innerstaden;demographics_age_80+_men;276
+2018;Södra Innerstaden;demographics_age_total_men;18337
+2018;Södra Innerstaden;demographics_age_0-5_all;2633
+2018;Södra Innerstaden;demographics_age_16-19_all;944
+2018;Södra Innerstaden;demographics_age_20-64_all;26947
+2018;Södra Innerstaden;demographics_age_6-15_all;2727
+2018;Södra Innerstaden;demographics_age_65-79_all;2434
+2018;Södra Innerstaden;demographics_age_80+_all;810
+2018;Södra Innerstaden;demographics_age_total_all;36495
+2018;Rosengård;demographics_age_0-5_women;1337
+2018;Rosengård;demographics_age_16-19_women;667
+2018;Rosengård;demographics_age_20-64_women;6580
+2018;Rosengård;demographics_age_6-15_women;1791
+2018;Rosengård;demographics_age_65-79_women;1011
+2018;Rosengård;demographics_age_80+_women;345
+2018;Rosengård;demographics_age_total_women;11731
+2018;Rosengård;demographics_age_0-5_men;1363
+2018;Rosengård;demographics_age_16-19_men;754
+2018;Rosengård;demographics_age_20-64_men;6888
+2018;Rosengård;demographics_age_6-15_men;1898
+2018;Rosengård;demographics_age_65-79_men;926
+2018;Rosengård;demographics_age_80+_men;198
+2018;Rosengård;demographics_age_total_men;12027
+2018;Rosengård;demographics_age_0-5_all;2700
+2018;Rosengård;demographics_age_16-19_all;1421
+2018;Rosengård;demographics_age_20-64_all;13468
+2018;Rosengård;demographics_age_6-15_all;3689
+2018;Rosengård;demographics_age_65-79_all;1937
+2018;Rosengård;demographics_age_80+_all;543
+2018;Rosengård;demographics_age_total_all;23758
+2018;Oxie;demographics_age_0-5_women;562
+2018;Oxie;demographics_age_16-19_women;356
+2018;Oxie;demographics_age_20-64_women;3736
+2018;Oxie;demographics_age_6-15_women;965
+2018;Oxie;demographics_age_65-79_women;857
+2018;Oxie;demographics_age_80+_women;261
+2018;Oxie;demographics_age_total_women;6737
+2018;Oxie;demographics_age_0-5_men;554
+2018;Oxie;demographics_age_16-19_men;358
+2018;Oxie;demographics_age_20-64_men;3815
+2018;Oxie;demographics_age_6-15_men;1088
+2018;Oxie;demographics_age_65-79_men;871
+2018;Oxie;demographics_age_80+_men;195
+2018;Oxie;demographics_age_total_men;6881
+2018;Oxie;demographics_age_0-5_all;1116
+2018;Oxie;demographics_age_16-19_all;714
+2018;Oxie;demographics_age_20-64_all;7551
+2018;Oxie;demographics_age_6-15_all;2053
+2018;Oxie;demographics_age_65-79_all;1728
+2018;Oxie;demographics_age_80+_all;456
+2018;Oxie;demographics_age_total_all;13618
+2018;Limhamn-Bunkeflo;demographics_age_0-5_women;2207
+2018;Limhamn-Bunkeflo;demographics_age_16-19_women;1040
+2018;Limhamn-Bunkeflo;demographics_age_20-64_women;14229
+2018;Limhamn-Bunkeflo;demographics_age_6-15_women;3816
+2018;Limhamn-Bunkeflo;demographics_age_65-79_women;3197
+2018;Limhamn-Bunkeflo;demographics_age_80+_women;1234
+2018;Limhamn-Bunkeflo;demographics_age_total_women;25723
+2018;Limhamn-Bunkeflo;demographics_age_0-5_men;2319
+2018;Limhamn-Bunkeflo;demographics_age_16-19_men;1161
+2018;Limhamn-Bunkeflo;demographics_age_20-64_men;13695
+2018;Limhamn-Bunkeflo;demographics_age_6-15_men;3978
+2018;Limhamn-Bunkeflo;demographics_age_65-79_men;3005
+2018;Limhamn-Bunkeflo;demographics_age_80+_men;822
+2018;Limhamn-Bunkeflo;demographics_age_total_men;24980
+2018;Limhamn-Bunkeflo;demographics_age_0-5_all;4526
+2018;Limhamn-Bunkeflo;demographics_age_16-19_all;2201
+2018;Limhamn-Bunkeflo;demographics_age_20-64_all;27924
+2018;Limhamn-Bunkeflo;demographics_age_6-15_all;7794
+2018;Limhamn-Bunkeflo;demographics_age_65-79_all;6202
+2018;Limhamn-Bunkeflo;demographics_age_80+_all;2056
+2018;Limhamn-Bunkeflo;demographics_age_total_all;50703
+2018;Kirseberg;demographics_age_0-5_women;643
+2018;Kirseberg;demographics_age_16-19_women;293
+2018;Kirseberg;demographics_age_20-64_women;5010
+2018;Kirseberg;demographics_age_6-15_women;828
+2018;Kirseberg;demographics_age_65-79_women;771
+2018;Kirseberg;demographics_age_80+_women;371
+2018;Kirseberg;demographics_age_total_women;7916
+2018;Kirseberg;demographics_age_0-5_men;704
+2018;Kirseberg;demographics_age_16-19_men;320
+2018;Kirseberg;demographics_age_20-64_men;5599
+2018;Kirseberg;demographics_age_6-15_men;955
+2018;Kirseberg;demographics_age_65-79_men;852
+2018;Kirseberg;demographics_age_80+_men;224
+2018;Kirseberg;demographics_age_total_men;8654
+2018;Kirseberg;demographics_age_0-5_all;1347
+2018;Kirseberg;demographics_age_16-19_all;613
+2018;Kirseberg;demographics_age_20-64_all;10609
+2018;Kirseberg;demographics_age_6-15_all;1783
+2018;Kirseberg;demographics_age_65-79_all;1623
+2018;Kirseberg;demographics_age_80+_all;595
+2018;Kirseberg;demographics_age_total_all;16570
+2018;Hyllie;demographics_age_0-5_women;1579
+2018;Hyllie;demographics_age_16-19_women;662
+2018;Hyllie;demographics_age_20-64_women;10360
+2018;Hyllie;demographics_age_6-15_women;2022
+2018;Hyllie;demographics_age_65-79_women;2950
+2018;Hyllie;demographics_age_80+_women;1933
+2018;Hyllie;demographics_age_total_women;19506
+2018;Hyllie;demographics_age_0-5_men;1598
+2018;Hyllie;demographics_age_16-19_men;716
+2018;Hyllie;demographics_age_20-64_men;10277
+2018;Hyllie;demographics_age_6-15_men;2129
+2018;Hyllie;demographics_age_65-79_men;2375
+2018;Hyllie;demographics_age_80+_men;1033
+2018;Hyllie;demographics_age_total_men;18128
+2018;Hyllie;demographics_age_0-5_all;3177
+2018;Hyllie;demographics_age_16-19_all;1378
+2018;Hyllie;demographics_age_20-64_all;20637
+2018;Hyllie;demographics_age_6-15_all;4151
+2018;Hyllie;demographics_age_65-79_all;5325
+2018;Hyllie;demographics_age_80+_all;2966
+2018;Hyllie;demographics_age_total_all;37634
+2018;Husie;demographics_age_0-5_women;901
+2018;Husie;demographics_age_16-19_women;529
+2018;Husie;demographics_age_20-64_women;6349
+2018;Husie;demographics_age_6-15_women;1597
+2018;Husie;demographics_age_65-79_women;1444
+2018;Husie;demographics_age_80+_women;774
+2018;Husie;demographics_age_total_women;11594
+2018;Husie;demographics_age_0-5_men;1004
+2018;Husie;demographics_age_16-19_men;521
+2018;Husie;demographics_age_20-64_men;6263
+2018;Husie;demographics_age_6-15_men;1586
+2018;Husie;demographics_age_65-79_men;1343
+2018;Husie;demographics_age_80+_men;559
+2018;Husie;demographics_age_total_men;11276
+2018;Husie;demographics_age_0-5_all;1905
+2018;Husie;demographics_age_16-19_all;1050
+2018;Husie;demographics_age_20-64_all;12612
+2018;Husie;demographics_age_6-15_all;3183
+2018;Husie;demographics_age_65-79_all;2787
+2018;Husie;demographics_age_80+_all;1333
+2018;Husie;demographics_age_total_all;22870
+2018;Fosie;demographics_age_0-5_women;2117
+2018;Fosie;demographics_age_16-19_women;950
+2018;Fosie;demographics_age_20-64_women;13228
+2018;Fosie;demographics_age_6-15_women;2706
+2018;Fosie;demographics_age_65-79_women;2677
+2018;Fosie;demographics_age_80+_women;1190
+2018;Fosie;demographics_age_total_women;22868
+2018;Fosie;demographics_age_0-5_men;2271
+2018;Fosie;demographics_age_16-19_men;1023
+2018;Fosie;demographics_age_20-64_men;14334
+2018;Fosie;demographics_age_6-15_men;2936
+2018;Fosie;demographics_age_65-79_men;2283
+2018;Fosie;demographics_age_80+_men;683
+2018;Fosie;demographics_age_total_men;23530
+2018;Fosie;demographics_age_0-5_all;4388
+2018;Fosie;demographics_age_16-19_all;1973
+2018;Fosie;demographics_age_20-64_all;27562
+2018;Fosie;demographics_age_6-15_all;5642
+2018;Fosie;demographics_age_65-79_all;4960
+2018;Fosie;demographics_age_80+_all;1873
+2018;Fosie;demographics_age_total_all;46398
+2018;Centrum;demographics_age_0-5_women;1970
+2018;Centrum;demographics_age_16-19_women;705
+2018;Centrum;demographics_age_20-64_women;19392
+2018;Centrum;demographics_age_6-15_women;2032
+2018;Centrum;demographics_age_65-79_women;2791
+2018;Centrum;demographics_age_80+_women;986
+2018;Centrum;demographics_age_total_women;27876
+2018;Centrum;demographics_age_0-5_men;2190
+2018;Centrum;demographics_age_16-19_men;617
+2018;Centrum;demographics_age_20-64_men;19351
+2018;Centrum;demographics_age_6-15_men;1886
+2018;Centrum;demographics_age_65-79_men;2436
+2018;Centrum;demographics_age_80+_men;535
+2018;Centrum;demographics_age_total_men;27015
+2018;Centrum;demographics_age_0-5_all;4160
+2018;Centrum;demographics_age_16-19_all;1322
+2018;Centrum;demographics_age_20-64_all;38743
+2018;Centrum;demographics_age_6-15_all;3918
+2018;Centrum;demographics_age_65-79_all;5227
+2018;Centrum;demographics_age_80+_all;1521
+2018;Centrum;demographics_age_total_all;54891
