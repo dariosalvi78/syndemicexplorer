@@ -10,8 +10,7 @@ function readCSVFiles(directoryName, skipByteCount) {
 
         filenames.forEach(file => {
             try {
-                var splitFileName = file.split('.');
-                var extension = splitFileName[splitFileName.length - 1];
+                var extension = GetFileExtension(file);
 
                 if (extension === 'csv')
                     readLines(directoryName + '/' + file, skipByteCount);
@@ -21,6 +20,15 @@ function readCSVFiles(directoryName, skipByteCount) {
         });
     }
 )}
+
+function GetFileExtension(file) {
+    var splitFileName = file.split('.');
+
+    if (splitFileName.length > 1)
+        return splitFileName[splitFileName.length - 1];
+    
+    return "null";
+}
 
 function readLines(file, skipByteCount) {
     var rs = fs.createReadStream(file, {start: skipByteCount});
@@ -48,9 +56,17 @@ function readLines(file, skipByteCount) {
 }
 
 class DataObject {
+    //source, country_code, area1_code and area2_code are hardcoded for now
+    source = "SCB";
+    year;
+    country_code = "SWE";
+    area1_code = "SWE.13_1";
+    area2_code = "SWE.13.19_1";
+
     constructor(year, area3, indicator) {
         this.year = year;
-        this.area3 = area3;
+        this.area3_code = area3;
+        this.Gid = area3;
         this.indicator = indicator;
     }
 }
