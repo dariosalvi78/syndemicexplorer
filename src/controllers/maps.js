@@ -29,5 +29,61 @@ export default {
                 res.sendStatus(500)
             }
         }
+    },
+    // get the admin area1 (region) codes, names and geometry for a specific country
+    // country code must be specified as query param
+    async getAdmAreas1 (req, res) {
+        let countryCode = req.query.countryCode
+        if(!countryCode) {
+            res.sendStatus(404)
+        } else {
+            let query = `select distinct area1_name, area1_code, ST_AsGeoJSON(geometry) as geometry from admin_areas where country_code = $1`
+            try {
+                let data = await Pool.query(query, [countryCode])
+                res.send(data.rows)
+            } catch (error) {
+                console.log(error.message)
+                res.sendStatus(500)
+            }
+        }
+    },
+    // get the admin area2 (municipality) names, codes and geometry for a specific region
+    // area code1 must be specified as query param
+    async getAdmAreas2 (req, res) {
+        let area1Code = req.query.area1Code
+        if(!area1Code) {
+            res.sendStatus(404)
+        } else {
+            let query = `select distinct area2_name, area2_code, ST_AsGeoJSON(geometry) as geometry from admin_areas where area1_code = $1`
+            try {
+                let data = await Pool.query(query, [area1Code])
+                res.send(data.rows)
+            } catch (error) {
+                console.log(error.message)
+                res.sendStatus(500)
+            }
+        }
+    },
+    // get the admin area3 (district) names, codes and geometry for a specific municipality.
+    // area code2 must be specified as query param
+    async getAdmAreas3 (req, res) {
+        let area2Code = req.query.area2Code
+        if(!area2Code) {
+            res.sendStatus(404)
+        } else {
+            let query = `select distinct area3_name, area3_code, ST_AsGeoJSON(geometry) as geometry 
+            from admin_areas 
+            where area2_name in (
+                select area2_name 
+                from admin_areas
+                where area2_code = $1)`
+            try {
+                let data = await Pool.query(query, [area2Code])
+                res.send(data.rows)
+            } catch (error) {
+                console.log(error.message)
+                res.sendStatus(500)
+            }
+        }
     }
 }
