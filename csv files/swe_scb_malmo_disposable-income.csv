@@ -1,0 +1,61 @@
+﻿year;district;indicator;number of people;average income
+2019;Centrum;disposable-income_men;27633;250902
+2019;Centrum;disposable-income_women;28330;207125
+2019;Centrum;disposable-income_all;55963;228741
+2019;Södra Innerstaden;disposable-income_men;18463;171452
+2019;Södra Innerstaden;disposable-income_women;18180;165407
+2019;Södra Innerstaden;disposable-income_all;36643;168453
+2019;Västra Innerstaden;disposable-income_men;16430;268154
+2019;Västra Innerstaden;disposable-income_women;19099;231163
+2019;Västra Innerstaden;disposable-income_all;35529;248269
+2019;Limhamn-Bunkeflo;disposable-income_men;25949;275282
+2019;Limhamn-Bunkeflo;disposable-income_women;26733;211328
+2019;Limhamn-Bunkeflo;disposable-income_all;52682;242829
+2019;Hyllie;disposable-income_men;18765;177350
+2019;Hyllie;disposable-income_women;20071;160614
+2019;Hyllie;disposable-income_all;38836;168700
+2019;Fosie;disposable-income_men;23658;142663
+2019;Fosie;disposable-income_women;22877;131949
+2019;Fosie;disposable-income_all;46535;137396
+2019;Oxie;disposable-income_men;6948;184070
+2019;Oxie;disposable-income_women;6738;159910
+2019;Oxie;disposable-income_all;13686;172176
+2019;Rosengård;disposable-income_men;11856;113368
+2019;Rosengård;disposable-income_women;11509;106044
+2019;Rosengård;disposable-income_all;23365;109761
+2019;Husie;disposable-income_men;11651;212349
+2019;Husie;disposable-income_women;11885;183254
+2019;Husie;disposable-income_all;23536;197657
+2019;Kirseberg;disposable-income_men;8450;180468
+2019;Kirseberg;disposable-income_women;7789;168782
+2019;Kirseberg;disposable-income_all;16239;174863
+2018;Centrum;disposable-income_men;27015;250167
+2018;Centrum;disposable-income_women;27876;201478
+2018;Centrum;disposable-income_all;54891;225441
+2018;Södra Innerstaden;disposable-income_men;18337;164259
+2018;Södra Innerstaden;disposable-income_women;18158;161817
+2018;Södra Innerstaden;disposable-income_all;36495;163044
+2018;Västra Innerstaden;disposable-income_men;16336;273944
+2018;Västra Innerstaden;disposable-income_women;18958;221905
+2018;Västra Innerstaden;disposable-income_all;35294;245992
+2018;Limhamn-Bunkeflo;disposable-income_men;24980;268689
+2018;Limhamn-Bunkeflo;disposable-income_women;25723;207750
+2018;Limhamn-Bunkeflo;disposable-income_all;50703;237773
+2018;Hyllie;disposable-income_men;18128;173620
+2018;Hyllie;disposable-income_women;19506;158004
+2018;Hyllie;disposable-income_all;37634;165526
+2018;Fosie;disposable-income_men;23530;138534
+2018;Fosie;disposable-income_women;22868;130076
+2018;Fosie;disposable-income_all;46398;134365
+2018;Oxie;disposable-income_men;6881;185369
+2018;Oxie;disposable-income_women;6737;157874
+2018;Oxie;disposable-income_all;13618;171767
+2018;Rosengård;disposable-income_men;12027;108256
+2018;Rosengård;disposable-income_women;11731;102962
+2018;Rosengård;disposable-income_all;23758;105642
+2018;Husie;disposable-income_men;11276;209431
+2018;Husie;disposable-income_women;11594;178908
+2018;Husie;disposable-income_all;22870;193957
+2018;Kirseberg;disposable-income_men;8654;180375
+2018;Kirseberg;disposable-income_women;7916;161126
+2018;Kirseberg;disposable-income_all;16570;171179
