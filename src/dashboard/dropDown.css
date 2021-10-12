@@ -1,0 +1,14 @@
+.dropDown {
+  width: 100%;
+  padding: 50px;
+}
+.dropDown-trigger {
+  width: 100%;
+  padding: 50px;
+}
+.button {
+  width: 100%;
+  height: 10px;
+  padding: 50px;
+  margin: 5px;
+}

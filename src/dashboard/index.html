@@ -7,17 +7,17 @@
     <script src='https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.js'></script>
     <link href='https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.css' rel='stylesheet' />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
-   
+    <link rel="stylesheet" href="dropDown.css">
 </head>
 <body>
-    <!-- The map -->
-    <div id = 'map' style='width: 600px; height: 500px;'></div>
+
+  <div class="columns">
+    <div class="column is-one-fifth">
     
-    <!-- Level 1 -->
-    <div class="dropdown" id = "level1">
+      <div class="dropdown" id = "level1">
         <div class="dropdown-trigger">
-          <button class="button" aria-haspopup="true" aria-controls="dropdown-menu3">
-            <span>Level 1</span>
+          <button class="button is-fullwidth" aria-haspopup="true" aria-controls="dropdown-menu3" id = "buttonLevel1">
+            <span id = "level1Text">Level 1</span>
             <span class="icon is-small">
               <i class="fas fa-angle-down" aria-hidden="true"></i>
             </span>
@@ -38,8 +38,8 @@
     <!-- Level 2 -->
       <div class="dropdown" id = "level2">
         <div class="dropdown-trigger">
-          <button class="button" aria-haspopup="true" aria-controls="dropdown-menu3">
-            <span>Level 2</span>
+          <button class="button is-fullwidth" aria-haspopup="true" aria-controls="dropdown-menu3" id = "buttonLevel2">
+            <span id = "level2Text">Level 2</span>
             <span class="icon is-small">
               <i class="fas fa-angle-down" aria-hidden="true"></i>
             </span>
@@ -47,7 +47,7 @@
         </div>
         <div class="dropdown-menu" id="dropdown-menu3" role="menu">
           <div class="dropdown-content">
-            <a href="#" class="dropdown-item">
+            <a href="#" class="dropdown-item" id = "skåne">
               Skåne
             </a>
             <a href="#" class="dropdown-item">
@@ -59,7 +59,7 @@
     <!-- Level 3 -->
     <div class="dropdown" id = "level3">
         <div class="dropdown-trigger">
-          <button class="button" aria-haspopup="true" aria-controls="dropdown-menu3">
+          <button class="button is-fullwidth" aria-haspopup="true" aria-controls="dropdown-menu3">
             <span>Level 3</span>
             <span class="icon is-small">
               <i class="fas fa-angle-down" aria-hidden="true"></i>
@@ -80,7 +80,7 @@
       <!-- Level 4 -->
       <div class="dropdown" id = "level4">
         <div class="dropdown-trigger">
-          <button class="button" aria-haspopup="true" aria-controls="dropdown-menu3">
+          <button class="button is-fullwidth" aria-haspopup="true" aria-controls="dropdown-menu3">
             <span>Level 4</span>
             <span class="icon is-small">
               <i class="fas fa-angle-down" aria-hidden="true"></i>
@@ -98,6 +98,22 @@
           </div>
         </div>
       </div>
+    </div>
+    <div class="column is-half">
+      Second column
+      <div id = 'map' style='width: 600px; height: 500px;'></div>
+     
+    </div>
+    <div class="column">
+      Third column
+    </div>
+    
+  </div>
+    <!-- The map -->
+   
+    
+    <!-- Level 1 -->
+    
    
 </body>
 <script src ="mapbox.js" ></script>
