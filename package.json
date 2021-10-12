@@ -3,7 +3,7 @@
   "type": "module",
   "version": "0.0.0",
   "description": "A proof of concept for a syndemic dashboard",
-  "main": "src/app.js",
+  "main": "src/dashboard/mapbox.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -22,9 +22,12 @@
   },
   "homepage": "https://github.com/dariosalvi78/syndemicexplorer#readme",
   "dependencies": {
+    "bulma": "^0.9.3",
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
-    "pg": "^8.7.1"
+    "mapbox-gl": "^2.5.1",
+    "pg": "^8.7.1",
+    "requirejs": "^2.3.6"
   }
 }

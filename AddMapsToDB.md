@@ -27,6 +27,7 @@ The check what's the name of the shapefile and run:
 cd /shapefiles
 shp2pgsql -I -s 4326 ./shapefile.shp tmp > tmp.sql
 ```
+
 (change shapefile.shp to the actual name of your file)
 
 Now you should have a big .sql file in the folder.
@@ -37,9 +38,11 @@ docker cp /path/to/tmp.sql syndemicdb:/
 ```
 
 Connect to the postgis instance and run:
+
 ```sh
 docker exec -it syndemicdb psql postgresql://syndemic:syndemic@localhost:5432/syndemic -f /tmp.sql
 ```
+
 Make sure the username, password and databasename are correct.
 
 Now the tmp table should be copied inside the database. You need to convert it. Run the following query with a database client like with psql:
@@ -63,4 +66,3 @@ docker exec -it syndemicdb rm /tmp.sql
 docker stop base
 docker rm base
 ```
-
