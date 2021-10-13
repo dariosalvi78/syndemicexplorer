@@ -5,6 +5,8 @@ import routes from './routes.js'
 import {initDB} from './db.js'
 import {startFetchers} from './fetchers.js'
 
+import read_csv_files from './fetchers/read_csv_files.js'
+
 dotenv.config()
 initDB()
 
@@ -26,5 +28,8 @@ let port = process.env.PORT || 8080
 app.listen(port, () => {
     console.log(`🚀 API running on port ${port}.`)
 })
+
+// TODO make it work (for future)
+// read_csv_files.readCSVFiles(process.cwd() + "/csv files", 35);
 
 export default app

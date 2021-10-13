@@ -1,12 +1,17 @@
 import fs from 'fs';
 import readline from 'readline';
+import {Pool} from '../db.js'
+
+
+export default { //TODO To convert from js to react
+
+
+}
 
 let csvFiles = -1;
 let result = new Array();
 
 function readCSVFiles(directoryName, skipByteCount) {
-    let allObjectsInFiles = new Array();
-
     fs.readdir(directoryName, (err, filenames) => {
         if (err) {
             console.error(err);
@@ -29,8 +34,6 @@ function readCSVFiles(directoryName, skipByteCount) {
 
         csvFiles = fileCount;
     })
-
-    return allObjectsInFiles;
 }
 
 function GetFileExtension(file) {
@@ -83,7 +86,7 @@ function readLines(file, skipByteCount) {
     })
 }
 
-function StoreDataInDB() {
+async function StoreDataInDB() {
     let createQuery = "CREATE TABLE demographics (source TEXT, year INTEGER, country_code TEXT, area1_code TEXT, area2_code TEXT, area3_code TEXT, Gid TEXT, indicator TEXT, sample_size INTEGER, value INTEGER);"
 
     let query = "";
@@ -91,22 +94,23 @@ function StoreDataInDB() {
     for (let file = 0; file < result.length; file++) {
         for (let dataobject = 0; dataobject < result[file].length; dataobject++) {
             let nbr = 1 + dataobject;
-            query += "INSERT INTO ??? VALUES (" + nbr + ", " + JSON.stringify(result[file][dataobject]) + ");" + "\n";
+            query += "INSERT INTO demographics VALUES (" + nbr + ", " + JSON.stringify(result[file][dataobject]) + ");" + "\n";
         }
     }
 
-    const client = new Pool({
-        user: "syndemic",
-          host: "localhost",
-          database: "syndemic",
-          password: "syndemic",
-          port: 5432,
-        })
+    // TODO fix later (insert data into database)
+    // try {
+    //     let data = await Pool.query(query); //TODO do something with this data
+    // } catch (e) {
+    //     console.error(e)
+    //     res.sendStatus(500)
+    // }
 
     console.log(createQuery);
     console.log(query);
 }
 
+//TODO convert to react class
 class DataObject {
     //source, country_code, area1_code and area2_code are hardcoded for now
     source = "SCB";
