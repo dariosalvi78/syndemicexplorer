@@ -4,7 +4,7 @@ import readline from 'readline';
 let csvFiles = -1;
 let result = new Array();
 
-function readCSVFiles(directoryName, skipByteCount) {
+function readCSVFiles(directoryName) {
     fs.readdir(directoryName, (err, filenames) => {
         if (err) {
             console.error(err);
@@ -17,7 +17,7 @@ function readCSVFiles(directoryName, skipByteCount) {
                 var extension = GetFileExtension(file);
 
                 if (extension === 'csv') {
-                    readLines(directoryName + '/' + file, skipByteCount);
+                    readLines(directoryName + '/' + file);
                     fileCount++;
                 }
             } catch (error) {
@@ -45,8 +45,8 @@ function StoreObjectsAndRunWhenFinished(objectCollection) {
         StoreDataInDB();
 }
 
-function readLines(file, skipByteCount) {
-    var rs = fs.createReadStream(file, {start: skipByteCount});
+function readLines(file) {
+    var rs = fs.createReadStream(file);
 
     const rl = readline.createInterface({
         input: rs,
@@ -58,6 +58,10 @@ function readLines(file, skipByteCount) {
     var index = 0;
 
     rl.on('line', (line) => {
+        if (line.includes('year')) { //Skip the first line of all the csv files
+            return;
+        }
+
         line = line.split(';');
 
         var obj = new DataObject(line[0], line[1], line[2]);
@@ -82,20 +86,18 @@ function readLines(file, skipByteCount) {
 async function StoreDataInDB() {
     let createQuery = "CREATE TABLE demographics (source TEXT, year INTEGER, country_code TEXT, area1_code TEXT, area2_code TEXT, area3_code TEXT, Gid TEXT, indicator TEXT, sample_size INTEGER, value INTEGER);"
 
-    let query = "";
+    console.log(createQuery);
+    let totalObjects = 0;
 
     for (let file = 0; file < result.length; file++) {
         for (let dataobject = 0; dataobject < result[file].length; dataobject++) {
-            let nbr = 1 + dataobject;
-            query += "INSERT INTO demographics VALUES (" + nbr + ", " + JSON.stringify(result[file][dataobject]) + ");" + "\n";
+            let nbr = 1 + totalObjects;
+            console.log("INSERT INTO demographics VALUES (" + nbr + ", " + JSON.stringify(result[file][dataobject]) + ");");
+            totalObjects++;
         }
     }
-
-    console.log(createQuery);
-    console.log(query);
 }
 
-//TODO convert to react class
 class DataObject {
     //source, country_code, area1_code and area2_code are hardcoded for now
     source = "SCB";
@@ -112,4 +114,4 @@ class DataObject {
     }
 }
 
-readCSVFiles(process.cwd() + "/csv files", 35);
+readCSVFiles(process.cwd() + "/csv files");
