@@ -1,12 +1,5 @@
 import fs from 'fs';
 import readline from 'readline';
-import {Pool} from '../db.js'
-
-
-export default { //TODO To convert from js to react
-
-
-}
 
 let csvFiles = -1;
 let result = new Array();
@@ -97,14 +90,6 @@ async function StoreDataInDB() {
             query += "INSERT INTO demographics VALUES (" + nbr + ", " + JSON.stringify(result[file][dataobject]) + ");" + "\n";
         }
     }
-
-    // TODO fix later (insert data into database)
-    // try {
-    //     let data = await Pool.query(query); //TODO do something with this data
-    // } catch (e) {
-    //     console.error(e)
-    //     res.sendStatus(500)
-    // }
 
     console.log(createQuery);
     console.log(query);
