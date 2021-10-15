@@ -84,9 +84,6 @@ function readLines(file) {
 }
 
 async function StoreDataInDB() {
-    let createQuery = "CREATE TABLE demographics (source TEXT, year INTEGER, country_code TEXT, area1_code TEXT, area2_code TEXT, area3_code TEXT, Gid TEXT, indicator TEXT, sample_size INTEGER, value INTEGER);"
-
-    console.log(createQuery);
     let totalObjects = 0;
 
     for (let file = 0; file < result.length; file++) {

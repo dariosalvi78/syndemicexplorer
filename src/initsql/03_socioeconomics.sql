@@ -1,8 +1,5 @@
 \connect syndemic
 
-CREATE TABLE demographics (source TEXT, year INTEGER, country_code TEXT, area1_code TEXT, area2_code TEXT, area3_code TEXT, Gid TEXT, indicator TEXT, sample_size INTEGER, value INTEGER);
-
-
 INSERT INTO demographics VALUES (1, {"source":"SCB","year":"2020","country_code":"SWE","area1_code":"SWE.13_1","area2_code":"SWE.13.19_1","area3_code":"Centrum","Gid":"Centrum","indicator":"demographics_age_0-5_men","value":"2104"});
 INSERT INTO demographics VALUES (2, {"source":"SCB","year":"2020","country_code":"SWE","area1_code":"SWE.13_1","area2_code":"SWE.13.19_1","area3_code":"Centrum","Gid":"Centrum","indicator":"demographics_age_6-15_men","value":"2035"});
 INSERT INTO demographics VALUES (3, {"source":"SCB","year":"2020","country_code":"SWE","area1_code":"SWE.13_1","area2_code":"SWE.13.19_1","area3_code":"Centrum","Gid":"Centrum","indicator":"demographics_age_16-19_men","value":"734"});
