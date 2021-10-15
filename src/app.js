@@ -5,8 +5,6 @@ import routes from './routes.js'
 import {initDB} from './db.js'
 import {startFetchers} from './fetchers.js'
 
-import read_csv_files from './fetchers/read_csv_files.js'
-
 dotenv.config()
 initDB()
 

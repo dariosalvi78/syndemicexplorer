@@ -89,7 +89,7 @@ async function StoreDataInDB() {
     for (let file = 0; file < result.length; file++) {
         for (let dataobject = 0; dataobject < result[file].length; dataobject++) {
             let nbr = 1 + totalObjects;
-            console.log("INSERT INTO demographics VALUES (" + nbr + ", " + JSON.stringify(result[file][dataobject]) + ");");
+            console.log("INSERT INTO public.socio_economic VALUES (" + nbr + ", " + JSON.stringify(result[file][dataobject]) + ");");
             totalObjects++;
         }
     }
