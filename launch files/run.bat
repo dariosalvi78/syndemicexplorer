@@ -1,2 +1,3 @@
-node .././src/app.js
+cd ..
+node ./src/app.js
 pause
