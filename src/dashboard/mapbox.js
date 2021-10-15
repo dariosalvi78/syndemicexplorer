@@ -13,12 +13,13 @@ const errorLocation = () =>{
 }
 navigator.geolocation.getCurrentPosition(successLocation, errorLocation, {enableHighAccuracy: true})
 
-const swedenLocation = () =>{
-    setupMap([17.56, 59.33], 4)
-}
 const stockholmLocation = ()=> {
     setupMap([17.56, 59,33], 7)
 }
+const swedenLocation = () =>{
+    setupMap([17.56, 59.33], 4)
+}
+
 
 const setupMap = (center, zoom) => {
     const map = new mapboxgl.Map({
