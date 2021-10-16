@@ -42,7 +42,7 @@ function StoreObjectsAndRunWhenFinished(objectCollection) {
     result.push(objectCollection);
 
     if (result.length == csvFiles) //All the files have been read
-        StoreDataInDB();
+        PrintQuery();
 }
 
 function readLines(file) {
@@ -83,16 +83,36 @@ function readLines(file) {
     })
 }
 
-async function StoreDataInDB() {
+async function PrintQuery() {
     let totalObjects = 0;
 
     for (let file = 0; file < result.length; file++) {
         for (let dataobject = 0; dataobject < result[file].length; dataobject++) {
-            let nbr = 1 + totalObjects;
-            console.log("INSERT INTO public.socio_economic VALUES (" + nbr + ", " + JSON.stringify(result[file][dataobject]) + ");");
+            let obj = result[file][dataobject];
+
+            let query = 'INSERT INTO public.socio_economic (source, year, country_code, area1_code, area2_code, area3_code, gid, indicator, '
+            
+            if (obj.sample_size != null)
+                query += 'sample_size, ';
+
+            query += 'value) VALUES ('
+            
+            query += SurroundWith(obj.source) + ", " + SurroundWith(obj.year) + ", " + SurroundWith(obj.country_code) + ", " + SurroundWith(obj.area1_code) + ", " + SurroundWith(obj.area2_code) + ", " + SurroundWith(obj.area3_code) + ", " + 
+            SurroundWith(obj.Gid) + ", " + SurroundWith(obj.indicator) + ", ";
+
+            if (obj.sample_size != null)
+                query += SurroundWith(obj.sample_size) + ", ";
+            
+            query += SurroundWith(obj.value) + ");";
+
+            console.log(query);
             totalObjects++;
         }
     }
+}
+
+function SurroundWith(theString) {
+    return "'" + theString + "'";
 }
 
 class DataObject {
@@ -102,12 +122,16 @@ class DataObject {
     country_code = "SWE";
     area1_code = "SWE.13_1";
     area2_code = "SWE.13.19_1";
+    area3_code = null;
+
 
     constructor(year, area3, indicator) {
         this.year = year;
         this.area3_code = area3;
         this.Gid = area3;
         this.indicator = indicator;
+        this.sample_size = null;
+        this.value = null;
     }
 }
 
