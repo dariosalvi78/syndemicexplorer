@@ -92,9 +92,9 @@ create table public.socio_economic (
   "indicator" varchar not null,
   "sample_size" int null default null,
   "value" real null default null,
-  CONSTRAINT socio_economic_unique UNIQUE(source, year, country_code, area1_code, area2_code, area3_code)
+  CONSTRAINT socio_economic_unique UNIQUE(source, year, country_code, area1_code, area2_code, area3_code, indicator)
 );
 ALTER TABLE public.socio_economic OWNER to syndemic;
 
 CREATE UNIQUE INDEX socio_economic_idx
-ON public.socio_economic (source, year, country_code, COALESCE(area1_code, ''), COALESCE(area2_code, ''), COALESCE(area3_code, ''));
+ON public.socio_economic (source, year, country_code, COALESCE(area1_code, ''), COALESCE(area2_code, ''), COALESCE(area3_code, ''), indicator);
