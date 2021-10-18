@@ -18,7 +18,7 @@ export default {
     async getAdmArea_1_Names (req, res) {
         let countryCode = req.query.countryCode
         if (!countryCode) {
-            res.sendStatus(404)
+            res.sendStatus(400)
         } else {
             let query = `select distinct area1_name, area1_code from admin_areas where country_code = $1`
             try {
@@ -35,7 +35,7 @@ export default {
     async getAdmAreas1 (req, res) {
         let countryCode = req.query.countryCode
         if(!countryCode) {
-            res.sendStatus(404)
+            res.sendStatus(400)
         } else {
             let query = `select distinct area1_name, area1_code, ST_AsGeoJSON(geometry) as geometry from admin_areas where country_code = $1`
             try {
@@ -52,7 +52,7 @@ export default {
     async getAdmAreas2 (req, res) {
         let area1Code = req.query.area1Code
         if(!area1Code) {
-            res.sendStatus(404)
+            res.sendStatus(400)
         } else {
             let query = `select distinct area2_name, area2_code, ST_AsGeoJSON(geometry) as geometry from admin_areas where area1_code = $1`
             try {
@@ -69,7 +69,7 @@ export default {
     async getAdmAreas3 (req, res) {
         let area2Code = req.query.area2Code
         if(!area2Code) {
-            res.sendStatus(404)
+            res.sendStatus(400)
         } else {
             let query = `select distinct area3_name, area3_code, ST_AsGeoJSON(geometry) as geometry 
             from admin_areas 
