@@ -1,0 +1,301 @@
+﻿year;district;indicator;number
+2019;Centrum;educational-level_förgymnasial_men;1380
+2019;Centrum;educational-level_gymnasial_men;5651
+2019;Centrum;educational-level_eftergymnasial_men;11618
+2019;Centrum;educational-level_other_men;1094
+2019;Centrum;educational-level_total-age-20-64_men;19743
+2019;Centrum;educational-level_förgymnasial_women;1105
+2019;Centrum;educational-level_gymnasial_women;4781
+2019;Centrum;educational-level_eftergymnasial_women;13038
+2019;Centrum;educational-level_other_women;796
+2019;Centrum;educational-level_total-age-20-64_women;19720
+2019;Centrum;educational-level_förgymnasial_all;2485
+2019;Centrum;educational-level_gymnasial_all;10432
+2019;Centrum;educational-level_eftergymnasial_all;24656
+2019;Centrum;educational-level_other_all;1890
+2019;Centrum;educational-level_total-age-20-64_all;39463
+2019;Södra Innerstaden;educational-level_förgymnasial_men;1754
+2019;Södra Innerstaden;educational-level_gymnasial_men;4602
+2019;Södra Innerstaden;educational-level_eftergymnasial_men;6719
+2019;Södra Innerstaden;educational-level_other_men;649
+2019;Södra Innerstaden;educational-level_total-age-20-64_men;13724
+2019;Södra Innerstaden;educational-level_förgymnasial_women;1362
+2019;Södra Innerstaden;educational-level_gymnasial_women;3499
+2019;Södra Innerstaden;educational-level_eftergymnasial_women;7937
+2019;Södra Innerstaden;educational-level_other_women;514
+2019;Södra Innerstaden;educational-level_total-age-20-64_women;13312
+2019;Södra Innerstaden;educational-level_förgymnasial_all;3116
+2019;Södra Innerstaden;educational-level_gymnasial_all;8101
+2019;Södra Innerstaden;educational-level_eftergymnasial_all;14656
+2019;Södra Innerstaden;educational-level_other_all;1163
+2019;Södra Innerstaden;educational-level_total-age-20-64_all;27036
+2019;Västra Innerstaden;educational-level_förgymnasial_men;682
+2019;Västra Innerstaden;educational-level_gymnasial_men;3471
+2019;Västra Innerstaden;educational-level_eftergymnasial_men;6084
+2019;Västra Innerstaden;educational-level_other_men;300
+2019;Västra Innerstaden;educational-level_total-age-20-64_men;10537
+2019;Västra Innerstaden;educational-level_förgymnasial_women;516
+2019;Västra Innerstaden;educational-level_gymnasial_women;3206
+2019;Västra Innerstaden;educational-level_eftergymnasial_women;7875
+2019;Västra Innerstaden;educational-level_other_women;224
+2019;Västra Innerstaden;educational-level_total-age-20-64_women;11821
+2019;Västra Innerstaden;educational-level_förgymnasial_all;1198
+2019;Västra Innerstaden;educational-level_gymnasial_all;6677
+2019;Västra Innerstaden;educational-level_eftergymnasial_all;13959
+2019;Västra Innerstaden;educational-level_other_all;524
+2019;Västra Innerstaden;educational-level_total-age-20-64_all;22358
+2019;Limhamn-Bunkeflo;educational-level_förgymnasial_men;1078
+2019;Limhamn-Bunkeflo;educational-level_gymnasial_men;5154
+2019;Limhamn-Bunkeflo;educational-level_eftergymnasial_men;7491
+2019;Limhamn-Bunkeflo;educational-level_other_men;530
+2019;Limhamn-Bunkeflo;educational-level_total-age-20-64_men;14253
+2019;Limhamn-Bunkeflo;educational-level_förgymnasial_women;740
+2019;Limhamn-Bunkeflo;educational-level_gymnasial_women;4450
+2019;Limhamn-Bunkeflo;educational-level_eftergymnasial_women;9192
+2019;Limhamn-Bunkeflo;educational-level_other_women;412
+2019;Limhamn-Bunkeflo;educational-level_total-age-20-64_women;14794
+2019;Limhamn-Bunkeflo;educational-level_förgymnasial_all;1818
+2019;Limhamn-Bunkeflo;educational-level_gymnasial_all;9604
+2019;Limhamn-Bunkeflo;educational-level_eftergymnasial_all;16683
+2019;Limhamn-Bunkeflo;educational-level_other_all;942
+2019;Limhamn-Bunkeflo;educational-level_total-age-20-64_all;29047
+2019;Hyllie;educational-level_förgymnasial_men;1661
+2019;Hyllie;educational-level_gymnasial_men;4521
+2019;Hyllie;educational-level_eftergymnasial_men;3960
+2019;Hyllie;educational-level_other_men;537
+2019;Hyllie;educational-level_total-age-20-64_men;10679
+2019;Hyllie;educational-level_förgymnasial_women;1569
+2019;Hyllie;educational-level_gymnasial_women;4081
+2019;Hyllie;educational-level_eftergymnasial_women;4640
+2019;Hyllie;educational-level_other_women;463
+2019;Hyllie;educational-level_total-age-20-64_women;10753
+2019;Hyllie;educational-level_förgymnasial_all;3230
+2019;Hyllie;educational-level_gymnasial_all;8602
+2019;Hyllie;educational-level_eftergymnasial_all;8600
+2019;Hyllie;educational-level_other_all;1000
+2019;Hyllie;educational-level_total-age-20-64_all;21432
+2019;Fosie;educational-level_förgymnasial_men;3063
+2019;Fosie;educational-level_gymnasial_men;6409
+2019;Fosie;educational-level_eftergymnasial_men;3950
+2019;Fosie;educational-level_other_men;1014
+2019;Fosie;educational-level_total-age-20-64_men;14436
+2019;Fosie;educational-level_förgymnasial_women;2657
+2019;Fosie;educational-level_gymnasial_women;5434
+2019;Fosie;educational-level_eftergymnasial_women;4298
+2019;Fosie;educational-level_other_women;791
+2019;Fosie;educational-level_total-age-20-64_women;13180
+2019;Fosie;educational-level_förgymnasial_all;5720
+2019;Fosie;educational-level_gymnasial_all;11843
+2019;Fosie;educational-level_eftergymnasial_all;8248
+2019;Fosie;educational-level_other_all;1805
+2019;Fosie;educational-level_total-age-20-64_all;27616
+2019;Oxie;educational-level_förgymnasial_men;539
+2019;Oxie;educational-level_gymnasial_men;1869
+2019;Oxie;educational-level_eftergymnasial_men;1202
+2019;Oxie;educational-level_other_men;244
+2019;Oxie;educational-level_total-age-20-64_men;3854
+2019;Oxie;educational-level_förgymnasial_women;414
+2019;Oxie;educational-level_gymnasial_women;1669
+2019;Oxie;educational-level_eftergymnasial_women;1471
+2019;Oxie;educational-level_other_women;167
+2019;Oxie;educational-level_total-age-20-64_women;3721
+2019;Oxie;educational-level_förgymnasial_all;953
+2019;Oxie;educational-level_gymnasial_all;3538
+2019;Oxie;educational-level_eftergymnasial_all;2673
+2019;Oxie;educational-level_other_all;411
+2019;Oxie;educational-level_total-age-20-64_all;7575
+2019;Rosengård;educational-level_förgymnasial_men;2006
+2019;Rosengård;educational-level_gymnasial_men;2751
+2019;Rosengård;educational-level_eftergymnasial_men;1469
+2019;Rosengård;educational-level_other_men;585
+2019;Rosengård;educational-level_total-age-20-64_men;6811
+2019;Rosengård;educational-level_förgymnasial_women;1981
+2019;Rosengård;educational-level_gymnasial_women;2348
+2019;Rosengård;educational-level_eftergymnasial_women;1615
+2019;Rosengård;educational-level_other_women;496
+2019;Rosengård;educational-level_total-age-20-64_women;6440
+2019;Rosengård;educational-level_förgymnasial_all;3987
+2019;Rosengård;educational-level_gymnasial_all;5099
+2019;Rosengård;educational-level_eftergymnasial_all;3084
+2019;Rosengård;educational-level_other_all;1081
+2019;Rosengård;educational-level_total-age-20-64_all;13251
+2019;Husie;educational-level_förgymnasial_men;809
+2019;Husie;educational-level_gymnasial_men;3037
+2019;Husie;educational-level_eftergymnasial_men;2431
+2019;Husie;educational-level_other_men;233
+2019;Husie;educational-level_total-age-20-64_men;6510
+2019;Husie;educational-level_förgymnasial_women;649
+2019;Husie;educational-level_gymnasial_women;2597
+2019;Husie;educational-level_eftergymnasial_women;3129
+2019;Husie;educational-level_other_women;152
+2019;Husie;educational-level_total-age-20-64_women;6527
+2019;Husie;educational-level_förgymnasial_all;1458
+2019;Husie;educational-level_gymnasial_all;5634
+2019;Husie;educational-level_eftergymnasial_all;5560
+2019;Husie;educational-level_other_all;385
+2019;Husie;educational-level_total-age-20-64_all;13037
+2019;Kirseberg;educational-level_förgymnasial_men;783
+2019;Kirseberg;educational-level_gymnasial_men;2283
+2019;Kirseberg;educational-level_eftergymnasial_men;2114
+2019;Kirseberg;educational-level_other_men;235
+2019;Kirseberg;educational-level_total-age-20-64_men;5415
+2019;Kirseberg;educational-level_förgymnasial_women;614
+2019;Kirseberg;educational-level_gymnasial_women;1759
+2019;Kirseberg;educational-level_eftergymnasial_women;2374
+2019;Kirseberg;educational-level_other_women;143
+2019;Kirseberg;educational-level_total-age-20-64_women;4890
+2019;Kirseberg;educational-level_förgymnasial_all;1397
+2019;Kirseberg;educational-level_gymnasial_all;4042
+2019;Kirseberg;educational-level_eftergymnasial_all;4488
+2019;Kirseberg;educational-level_other_all;378
+2019;Kirseberg;educational-level_total-age-20-64_all;10305
+2018;Centrum;educational-level_total-age-20-64_men;19351
+2018;Centrum;educational-level_total-age-20-64_women;19392
+2018;Centrum;educational-level_total-age-20-64_all;38743
+2018;Centrum;educational-level_förgymnasial_men;1355
+2018;Centrum;educational-level_gymnasial_men;5681
+2018;Centrum;educational-level_eftergymnasial_men;11296
+2018;Centrum;educational-level_other_men;1019
+2018;Centrum;educational-level_förgymnasial_women;1120
+2018;Centrum;educational-level_gymnasial_women;4866
+2018;Centrum;educational-level_eftergymnasial_women;12714
+2018;Centrum;educational-level_other_women;692
+2018;Centrum;educational-level_förgymnasial_all;2475
+2018;Centrum;educational-level_gymnasial_all;10547
+2018;Centrum;educational-level_eftergymnasial_all;24010
+2018;Centrum;educational-level_other_all;1711
+2018;Södra Innerstaden;educational-level_total-age-20-64_men;13586
+2018;Södra Innerstaden;educational-level_total-age-20-64_women;13361
+2018;Södra Innerstaden;educational-level_total-age-20-64_all;26947
+2018;Södra Innerstaden;educational-level_förgymnasial_men;1771
+2018;Södra Innerstaden;educational-level_gymnasial_men;4664
+2018;Södra Innerstaden;educational-level_eftergymnasial_men;6588
+2018;Södra Innerstaden;educational-level_other_men;563
+2018;Södra Innerstaden;educational-level_förgymnasial_women;1398
+2018;Södra Innerstaden;educational-level_gymnasial_women;3587
+2018;Södra Innerstaden;educational-level_eftergymnasial_women;7898
+2018;Södra Innerstaden;educational-level_other_women;478
+2018;Södra Innerstaden;educational-level_förgymnasial_all;3169
+2018;Södra Innerstaden;educational-level_gymnasial_all;8251
+2018;Södra Innerstaden;educational-level_eftergymnasial_all;14486
+2018;Södra Innerstaden;educational-level_other_all;1041
+2018;Västra Innerstaden;educational-level_total-age-20-64_men;10528
+2018;Västra Innerstaden;educational-level_total-age-20-64_women;11732
+2018;Västra Innerstaden;educational-level_total-age-20-64_all;22260
+2018;Västra Innerstaden;educational-level_förgymnasial_men;685
+2018;Västra Innerstaden;educational-level_gymnasial_men;3532
+2018;Västra Innerstaden;educational-level_eftergymnasial_men;6048
+2018;Västra Innerstaden;educational-level_other_men;263
+2018;Västra Innerstaden;educational-level_förgymnasial_women;508
+2018;Västra Innerstaden;educational-level_gymnasial_women;3246
+2018;Västra Innerstaden;educational-level_eftergymnasial_women;7779
+2018;Västra Innerstaden;educational-level_other_women;199
+2018;Västra Innerstaden;educational-level_förgymnasial_all;1193
+2018;Västra Innerstaden;educational-level_gymnasial_all;6778
+2018;Västra Innerstaden;educational-level_eftergymnasial_all;13827
+2018;Västra Innerstaden;educational-level_other_all;462
+2018;Limhamn-Bunkeflo;educational-level_total-age-20-64_men;13695
+2018;Limhamn-Bunkeflo;educational-level_total-age-20-64_women;14229
+2018;Limhamn-Bunkeflo;educational-level_total-age-20-64_all;27924
+2018;Limhamn-Bunkeflo;educational-level_förgymnasial_men;1057
+2018;Limhamn-Bunkeflo;educational-level_gymnasial_men;5019
+2018;Limhamn-Bunkeflo;educational-level_eftergymnasial_men;7163
+2018;Limhamn-Bunkeflo;educational-level_other_men;456
+2018;Limhamn-Bunkeflo;educational-level_förgymnasial_women;721
+2018;Limhamn-Bunkeflo;educational-level_gymnasial_women;4368
+2018;Limhamn-Bunkeflo;educational-level_eftergymnasial_women;8779
+2018;Limhamn-Bunkeflo;educational-level_other_women;361
+2018;Limhamn-Bunkeflo;educational-level_förgymnasial_all;1778
+2018;Limhamn-Bunkeflo;educational-level_gymnasial_all;9387
+2018;Limhamn-Bunkeflo;educational-level_eftergymnasial_all;15942
+2018;Limhamn-Bunkeflo;educational-level_other_all;817
+2018;Hyllie;educational-level_total-age-20-64_men;10277
+2018;Hyllie;educational-level_total-age-20-64_women;10360
+2018;Hyllie;educational-level_total-age-20-64_all;20637
+2018;Hyllie;educational-level_förgymnasial_men;1638
+2018;Hyllie;educational-level_gymnasial_men;4449
+2018;Hyllie;educational-level_eftergymnasial_men;3725
+2018;Hyllie;educational-level_other_men;465
+2018;Hyllie;educational-level_förgymnasial_women;1559
+2018;Hyllie;educational-level_gymnasial_women;4033
+2018;Hyllie;educational-level_eftergymnasial_women;4338
+2018;Hyllie;educational-level_other_women;430
+2018;Hyllie;educational-level_förgymnasial_all;3197
+2018;Hyllie;educational-level_gymnasial_all;8482
+2018;Hyllie;educational-level_eftergymnasial_all;8063
+2018;Hyllie;educational-level_other_all;895
+2018;Fosie;educational-level_total-age-20-64_men;14334
+2018;Fosie;educational-level_total-age-20-64_women;13228
+2018;Fosie;educational-level_total-age-20-64_all;27562
+2018;Fosie;educational-level_förgymnasial_men;3030
+2018;Fosie;educational-level_gymnasial_men;6469
+2018;Fosie;educational-level_eftergymnasial_men;3911
+2018;Fosie;educational-level_other_men;924
+2018;Fosie;educational-level_förgymnasial_women;2671
+2018;Fosie;educational-level_gymnasial_women;5523
+2018;Fosie;educational-level_eftergymnasial_women;4286
+2018;Fosie;educational-level_other_women;748
+2018;Fosie;educational-level_förgymnasial_all;5701
+2018;Fosie;educational-level_gymnasial_all;11992
+2018;Fosie;educational-level_eftergymnasial_all;8197
+2018;Fosie;educational-level_other_all;1672
+2018;Oxie;educational-level_total-age-20-64_men;3815
+2018;Oxie;educational-level_total-age-20-64_women;3736
+2018;Oxie;educational-level_total-age-20-64_all;7551
+2018;Oxie;educational-level_förgymnasial_men;565
+2018;Oxie;educational-level_gymnasial_men;1877
+2018;Oxie;educational-level_eftergymnasial_men;1181
+2018;Oxie;educational-level_other_men;192
+2018;Oxie;educational-level_förgymnasial_women;413
+2018;Oxie;educational-level_gymnasial_women;1712
+2018;Oxie;educational-level_eftergymnasial_women;1459
+2018;Oxie;educational-level_other_women;152
+2018;Oxie;educational-level_förgymnasial_all;978
+2018;Oxie;educational-level_gymnasial_all;3589
+2018;Oxie;educational-level_eftergymnasial_all;2640
+2018;Oxie;educational-level_other_all;344
+2018;Rosengård;educational-level_total-age-20-64_men;6888
+2018;Rosengård;educational-level_total-age-20-64_women;6580
+2018;Rosengård;educational-level_total-age-20-64_all;13468
+2018;Rosengård;educational-level_förgymnasial_men;2067
+2018;Rosengård;educational-level_gymnasial_men;2775
+2018;Rosengård;educational-level_eftergymnasial_men;1536
+2018;Rosengård;educational-level_other_men;510
+2018;Rosengård;educational-level_förgymnasial_women;2056
+2018;Rosengård;educational-level_gymnasial_women;2373
+2018;Rosengård;educational-level_eftergymnasial_women;1643
+2018;Rosengård;educational-level_other_women;508
+2018;Rosengård;educational-level_förgymnasial_all;4123
+2018;Rosengård;educational-level_gymnasial_all;5148
+2018;Rosengård;educational-level_eftergymnasial_all;3179
+2018;Rosengård;educational-level_other_all;1018
+2018;Husie;educational-level_total-age-20-64_men;6263
+2018;Husie;educational-level_total-age-20-64_women;6349
+2018;Husie;educational-level_total-age-20-64_all;12612
+2018;Husie;educational-level_förgymnasial_men;780
+2018;Husie;educational-level_gymnasial_men;2965
+2018;Husie;educational-level_eftergymnasial_men;2315
+2018;Husie;educational-level_other_men;203
+2018;Husie;educational-level_förgymnasial_women;643
+2018;Husie;educational-level_gymnasial_women;2617
+2018;Husie;educational-level_eftergymnasial_women;2962
+2018;Husie;educational-level_other_women;127
+2018;Husie;educational-level_förgymnasial_all;1423
+2018;Husie;educational-level_gymnasial_all;5582
+2018;Husie;educational-level_eftergymnasial_all;5277
+2018;Husie;educational-level_other_all;330
+2018;Kirseberg;educational-level_total-age-20-64_men;5599
+2018;Kirseberg;educational-level_total-age-20-64_women;5010
+2018;Kirseberg;educational-level_total-age-20-64_all;10609
+2018;Kirseberg;educational-level_förgymnasial_men;864
+2018;Kirseberg;educational-level_gymnasial_men;2375
+2018;Kirseberg;educational-level_eftergymnasial_men;2119
+2018;Kirseberg;educational-level_other_men;241
+2018;Kirseberg;educational-level_förgymnasial_women;643
+2018;Kirseberg;educational-level_gymnasial_women;1832
+2018;Kirseberg;educational-level_eftergymnasial_women;2382
+2018;Kirseberg;educational-level_other_women;153
+2018;Kirseberg;educational-level_förgymnasial_all;1507
+2018;Kirseberg;educational-level_gymnasial_all;4207
+2018;Kirseberg;educational-level_eftergymnasial_all;4501
+2018;Kirseberg;educational-level_other_all;394

@@ -1,0 +1,361 @@
+﻿year;district;indicator;number
+2020;Centrum;foreign-background_foreign-born_men;8174
+2020;Centrum;foreign-background_native-born-with-two-foreign-parents_men;2377
+2020;Centrum;foreign-background_others_men;17543
+2020;Centrum;foreign-background_total_men;28094
+2020;Centrum;foreign-background_foreign-born_women;8515
+2020;Centrum;foreign-background_native-born-with-two-foreign-parents_women;2434
+2020;Centrum;foreign-background_others_women;17814
+2020;Centrum;foreign-background_total_women;28763
+2020;Centrum;foreign-background_foreign-born_all;16689
+2020;Centrum;foreign-background_native-born-with-two-foreign-parents_all;4811
+2020;Centrum;foreign-background_others_all;35357
+2020;Centrum;foreign-background_total_all;56857
+2020;Södra Innerstaden;foreign-background_foreign-born_men;7062
+2020;Södra Innerstaden;foreign-background_native-born-with-two-foreign-parents_men;2021
+2020;Södra Innerstaden;foreign-background_others_men;9194
+2020;Södra Innerstaden;foreign-background_total_men;18277
+2020;Södra Innerstaden;foreign-background_foreign-born_women;6388
+2020;Södra Innerstaden;foreign-background_native-born-with-two-foreign-parents_women;2012
+2020;Södra Innerstaden;foreign-background_others_women;9738
+2020;Södra Innerstaden;foreign-background_total_women;18138
+2020;Södra Innerstaden;foreign-background_foreign-born_all;13450
+2020;Södra Innerstaden;foreign-background_native-born-with-two-foreign-parents_all;4033
+2020;Södra Innerstaden;foreign-background_others_all;18932
+2020;Södra Innerstaden;foreign-background_total_all;36415
+2020;Västra Innerstaden;foreign-background_foreign-born_men;2994
+2020;Västra Innerstaden;foreign-background_native-born-with-two-foreign-parents_men;953
+2020;Västra Innerstaden;foreign-background_others_men;12441
+2020;Västra Innerstaden;foreign-background_total_men;16388
+2020;Västra Innerstaden;foreign-background_foreign-born_women;3262
+2020;Västra Innerstaden;foreign-background_native-born-with-two-foreign-parents_women;972
+2020;Västra Innerstaden;foreign-background_others_women;14799
+2020;Västra Innerstaden;foreign-background_total_women;19033
+2020;Västra Innerstaden;foreign-background_foreign-born_all;6256
+2020;Västra Innerstaden;foreign-background_native-born-with-two-foreign-parents_all;1925
+2020;Västra Innerstaden;foreign-background_others_all;27240
+2020;Västra Innerstaden;foreign-background_total_all;35421
+2020;Limhamn-Bunkeflo;foreign-background_foreign-born_men;5763
+2020;Limhamn-Bunkeflo;foreign-background_native-born-with-two-foreign-parents_men;1822
+2020;Limhamn-Bunkeflo;foreign-background_others_men;19812
+2020;Limhamn-Bunkeflo;foreign-background_total_men;27397
+2020;Limhamn-Bunkeflo;foreign-background_foreign-born_women;6016
+2020;Limhamn-Bunkeflo;foreign-background_native-born-with-two-foreign-parents_women;1862
+2020;Limhamn-Bunkeflo;foreign-background_others_women;20451
+2020;Limhamn-Bunkeflo;foreign-background_total_women;28329
+2020;Limhamn-Bunkeflo;foreign-background_foreign-born_all;11779
+2020;Limhamn-Bunkeflo;foreign-background_native-born-with-two-foreign-parents_all;3684
+2020;Limhamn-Bunkeflo;foreign-background_others_all;40263
+2020;Limhamn-Bunkeflo;foreign-background_total_all;55726
+2020;Hyllie;foreign-background_foreign-born_men;7821
+2020;Hyllie;foreign-background_native-born-with-two-foreign-parents_men;3291
+2020;Hyllie;foreign-background_others_men;8116
+2020;Hyllie;foreign-background_total_men;19228
+2020;Hyllie;foreign-background_foreign-born_women;8146
+2020;Hyllie;foreign-background_native-born-with-two-foreign-parents_women;3139
+2020;Hyllie;foreign-background_others_women;9004
+2020;Hyllie;foreign-background_total_women;20289
+2020;Hyllie;foreign-background_foreign-born_all;15967
+2020;Hyllie;foreign-background_native-born-with-two-foreign-parents_all;6430
+2020;Hyllie;foreign-background_others_all;17120
+2020;Hyllie;foreign-background_total_all;39517
+2020;Fosie;foreign-background_foreign-born_men;13101
+2020;Fosie;foreign-background_native-born-with-two-foreign-parents_men;4803
+2020;Fosie;foreign-background_others_men;5546
+2020;Fosie;foreign-background_total_men;23450
+2020;Fosie;foreign-background_foreign-born_women;12064
+2020;Fosie;foreign-background_native-born-with-two-foreign-parents_women;4582
+2020;Fosie;foreign-background_others_women;5989
+2020;Fosie;foreign-background_total_women;22635
+2020;Fosie;foreign-background_foreign-born_all;25165
+2020;Fosie;foreign-background_native-born-with-two-foreign-parents_all;9385
+2020;Fosie;foreign-background_others_all;11535
+2020;Fosie;foreign-background_total_all;46085
+2020;Oxie;foreign-background_foreign-born_men;2252
+2020;Oxie;foreign-background_native-born-with-two-foreign-parents_men;1010
+2020;Oxie;foreign-background_others_men;3787
+2020;Oxie;foreign-background_total_men;7049
+2020;Oxie;foreign-background_foreign-born_women;2092
+2020;Oxie;foreign-background_native-born-with-two-foreign-parents_women;978
+2020;Oxie;foreign-background_others_women;3842
+2020;Oxie;foreign-background_total_women;6912
+2020;Oxie;foreign-background_foreign-born_all;4344
+2020;Oxie;foreign-background_native-born-with-two-foreign-parents_all;1988
+2020;Oxie;foreign-background_others_all;7629
+2020;Oxie;foreign-background_total_all;13961
+2020;Rosengård;foreign-background_foreign-born_men;7244
+2020;Rosengård;foreign-background_native-born-with-two-foreign-parents_men;3099
+2020;Rosengård;foreign-background_others_men;1341
+2020;Rosengård;foreign-background_total_men;11684
+2020;Rosengård;foreign-background_foreign-born_women;6964
+2020;Rosengård;foreign-background_native-born-with-two-foreign-parents_women;2990
+2020;Rosengård;foreign-background_others_women;1336
+2020;Rosengård;foreign-background_total_women;11290
+2020;Rosengård;foreign-background_foreign-born_all;14208
+2020;Rosengård;foreign-background_native-born-with-two-foreign-parents_all;6089
+2020;Rosengård;foreign-background_others_all;2677
+2020;Rosengård;foreign-background_total_all;22974
+2020;Husie;foreign-background_foreign-born_men;3290
+2020;Husie;foreign-background_native-born-with-two-foreign-parents_men;1777
+2020;Husie;foreign-background_others_men;6839
+2020;Husie;foreign-background_total_men;11906
+2020;Husie;foreign-background_foreign-born_women;3250
+2020;Husie;foreign-background_native-born-with-two-foreign-parents_women;1623
+2020;Husie;foreign-background_others_women;7110
+2020;Husie;foreign-background_total_women;11983
+2020;Husie;foreign-background_foreign-born_all;6540
+2020;Husie;foreign-background_native-born-with-two-foreign-parents_all;3400
+2020;Husie;foreign-background_others_all;13949
+2020;Husie;foreign-background_total_all;23889
+2020;Kirseberg;foreign-background_foreign-born_men;2827
+2020;Kirseberg;foreign-background_native-born-with-two-foreign-parents_men;975
+2020;Kirseberg;foreign-background_others_men;4493
+2020;Kirseberg;foreign-background_total_men;8295
+2020;Kirseberg;foreign-background_foreign-born_women;2662
+2020;Kirseberg;foreign-background_native-born-with-two-foreign-parents_women;859
+2020;Kirseberg;foreign-background_others_women;4181
+2020;Kirseberg;foreign-background_total_women;7702
+2020;Kirseberg;foreign-background_foreign-born_all;5489
+2020;Kirseberg;foreign-background_native-born-with-two-foreign-parents_all;1834
+2020;Kirseberg;foreign-background_others_all;8674
+2020;Kirseberg;foreign-background_total_all;15997
+2019;Centrum;foreign-background_foreign-born_men;7992
+2019;Centrum;foreign-background_native-born-with-two-foreign-parents_men;2243
+2019;Centrum;foreign-background_others_men;17398
+2019;Centrum;foreign-background_total_men;27633
+2019;Centrum;foreign-background_foreign-born_women;8327
+2019;Centrum;foreign-background_native-born-with-two-foreign-parents_women;2331
+2019;Centrum;foreign-background_others_women;17672
+2019;Centrum;foreign-background_total_women;28330
+2019;Centrum;foreign-background_foreign-born_all;16319
+2019;Centrum;foreign-background_native-born-with-two-foreign-parents_all;4574
+2019;Centrum;foreign-background_others_all;35070
+2019;Centrum;foreign-background_total_all;55963
+2019;Södra Innerstaden;foreign-background_foreign-born_men;7170
+2019;Södra Innerstaden;foreign-background_native-born-with-two-foreign-parents_men;2029
+2019;Södra Innerstaden;foreign-background_others_men;9264
+2019;Södra Innerstaden;foreign-background_total_men;18463
+2019;Södra Innerstaden;foreign-background_foreign-born_women;6441
+2019;Södra Innerstaden;foreign-background_native-born-with-two-foreign-parents_women;2023
+2019;Södra Innerstaden;foreign-background_others_women;9716
+2019;Södra Innerstaden;foreign-background_total_women;18180
+2019;Södra Innerstaden;foreign-background_foreign-born_all;13611
+2019;Södra Innerstaden;foreign-background_native-born-with-two-foreign-parents_all;4052
+2019;Södra Innerstaden;foreign-background_others_all;18980
+2019;Södra Innerstaden;foreign-background_total_all;36643
+2019;Västra Innerstaden;foreign-background_foreign-born_men;2957
+2019;Västra Innerstaden;foreign-background_native-born-with-two-foreign-parents_men;939
+2019;Västra Innerstaden;foreign-background_others_men;12534
+2019;Västra Innerstaden;foreign-background_total_men;16430
+2019;Västra Innerstaden;foreign-background_foreign-born_women;3290
+2019;Västra Innerstaden;foreign-background_native-born-with-two-foreign-parents_women;939
+2019;Västra Innerstaden;foreign-background_others_women;14870
+2019;Västra Innerstaden;foreign-background_total_women;19099
+2019;Västra Innerstaden;foreign-background_foreign-born_all;6247
+2019;Västra Innerstaden;foreign-background_native-born-with-two-foreign-parents_all;1878
+2019;Västra Innerstaden;foreign-background_others_all;27404
+2019;Västra Innerstaden;foreign-background_total_all;35529
+2019;Limhamn-Bunkeflo;foreign-background_foreign-born_men;5010
+2019;Limhamn-Bunkeflo;foreign-background_native-born-with-two-foreign-parents_men;1622
+2019;Limhamn-Bunkeflo;foreign-background_others_men;19317
+2019;Limhamn-Bunkeflo;foreign-background_total_men;25949
+2019;Limhamn-Bunkeflo;foreign-background_foreign-born_women;5284
+2019;Limhamn-Bunkeflo;foreign-background_native-born-with-two-foreign-parents_women;1638
+2019;Limhamn-Bunkeflo;foreign-background_others_women;19811
+2019;Limhamn-Bunkeflo;foreign-background_total_women;26733
+2019;Limhamn-Bunkeflo;foreign-background_foreign-born_all;10294
+2019;Limhamn-Bunkeflo;foreign-background_native-born-with-two-foreign-parents_all;3260
+2019;Limhamn-Bunkeflo;foreign-background_others_all;39128
+2019;Limhamn-Bunkeflo;foreign-background_total_all;52682
+2019;Hyllie;foreign-background_foreign-born_men;7512
+2019;Hyllie;foreign-background_native-born-with-two-foreign-parents_men;3126
+2019;Hyllie;foreign-background_others_men;8127
+2019;Hyllie;foreign-background_total_men;18765
+2019;Hyllie;foreign-background_foreign-born_women;7874
+2019;Hyllie;foreign-background_native-born-with-two-foreign-parents_women;3067
+2019;Hyllie;foreign-background_others_women;9130
+2019;Hyllie;foreign-background_total_women;20071
+2019;Hyllie;foreign-background_foreign-born_all;15386
+2019;Hyllie;foreign-background_native-born-with-two-foreign-parents_all;6193
+2019;Hyllie;foreign-background_others_all;17257
+2019;Hyllie;foreign-background_total_all;38836
+2019;Fosie;foreign-background_foreign-born_men;13147
+2019;Fosie;foreign-background_native-born-with-two-foreign-parents_men;4737
+2019;Fosie;foreign-background_others_men;5774
+2019;Fosie;foreign-background_total_men;23658
+2019;Fosie;foreign-background_foreign-born_women;12166
+2019;Fosie;foreign-background_native-born-with-two-foreign-parents_women;4469
+2019;Fosie;foreign-background_others_women;6242
+2019;Fosie;foreign-background_total_women;22877
+2019;Fosie;foreign-background_foreign-born_all;25313
+2019;Fosie;foreign-background_native-born-with-two-foreign-parents_all;9206
+2019;Fosie;foreign-background_others_all;12016
+2019;Fosie;foreign-background_total_all;46535
+2019;Oxie;foreign-background_foreign-born_men;2172
+2019;Oxie;foreign-background_native-born-with-two-foreign-parents_men;924
+2019;Oxie;foreign-background_others_men;3852
+2019;Oxie;foreign-background_total_men;6948
+2019;Oxie;foreign-background_foreign-born_women;1965
+2019;Oxie;foreign-background_native-born-with-two-foreign-parents_women;898
+2019;Oxie;foreign-background_others_women;3875
+2019;Oxie;foreign-background_total_women;6738
+2019;Oxie;foreign-background_foreign-born_all;4137
+2019;Oxie;foreign-background_native-born-with-two-foreign-parents_all;1822
+2019;Oxie;foreign-background_others_all;7727
+2019;Oxie;foreign-background_total_all;13686
+2019;Rosengård;foreign-background_foreign-born_men;7340
+2019;Rosengård;foreign-background_native-born-with-two-foreign-parents_men;3185
+2019;Rosengård;foreign-background_others_men;1331
+2019;Rosengård;foreign-background_total_men;11856
+2019;Rosengård;foreign-background_foreign-born_women;7105
+2019;Rosengård;foreign-background_native-born-with-two-foreign-parents_women;3051
+2019;Rosengård;foreign-background_others_women;1353
+2019;Rosengård;foreign-background_total_women;11509
+2019;Rosengård;foreign-background_foreign-born_all;14445
+2019;Rosengård;foreign-background_native-born-with-two-foreign-parents_all;6236
+2019;Rosengård;foreign-background_others_all;2684
+2019;Rosengård;foreign-background_total_all;23365
+2019;Husie;foreign-background_foreign-born_men;3132
+2019;Husie;foreign-background_native-born-with-two-foreign-parents_men;1641
+2019;Husie;foreign-background_others_men;6878
+2019;Husie;foreign-background_total_men;11651
+2019;Husie;foreign-background_foreign-born_women;3135
+2019;Husie;foreign-background_native-born-with-two-foreign-parents_women;1565
+2019;Husie;foreign-background_others_women;7185
+2019;Husie;foreign-background_total_women;11885
+2019;Husie;foreign-background_foreign-born_all;6267
+2019;Husie;foreign-background_native-born-with-two-foreign-parents_all;3206
+2019;Husie;foreign-background_others_all;14063
+2019;Husie;foreign-background_total_all;23536
+2019;Kirseberg;foreign-background_foreign-born_men;2918
+2019;Kirseberg;foreign-background_native-born-with-two-foreign-parents_men;985
+2019;Kirseberg;foreign-background_others_men;4547
+2019;Kirseberg;foreign-background_total_men;8450
+2019;Kirseberg;foreign-background_foreign-born_women;2716
+2019;Kirseberg;foreign-background_native-born-with-two-foreign-parents_women;817
+2019;Kirseberg;foreign-background_others_women;4256
+2019;Kirseberg;foreign-background_total_women;7789
+2019;Kirseberg;foreign-background_foreign-born_all;5634
+2019;Kirseberg;foreign-background_native-born-with-two-foreign-parents_all;1802
+2019;Kirseberg;foreign-background_others_all;8803
+2019;Kirseberg;foreign-background_total_all;16239
+2018;Västra Innerstaden;foreign-background_native-born-with-two-foreign-parents_women;945
+2018;Västra Innerstaden;foreign-background_total_women;18958
+2018;Västra Innerstaden;foreign-background_foreign-born_women;3178
+2018;Västra Innerstaden;foreign-background_others_women;14835
+2018;Västra Innerstaden;foreign-background_native-born-with-two-foreign-parents_men;895
+2018;Västra Innerstaden;foreign-background_total_men;16336
+2018;Västra Innerstaden;foreign-background_foreign-born_men;2797
+2018;Västra Innerstaden;foreign-background_others_men;12644
+2018;Västra Innerstaden;foreign-background_native-born-with-two-foreign-parents_all;1840
+2018;Västra Innerstaden;foreign-background_total_all;35294
+2018;Västra Innerstaden;foreign-background_foreign-born_all;5975
+2018;Västra Innerstaden;foreign-background_others_all;27479
+2018;Södra Innerstaden;foreign-background_native-born-with-two-foreign-parents_women;2014
+2018;Södra Innerstaden;foreign-background_total_women;18158
+2018;Södra Innerstaden;foreign-background_foreign-born_women;6350
+2018;Södra Innerstaden;foreign-background_others_women;9794
+2018;Södra Innerstaden;foreign-background_native-born-with-two-foreign-parents_men;2014
+2018;Södra Innerstaden;foreign-background_total_men;18337
+2018;Södra Innerstaden;foreign-background_foreign-born_men;7083
+2018;Södra Innerstaden;foreign-background_others_men;9240
+2018;Södra Innerstaden;foreign-background_native-born-with-two-foreign-parents_all;4028
+2018;Södra Innerstaden;foreign-background_total_all;36495
+2018;Södra Innerstaden;foreign-background_foreign-born_all;13433
+2018;Södra Innerstaden;foreign-background_others_all;19034
+2018;Rosengård;foreign-background_native-born-with-two-foreign-parents_women;3109
+2018;Rosengård;foreign-background_total_women;11731
+2018;Rosengård;foreign-background_foreign-born_women;7234
+2018;Rosengård;foreign-background_others_women;1388
+2018;Rosengård;foreign-background_native-born-with-two-foreign-parents_men;3221
+2018;Rosengård;foreign-background_total_men;12027
+2018;Rosengård;foreign-background_foreign-born_men;7444
+2018;Rosengård;foreign-background_others_men;1362
+2018;Rosengård;foreign-background_native-born-with-two-foreign-parents_all;6330
+2018;Rosengård;foreign-background_total_all;23758
+2018;Rosengård;foreign-background_foreign-born_all;14678
+2018;Rosengård;foreign-background_others_all;2750
+2018;Oxie;foreign-background_native-born-with-two-foreign-parents_women;852
+2018;Oxie;foreign-background_total_women;6737
+2018;Oxie;foreign-background_foreign-born_women;1879
+2018;Oxie;foreign-background_others_women;4006
+2018;Oxie;foreign-background_native-born-with-two-foreign-parents_men;865
+2018;Oxie;foreign-background_total_men;6881
+2018;Oxie;foreign-background_foreign-born_men;2051
+2018;Oxie;foreign-background_others_men;3965
+2018;Oxie;foreign-background_native-born-with-two-foreign-parents_all;1717
+2018;Oxie;foreign-background_total_all;13618
+2018;Oxie;foreign-background_foreign-born_all;3930
+2018;Oxie;foreign-background_others_all;7971
+2018;Limhamn-Bunkeflo;foreign-background_native-born-with-two-foreign-parents_women;1464
+2018;Limhamn-Bunkeflo;foreign-background_total_women;25723
+2018;Limhamn-Bunkeflo;foreign-background_foreign-born_women;4834
+2018;Limhamn-Bunkeflo;foreign-background_others_women;19425
+2018;Limhamn-Bunkeflo;foreign-background_native-born-with-two-foreign-parents_men;1474
+2018;Limhamn-Bunkeflo;foreign-background_total_men;24980
+2018;Limhamn-Bunkeflo;foreign-background_foreign-born_men;4593
+2018;Limhamn-Bunkeflo;foreign-background_others_men;18913
+2018;Limhamn-Bunkeflo;foreign-background_native-born-with-two-foreign-parents_all;2938
+2018;Limhamn-Bunkeflo;foreign-background_total_all;50703
+2018;Limhamn-Bunkeflo;foreign-background_foreign-born_all;9427
+2018;Limhamn-Bunkeflo;foreign-background_others_all;38338
+2018;Kirseberg;foreign-background_native-born-with-two-foreign-parents_women;838
+2018;Kirseberg;foreign-background_total_women;7916
+2018;Kirseberg;foreign-background_foreign-born_women;2722
+2018;Kirseberg;foreign-background_others_women;4356
+2018;Kirseberg;foreign-background_native-born-with-two-foreign-parents_men;995
+2018;Kirseberg;foreign-background_total_men;8654
+2018;Kirseberg;foreign-background_foreign-born_men;3054
+2018;Kirseberg;foreign-background_others_men;4605
+2018;Kirseberg;foreign-background_native-born-with-two-foreign-parents_all;1833
+2018;Kirseberg;foreign-background_total_all;16570
+2018;Kirseberg;foreign-background_foreign-born_all;5776
+2018;Kirseberg;foreign-background_others_all;8961
+2018;Hyllie;foreign-background_native-born-with-two-foreign-parents_women;2893
+2018;Hyllie;foreign-background_total_women;19506
+2018;Hyllie;foreign-background_foreign-born_women;7430
+2018;Hyllie;foreign-background_others_women;9183
+2018;Hyllie;foreign-background_native-born-with-two-foreign-parents_men;2966
+2018;Hyllie;foreign-background_total_men;18128
+2018;Hyllie;foreign-background_foreign-born_men;7125
+2018;Hyllie;foreign-background_others_men;8037
+2018;Hyllie;foreign-background_native-born-with-two-foreign-parents_all;5859
+2018;Hyllie;foreign-background_total_all;37634
+2018;Hyllie;foreign-background_foreign-born_all;14555
+2018;Hyllie;foreign-background_others_all;17220
+2018;Husie;foreign-background_native-born-with-two-foreign-parents_women;1434
+2018;Husie;foreign-background_total_women;11594
+2018;Husie;foreign-background_foreign-born_women;2960
+2018;Husie;foreign-background_others_women;7200
+2018;Husie;foreign-background_native-born-with-two-foreign-parents_men;1532
+2018;Husie;foreign-background_total_men;11276
+2018;Husie;foreign-background_foreign-born_men;2876
+2018;Husie;foreign-background_others_men;6868
+2018;Husie;foreign-background_native-born-with-two-foreign-parents_all;2966
+2018;Husie;foreign-background_total_all;22870
+2018;Husie;foreign-background_foreign-born_all;5836
+2018;Husie;foreign-background_others_all;14068
+2018;Fosie;foreign-background_native-born-with-two-foreign-parents_women;4412
+2018;Fosie;foreign-background_total_women;22868
+2018;Fosie;foreign-background_foreign-born_women;11994
+2018;Fosie;foreign-background_others_women;6462
+2018;Fosie;foreign-background_native-born-with-two-foreign-parents_men;4671
+2018;Fosie;foreign-background_total_men;23530
+2018;Fosie;foreign-background_foreign-born_men;12867
+2018;Fosie;foreign-background_others_men;5992
+2018;Fosie;foreign-background_native-born-with-two-foreign-parents_all;9083
+2018;Fosie;foreign-background_total_all;46398
+2018;Fosie;foreign-background_foreign-born_all;24861
+2018;Fosie;foreign-background_others_all;12454
+2018;Centrum;foreign-background_native-born-with-two-foreign-parents_women;2263
+2018;Centrum;foreign-background_total_women;27876
+2018;Centrum;foreign-background_foreign-born_women;8040
+2018;Centrum;foreign-background_others_women;17573
+2018;Centrum;foreign-background_native-born-with-two-foreign-parents_men;2159
+2018;Centrum;foreign-background_total_men;27015
+2018;Centrum;foreign-background_foreign-born_men;7633
+2018;Centrum;foreign-background_others_men;17223
+2018;Centrum;foreign-background_native-born-with-two-foreign-parents_all;4422
+2018;Centrum;foreign-background_total_all;54891
+2018;Centrum;foreign-background_foreign-born_all;15673
+2018;Centrum;foreign-background_others_all;34796
