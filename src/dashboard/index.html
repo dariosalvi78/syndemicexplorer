@@ -50,7 +50,7 @@
     <div class="dropdown" id = "level3">
         <div class="dropdown-trigger">
           <button class="button " aria-haspopup="true" aria-controls="dropdown-menu3">
-            <span>Level 3</span>
+            <span id = "level3Text">Level 3</span>
             <span class="icon is-small">
               <i class="fas fa-angle-down" aria-hidden="true"></i>
             </span>
@@ -66,7 +66,7 @@
       <div class="dropdown" id = "level4">
         <div class="dropdown-trigger">
           <button class="button" aria-haspopup="true" aria-controls="dropdown-menu3">
-            <span>Level 4</span>
+            <span id = "level4Text">Level 4</span>
             <span class="icon is-small">
               <i class="fas fa-angle-down" aria-hidden="true"></i>
             </span>
@@ -74,7 +74,9 @@
         </div>
         <div class="dropdown-menu" id="dropdown-menu3" role="menu">
           <div class="dropdown-content dropContent4">
-           
+           <div class = "dropdown-item">
+
+           </div>
           </div>
         </div>
       </div>
@@ -86,6 +88,17 @@
     </div>
     <div class="column">
       Third column
+      <div class="container">
+        <div class="notification">
+          This is where we will show the statistics from the areas represented in the maps
+        </div>
+      </div>
+      Next container
+      <div class="container">
+        <div class="notification">
+          Second statistic field
+        </div>
+      </div>
     </div>
     
   </div>
@@ -94,5 +107,5 @@
 </body>
 <script src ="mapbox.js" ></script>
 <script src ="dropDown.js"></script>
-<script src ="levelsEnum.js"></script>
+
 </html>
