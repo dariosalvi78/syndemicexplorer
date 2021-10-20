@@ -1,5 +1,5 @@
 import {Pool} from '../db.js'
-import {queryStringToArray} from'../utils.js'
+import {queryStringToArray, getQuery} from'../utils.js'
 
 
 export default {
@@ -38,9 +38,8 @@ export default {
         if(!countryCode) {
             res.sendStatus(400)
         } else {
-            let query = `select distinct area1_name, area1_code, (st_xmin(st_envelope(geometry)), st_ymin(st_envelope(geometry)), 
-            st_xmax(st_envelope(geometry)), st_ymax(st_envelope(geometry))) as bounding_box, ST_AsGeoJSON(geometry) as geometry 
-            from admin_areas where country_code = $1`
+            let query = getQuery("area1") +
+            `where country_code = $1`
             try {
                 let data = await Pool.query(query, [countryCode])
                 for(let i in data.rows) {
@@ -60,9 +59,8 @@ export default {
         if(!area1Code) {
             res.sendStatus(400)
         } else {
-            let query = `select distinct area2_name, area2_code, (st_xmin(st_envelope(geometry)), st_ymin(st_envelope(geometry)), 
-            st_xmax(st_envelope(geometry)), st_ymax(st_envelope(geometry))) as bounding_box,
-            ST_AsGeoJSON(geometry) as geometry from admin_areas where area1_code = $1`
+            let query = getQuery("area2") +
+            `where area1_code = $1`
             try {
                 let data = await Pool.query(query, [area1Code])
                 for(let i in data.rows) {
@@ -82,10 +80,8 @@ export default {
         if(!area2Code) {
             res.sendStatus(400)
         } else {
-            let query = `select distinct area3_name, area3_code, (st_xmin(st_envelope(geometry)), st_ymin(st_envelope(geometry)), 
-            st_xmax(st_envelope(geometry)), st_ymax(st_envelope(geometry))) as bounding_box, ST_AsGeoJSON(geometry) as geometry 
-            from admin_areas 
-            where area2_name in 
+            let query = getQuery("area3") + 
+            `where area2_name in 
                 (select area2_name 
                 from admin_areas
                 where area2_code = $1)`
