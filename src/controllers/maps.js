@@ -85,5 +85,26 @@ export default {
                 res.sendStatus(500)
             }
         }
+    },
+    async getBoundingBoxes (req, res) {
+        let boxes = req.query.getBoundingBoxes
+
+        if(!boxes) {
+            res.sendStatus(404)
+        } else {
+            let query = 'select geometry from admin_areas'
+            try {
+                let data = await Pool.query(query, [boxes]) //This is the geometries
+                let boundingBoxes = [];
+
+                for (let i = 0; i < data.length; i++)
+                    boundingBoxes.push(ST_Envelope(data[i]));
+
+                res.send(boundingBoxes);
+            } catch (error) {
+                console.log(error.message)
+                res.sendStatus(500)
+            }
+        }
     }
 }
