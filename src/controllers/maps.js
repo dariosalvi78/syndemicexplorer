@@ -55,7 +55,7 @@ export default {
         if(!area1Code) {
             res.sendStatus(400)
         } else {
-            let query = `select distinct area2_name, area2_code, ST_AsGeoJSON(ST_Envelope(geometry)), ST_AsGeoJSON(geometry) as geometry from admin_areas where area1_code = $1`
+            let query = `select distinct area2_name, area2_code, ST_AsGeoJSON(ST_Envelope(geometry)) as boundingBox, ST_AsGeoJSON(geometry) as geometry from admin_areas where area1_code = $1`
             try {
                 let data = await Pool.query(query, [area1Code])
                 res.send(data.rows)
@@ -72,7 +72,7 @@ export default {
         if(!area2Code) {
             res.sendStatus(400)
         } else {
-            let query = `select distinct area3_name, area3_code, ST_AsGeoJSON(ST_Envelope(geometry)), ST_AsGeoJSON(geometry) as geometry 
+            let query = `select distinct area3_name, area3_code, ST_AsGeoJSON(ST_Envelope(geometry)) as boundingBox, ST_AsGeoJSON(geometry) as geometry 
             from admin_areas 
             where area2_name in 
                 (select area2_name 
