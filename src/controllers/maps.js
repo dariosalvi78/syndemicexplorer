@@ -70,7 +70,8 @@ export default {
     if (!area2Code) {
       res.sendStatus(400);
     } else {
-      let query = `select distinct area3_name, area3_code, ST_AsGeoJSON(geometry) as geometry 
+      let query = `select distinct area3_name, area3_code, (st_xmin(st_envelope(geometry)), st_ymin(st_envelope(geometry)), 
+        st_xmax(st_envelope(geometry)), st_ymax(st_envelope(geometry))) as bounding_box, ST_AsGeoJSON(geometry) as geometry 
         from admin_areas 
         where area2_name in 
             (select area2_name 
@@ -78,6 +79,11 @@ export default {
             where area2_code = $1)`;
       try {
         let data = await Pool.query(query, [area2Code]);
+        for (let i in data.rows) {
+          data.rows[i]['bounding_box'] = queryStringToArray(
+            data.rows[i]['bounding_box']
+          );
+        }
         res.send(data.rows);
       } catch (error) {
         console.log(error.message);
