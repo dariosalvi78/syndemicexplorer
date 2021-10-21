@@ -49,9 +49,12 @@ function fillDropDown1() {
         level1.addEventListener('click', function () {
           level1Text.innerHTML = myJson.country_name;
           console.log(myJson);
-          const bound1 = [myJson.bounding_box[0], myJson.bounding_box[1]];
-          const bound2 = [myJson.bounding_box[2], myJson.bounding_box[3]];
-          const boundingBox = new mapboxgl.LngLatBounds(bound1, bound2);
+
+          const boundingBox = new mapboxgl.LngLatBounds(
+            [11.0273686052, 55.3617373725],
+            [23.9033785336, 69.1062472602]
+          );
+          console.log(boundingBox);
           map.fitBounds(boundingBox);
         });
       });
