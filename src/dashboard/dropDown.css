@@ -1,6 +1,8 @@
 .dropDown {
   width: 100%;
+  height: px;
   padding: 50px;
+  margin: 50px 50px;
 }
 .dropDown-trigger {
   width: 100%;
@@ -12,22 +14,7 @@
   padding: 50px;
   margin: 5px;
 }
-.dropdown:not(.is-arrowless)::after,
-.select:not(.is-multiple):not(.is-loading)::after {
-  border: 3px solid transparent;
-  border-radius: 2px;
-  border-right: 0;
-  border-top: 0;
-  content: ' ';
-  display: block;
-  height: 0.625em;
-  margin-top: -0.4375em;
-  pointer-events: none;
-  position: absolute;
-  top: 50%;
-  -webkit-transform: rotate(-45deg);
-  transform: rotate(-45deg);
-  -webkit-transform-origin: center;
-  transform-origin: center;
-  width: 0.625em;
+
+.columnOne {
+  padding: 50px;
 }
