@@ -31,16 +31,16 @@ export default {
             }
         }
     },
-    // get the admin area1 (region) names, codes, bounding box and geometry for a specific country
+    // get the admin area1 (region) codes, names and geometry for a specific country
     // country code must be specified as query param
     async getAdmAreas1 (req, res) {
         let countryCode = req.query.countryCode
         if(!countryCode) {
             res.sendStatus(400)
         } else {
-            let query = `select area1_name, area1_code, (st_xmin(st_envelope(geometry)), st_ymin(st_envelope(geometry)), 
-            st_xmax(st_envelope(geometry)), st_ymax(st_envelope(geometry))) as bounding_box,
-            ST_AsGeoJSON(geometry) as geometry from admin_areas where country_code = $1 and area2_code is null`
+            let query = `select distinct area1_name, area1_code, (st_xmin(st_envelope(geometry)), st_ymin(st_envelope(geometry)), 
+            st_xmax(st_envelope(geometry)), st_ymax(st_envelope(geometry))) as bounding_box, ST_AsGeoJSON(geometry) as geometry 
+            from admin_areas where country_code = $1`
             try {
                 let data = await Pool.query(query, [countryCode])
                 for(let i in data.rows) {
@@ -53,7 +53,7 @@ export default {
             }
         }
     },
-    // get the admin area2 (municipality) names, codes , bounding box and geometry for a specific region
+    // get the admin area2 (municipality) names, codes and geometry for a specific region
     // area code1 must be specified as query param
     async getAdmAreas2 (req, res) {
         let area1Code = req.query.area1Code
@@ -62,7 +62,7 @@ export default {
         } else {
             let query = `select distinct area2_name, area2_code, (st_xmin(st_envelope(geometry)), st_ymin(st_envelope(geometry)), 
             st_xmax(st_envelope(geometry)), st_ymax(st_envelope(geometry))) as bounding_box,
-            ST_AsGeoJSON(geometry) as geometry from admin_areas where area1_code = $1 and area3_code is null`
+            ST_AsGeoJSON(geometry) as geometry from admin_areas where area1_code = $1`
             try {
                 let data = await Pool.query(query, [area1Code])
                 for(let i in data.rows) {
@@ -75,7 +75,7 @@ export default {
             }
         }
     },
-    // get the admin area3 (district) names, codes, bounding box and geometry for a specific municipality.
+    // get the admin area3 (district) names, codes and geometry for a specific municipality.
     // area code2 must be specified as query param
     async getAdmAreas3 (req, res) {
         let area2Code = req.query.area2Code
