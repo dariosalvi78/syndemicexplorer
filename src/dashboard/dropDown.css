@@ -31,3 +31,7 @@
   transform-origin: center;
   width: 0.625em;
 }
+.containerMiddle {
+  border: 1px solid black;
+  border-radius: 50px 5px 30px 15px;
+}
