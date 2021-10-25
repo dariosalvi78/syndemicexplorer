@@ -21,10 +21,11 @@ const map = new mapboxgl.Map({
   center: [-5.0, 52.47],
   zoom: 1,
 });
-const boundingBox = (bound1, bound2) => {
-  let sw = new mapboxgl.LngLat(bound1);
-  let ne = new mapboxgl.LngLat(bound2);
-  let bounds = new mapboxgl.LngLatBounds(sw, ne);
+const nav = new mapboxgl.NavigationControl();
+map.addControl(nav);
+const setBoundingBox = (bound1, bound2) => {
+  let bounds = new mapboxgl.LngLatBounds(bound1, bound2);
 
-  return bounds;
+  console.log('hej' + bounds);
+  map.fitBounds(bounds);
 };

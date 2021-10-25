@@ -54,7 +54,6 @@ function fillDropDown1() {
             [11.0273686052, 55.3617373725],
             [23.9033785336, 69.1062472602]
           );
-          console.log(boundingBox);
           map.fitBounds(boundingBox);
         });
       });
@@ -76,11 +75,10 @@ function fillDropDown2() {
         const level2 = document.createElement('a');
         level2.addEventListener('click', function () {
           level2Text.innerHTML = myJson.area1_name;
-          console.log(myJson);
-          const bound1 = [myJson.bounding_box[0], myJson.bounding_box[1]];
-          const bound2 = [myJson.bounding_box[2], myJson.bounding_box[3]];
-          const boundingBox = new mapboxgl.LngLatBounds(bound1, bound2);
-          map.fitBounds(boundingBox);
+          setBoundingBox(
+            [myJson.bounding_box[0], myJson.bounding_box[1]],
+            [myJson.bounding_box[2], myJson.bounding_box[3]]
+          );
         });
         const newLine = document.createElement('br');
         level2.innerHTML = myJson.area1_name;
@@ -106,10 +104,10 @@ function fillDropDown3() {
         level3.addEventListener('click', function () {
           level3Text.innerHTML = myJson.area2_name;
           console.log(myJson);
-          const bound1 = [myJson.bounding_box[0], myJson.bounding_box[1]];
-          const bound2 = [myJson.bounding_box[2], myJson.bounding_box[3]];
-          const boundingBox = new mapboxgl.LngLatBounds(bound1, bound2);
-          map.fitBounds(boundingBox);
+          setBoundingBox(
+            [myJson.bounding_box[0], myJson.bounding_box[1]],
+            [myJson.bounding_box[2], myJson.bounding_box[3]]
+          );
         });
         const newLine = document.createElement('br');
         level3.innerHTML = myJson.area2_name;
@@ -125,8 +123,6 @@ const level4Text = document.getElementById('level4Text');
 const urlLevel4 =
   'http://localhost:5000/api/v1/maps/admareas3?area2Code=SWE.13.19_1';
 
-const nav = new mapboxgl.NavigationControl();
-map.addControl(nav);
 function fillDropDown4() {
   fetch(urlLevel4)
     .then(function (response) {
@@ -138,15 +134,10 @@ function fillDropDown4() {
         level4.addEventListener('click', function () {
           level4Text.innerHTML = myJson.area3_name;
           console.log(myJson);
-          const bound1 = [myJson.bounding_box[0], myJson.bounding_box[1]];
-          const bound2 = [myJson.bounding_box[2], myJson.bounding_box[3]];
-
-          console.log('bound 1 ' + bound1);
-          console.log('bound 2 ' + bound2);
-          const boundingBox = new mapboxgl.LngLatBounds(bound1, bound2);
-          console.log(boundingBox);
-
-          map.fitBounds(boundingBox);
+          setBoundingBox(
+            [myJson.bounding_box[0], myJson.bounding_box[1]],
+            [myJson.bounding_box[2], myJson.bounding_box[3]]
+          );
         });
         level4.setAttribute('class', 'dropdown-item');
         const newLine = document.createElement('br');
@@ -156,19 +147,3 @@ function fillDropDown4() {
       });
     });
 }
-
-// boundingBox(
-//   [myJson.bounding_box[0], myJson.bounding_box[1]],
-//   [myJson.bounding_box[2], myJson.bounding_box[3]]
-// )
-
-const kalle = (bound1, bound2) => {
-  const southWest = new mapboxgl.LngLat(bound1);
-
-  const northEast = new mapboxgl.LngLat(bound2);
-
-  console.log(bound2);
-  const boundingBox = new mapboxgl.LngLatBounds(southWest, northEast);
-
-  return boundingBox;
-};
