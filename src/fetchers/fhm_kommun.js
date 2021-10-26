@@ -21,8 +21,6 @@ import axios from 'axios';
 
 
 export default function () {
-  // var axios = require('axios')
-
   var config = {
     method: 'get',
     url: 'https://utility.arcgis.com/usrsvcs/servers/63de09e702d142eb9ddd865838f80bd5/rest/services/FOHM_Covid_19_kommun_FME_20201228/FeatureServer/0/query?f=json&where=veckonr_txt%3D%272021-15%27&returnGeometry=false&outFields=*&outSR=4326&cacheHint=true',
@@ -36,38 +34,32 @@ export default function () {
 
   //How do i extract the data from this .then function?
   axios(config)
-  .then(function (response) {
-    // console.log(JSON.stringify(response.data));
-
-    // console.log(response.data);
-    // console.log(response.data.features);
-    
+  .then(function (response) {    
     for (var i = 0; i < response.data.features.length; i++) {
       let featureAttribute = response.data.features[i].attributes;
 
+      let data;
+      let req = [featureAttribute.KnNamn, featureAttribute.Stadsdel];
+      await getAdmArea(req, data)
+
+      let veckoNr = featureAttribute.veckonr;
+      
+      let date = ""; //Convert veckoNr to date here
       let country_code = "SWE";
-      let area1_code = "";
-      let area2_code = "";
-      let area3_code = "";
-      let gid = "";
+      let area1_code = data.area1_code; //region
+      let area2_code = data.area2_code; //municipality
+      let area3_code = data.area3_code;
+
+      let gid;
+      if (area3_code != null)
+        gid = area3_code;
+      else
+        gid = area2_code;
 
       let confirmed_cumulative = featureAttribute.cumfreq;
-      //featureAttribute.KnNamn
-      //featureAttribute.fall
-      //
-      //featureAttribute.cuminc
+
       console.log(featureAttribute);
     }
-  })
-  .catch(function (error) {
-    console.log(error);
-  });
-
-  let data = "Test";
-
-  axios(config)
-  .then(function (response) {
-    data = JSON.stringify(response.data);
   })
   .catch(function (error) {
     console.log(error);
@@ -77,14 +69,18 @@ export default function () {
 
 }
 
-async getAdmArea (req, res) {
-  let admLevel = req.query.adm_level;
-  if(!admLevel) {
+async function getAdmArea (req, res) {
+  let kommunNamn = req.query.KnNamn;
+  let stadsdel = req.query.Stadsdel;
+  if(!kommunNamn) {
       res.sendStatus(400)
   } else {
-      let query = "SELECT adm_area_$1, gid FROM covid19_schema.administrative_division WHERE country = 'Sweden' AND adm_level = '$1'"
+      let query = "SELECT area1_code, area2_code, area3_code FROM admin_areas WHERE country_code = 'SWE' AND area2_name = '$1'"
+      if (stadsdel != null)
+          query += "AND area3_name = '$2'";
+
       try {
-          let data = await Pool.query(query, [admLevel])
+          let data = await Pool.query(query, [kommunNamn, stadsdel])
           res.send(data.rows)
       } catch (error) {
           console.log(error.message)
