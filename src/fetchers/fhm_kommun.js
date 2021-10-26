@@ -17,9 +17,11 @@
 
 // we know that we have stads del (adm_area_3) statistics only for Malmö Göteborg and Stockholm
 // for those, we can sum up all the cases for each stadsdel and also add the overall statistics for adm_area_2
+import axios from 'axios';
+
 
 export default function () {
-  var axios = require('axios')
+  // var axios = require('axios')
 
   var config = {
     method: 'get',
@@ -30,14 +32,63 @@ export default function () {
     }
   }
   
+  console.clear();
+
+  //How do i extract the data from this .then function?
   axios(config)
   .then(function (response) {
-    console.log(JSON.stringify(response.data));
+    // console.log(JSON.stringify(response.data));
+
+    // console.log(response.data);
+    // console.log(response.data.features);
+    
+    for (var i = 0; i < response.data.features.length; i++) {
+      let featureAttribute = response.data.features[i].attributes;
+
+      let country_code = "SWE";
+      let area1_code = "";
+      let area2_code = "";
+      let area3_code = "";
+      let gid = "";
+
+      let confirmed_cumulative = featureAttribute.cumfreq;
+      //featureAttribute.KnNamn
+      //featureAttribute.fall
+      //
+      //featureAttribute.cuminc
+      console.log(featureAttribute);
+    }
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+
+  let data = "Test";
+
+  axios(config)
+  .then(function (response) {
+    data = JSON.stringify(response.data);
   })
   .catch(function (error) {
     console.log(error);
   });
 
   // write the data into the database
+
 }
 
+async getAdmArea (req, res) {
+  let admLevel = req.query.adm_level;
+  if(!admLevel) {
+      res.sendStatus(400)
+  } else {
+      let query = "SELECT adm_area_$1, gid FROM covid19_schema.administrative_division WHERE country = 'Sweden' AND adm_level = '$1'"
+      try {
+          let data = await Pool.query(query, [admLevel])
+          res.send(data.rows)
+      } catch (error) {
+          console.log(error.message)
+          res.sendStatus(500)
+      }
+  }
+}

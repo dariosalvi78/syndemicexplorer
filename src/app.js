@@ -4,6 +4,7 @@ import dotenv from 'dotenv'
 import routes from './routes.js'
 import {initDB} from './db.js'
 import {startFetchers} from './fetchers.js'
+import fhm_kommun from './fetchers/fhm_kommun.js'
 
 dotenv.config()
 initDB()
@@ -26,6 +27,8 @@ let port = process.env.PORT || 8080
 app.listen(port, () => {
     console.log(`🚀 API running on port ${port}.`)
 })
+
+fhm_kommun();
 
 
 export default app
