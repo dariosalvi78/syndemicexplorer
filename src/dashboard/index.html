@@ -6,6 +6,10 @@
     <title>Syndemic Dashboard</title>
     <script src='https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.js'></script>
     <link href='https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.css' rel='stylesheet' />
+    <!-- Graphs -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/nvd3/1.8.6/nv.d3.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.3/d3.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/nvd3/1.8.6/nv.d3.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
     <link rel="stylesheet" href="dropDown.css">
     <link rel="stylesheet" href="navBar.css">
@@ -14,7 +18,7 @@
 <body>
 
   <!-- Navbar information and headings -->
-  <nav class="navbar is-transparent">
+  <nav class="navbar is-light mb-4">
     <div class="navbar-brand">
       <a class="navbar-item">
         <img src='../images/covidDashboardLogo.png' width="30" height="30">
@@ -75,7 +79,7 @@
             <span class="icon is-small">
               <i class="fas fa-angle-down" aria-hidden="true"></i>
             </span>
-          </button>
+       
         </div>
         <div class="dropdown-menu" id="dropdown-menu3" role="menu">
           <div class="dropdown-content dropContent1" >
@@ -90,7 +94,7 @@
             <span class="icon is-large">
               <i class="fas fa-angle-down" aria-hidden="true"></i>
             </span>
-          </button>
+         
         </div>
         <div class="dropdown-menu" id="dropdown-menu3" role="menu">
           <div class="dropdown-content dropContent2">
@@ -107,7 +111,7 @@
             <span class="icon is-small">
               <i class="fas fa-angle-down" aria-hidden="true"></i>
             </span>
-          </button>
+         
         </div>
         <div class="dropdown-menu" id="dropdown-menu3" role="menu">
           <div class="dropdown-content dropContent3">
@@ -122,7 +126,7 @@
             <span class="icon is-small">
               <i class="fas fa-angle-down" aria-hidden="true"></i>
             </span>
-          </button>
+         
         </div>
         <div class="dropdown-menu" id="dropdown-menu3" role="menu">
           <div class="dropdown-content dropContent4">
@@ -132,7 +136,7 @@
         </div>
       </div>
     </div>
-    <div class="column is-half">
+    <div class="column">
 
       
       <div class = "container containerMiddle" id = 'map' style='width: 600px; height: 500px;'></div>
@@ -140,16 +144,25 @@
      
     </div>
     <div class="column">
-      Activ cases
-      <div class="container">
-        <div class="notification">
-          This is where we will show the statistics from the areas represented in the maps
-        </div>
-      </div>
-      Total cases
+     EN SCROLLDOWN KNAPP HÄR MED NÅGRA ALTERNATIV PÅ OLIKA DATA SOM MAN SKA KUNNA KLICKA PÅ SEN :) (SOM LEVEL 1,2,3,4)
       <div class="container">
         <div class="notification">
           Second statistic field
+       
+        
+          <div id="chart">
+            <svg></svg>
+        </div>
+      </div>
+        
+      </div>
+      Total cases
+      OCH EN TILL KNAPP HÄR (SOM LEVEL 1,2,3,4)
+      <div class="container">
+        <div class="notification">
+          <div id="chart2">
+            <svg></svg>
+        </div>
         </div>
       </div>
     </div>
@@ -168,5 +181,7 @@
 </body>
 <script src ="mapbox.js" ></script>
 <script src ="dropDown.js"></script>
+<script src ="./charts/epidemiologiChart.js"></script>
+<script src ="./charts/secondChart.js"></script>
 
 </html>
