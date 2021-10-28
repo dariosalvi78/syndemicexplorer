@@ -85,6 +85,12 @@ export default function () {
 
   console.clear();
 
+  // Accumulate data for three kommuner (adm_area_2) since
+  // data only exists for stadsdelar (adm_area_3) within them
+  let malmo_count = 0
+  let goteborg_count = 0
+  let stockholm_count = 0
+
   //How do i extract the data from this .then function?
   axios(config)
     .then(async function (response) {
@@ -92,6 +98,10 @@ export default function () {
         let featureAttribute = response.data.features[i].attributes;
 
         let req = [featureAttribute.KnNamn, featureAttribute.Stadsdel];
+
+        if (req[0] == "Upplands Väsby")
+          req[0] = "Upplands-Väsby"; //# Fix naming difference between FHM and OxCOVID19 database
+
         let data = await getAdmArea(req);
         data = data.rows[0];
 
@@ -112,8 +122,19 @@ export default function () {
 
         let demographic_data = [date, country_code, area1_code, area2_code, gid, confirmed_cumulative]
 
+        if (req[0] == "Malmö")
+          // Add to the total for adm_area_2 = Malmö
+          malmo_count += confirmed_cumulative;
+        else if (req[1] == "Göteborg")
+          // Add to the total for adm_area_2 = Göteborg
+          goteborg_count += confirmed_cumulative;
+        else if (req[2] == "Stockholm")
+          // Add to the total for adm_area_2 = Stockholm
+          stockholm_count += confirmed_cumulative;
+
+
         if (area3_code != null)
-          demographic_data.splice(4, 0, area3_code) = [date, country_code, area1_code, area2_code, area3_code, gid, confirmed_cumulative]
+          demographic_data.splice(4, 0, area3_code);
 
         console.log(demographic_data);
       }
@@ -137,8 +158,7 @@ async function getAdmArea(req) {
 
     if (stadsdel != null) {
       query += " AND area3_name = $2";
-      parameters.push(stadsdel);
-      // console.log(query);
+      parameters.push(" " + stadsdel); //TODO remove this space when database is fixed
     }
     try {
       return await Pool.query(query, parameters);
