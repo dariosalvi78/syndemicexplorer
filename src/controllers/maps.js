@@ -1,5 +1,23 @@
 import { Pool } from '../db.js';
-import { queryStringToArray, getQuery } from '../utils.js';
+
+function queryStringToArray(item) {
+  item = item.replace('(', '')
+  item = item.replace(')', '')
+  return item.split(',').map(Number)
+}
+
+// get query for area, names and geometry
+function getQuery(text) {
+  return (
+    `select distinct ` +
+    text +
+    `_name, ` +
+    text +
+    `_code, (st_xmin(st_envelope(geometry)), st_ymin(st_envelope(geometry)), 
+    st_xmax(st_envelope(geometry)), st_ymax(st_envelope(geometry))) as bounding_box, 
+    ST_AsGeoJSON(geometry) as geometry from admin_areas\n    `
+  )
+}
 
 export default {
   // get country names and codes available in the maps
@@ -38,7 +56,7 @@ export default {
       res.sendStatus(400);
     } else {
       let query =
-        getQuery('area1') + `where country_code = $1 and area2_code is null`;
+        getQuery('area1') + `where country_code = $1 and area2_code is null and area3_code is null`;
       try {
         let data = await Pool.query(query, [countryCode]);
         for (let i in data.rows) {
@@ -61,7 +79,7 @@ export default {
       res.sendStatus(400);
     } else {
       let query =
-        getQuery('area2') + `where area1_code = $1 and area3_code is null`;
+        getQuery('area2') + `where area1_code = $1 and area2_code is not null and area3_code is null`;
       try {
         let data = await Pool.query(query, [area1Code]);
         for (let i in data.rows) {
