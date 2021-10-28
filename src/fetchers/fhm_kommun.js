@@ -38,20 +38,8 @@ function weeksToMilliseconds(weeks) {
 }
 
 function firstWeekOfYear() {
-  var date = new Date();
-  date = firstDayOfYear(date);
+  var date = new Date(new Date().getFullYear(), 0, 1, 0, 0, 0, 0); //First week of the year
   date = firstWeekday(date);
-  return date;
-}
-
-function firstDayOfYear(date) {
-  date.setYear(new Date().getFullYear());
-  date.setDate(1);
-  date.setMonth(0);
-  date.setHours(0);
-  date.setMinutes(0);
-  date.setSeconds(0);
-  date.setMilliseconds(0);
   return date;
 }
 
@@ -137,6 +125,7 @@ export default function () {
           demographic_data.splice(4, 0, area3_code);
 
         console.log(demographic_data);
+        // console.log(featureAttribute);
       }
     })
     .catch(function (error) {
