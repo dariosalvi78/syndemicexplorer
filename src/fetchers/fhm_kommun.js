@@ -91,6 +91,10 @@ export default function () {
           req[0] = "Upplands-Väsby"; //# Fix naming difference between FHM and OxCOVID19 database
 
         let data = await getAdmArea(req);
+
+        if (data == undefined) //Happens if authentication fails
+          continue;
+
         data = data.rows[0];
 
         let veckoNr = featureAttribute.veckonr;
