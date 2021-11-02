@@ -28,7 +28,5 @@ app.listen(port, () => {
     console.log(`🚀 API running on port ${port}.`)
 })
 
-fhm_kommun();
-
 
 export default app
