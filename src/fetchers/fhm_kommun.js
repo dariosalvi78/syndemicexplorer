@@ -20,10 +20,9 @@ import { upsertTimeseries } from '../db.js'
 
 // we know that we have stads del (adm_area_3) statistics only for Malmö, Göteborg and Stockholm
 // for those, we can sum up all the cases for each stadsdel and also add the overall statistics for adm_area_2
+import axios from 'axios';
 
 export default function () {
-  var axios = require('axios')
-
   var config = {
     method: 'get',
     url: 'https://utility.arcgis.com/usrsvcs/servers/63de09e702d142eb9ddd865838f80bd5/rest/services/FOHM_Covid_19_kommun_FME_20201228/FeatureServer/0/query?f=json&where=veckonr_txt%3D%272021-15%27&returnGeometry=false&outFields=*&outSR=4326&cacheHint=true',
