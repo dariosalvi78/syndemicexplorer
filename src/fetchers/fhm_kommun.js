@@ -85,14 +85,12 @@ export default function () {
       for (var i = 0; i < response.data.features.length; i++) {
         let featureAttribute = response.data.features[i].attributes;
 
-        let req = [featureAttribute.KnNamn, featureAttribute.Stadsdel];
+        if (featureAttribute.KnNamn == "Upplands Väsby")
+          featureAttribute.KnNamn = "Upplands-Väsby"; //# Fix naming difference between FHM and OxCOVID19 database
 
-        if (req[0] == "Upplands Väsby")
-          req[0] = "Upplands-Väsby"; //# Fix naming difference between FHM and OxCOVID19 database
+        let data = await getAdmArea(featureAttribute.KnNamn);
 
-        let data = await getAdmArea(req);
-
-        if (data == undefined) //Happens if authentication fails
+        if (data == undefined) //Happens if authentication fails or the table doesn't exist
           continue;
 
         data = data.rows[0];
@@ -100,10 +98,12 @@ export default function () {
         let veckoNr = featureAttribute.veckonr;
 
         if (data == undefined) {
-          console.error("Data is null on: " + req);
+          console.error("Data is null on: " + featureAttribute.KnNamn);
           continue;
         }
-          
+        
+        let table = "epidemiology";
+        let source = "Folkhälsomyndigheten";
         let date = firstDayOfWeek(veckoNr); //Converts veckoNr to date
         let country_code = "SWE";
         let area1_code = data.area1_code; //region
@@ -112,24 +112,26 @@ export default function () {
         let gid = (area3_code != null) ? area3_code : area2_code;
         let confirmed_cumulative = featureAttribute.cumfreq;
 
-        let demographic_data = [date, country_code, area1_code, area2_code, gid, confirmed_cumulative]
-
-        if (req[0] == "Malmö")
+        //TODO use these counts for cities
+        if (featureAttribute.KnNamn == "Malmö")
           // Add to the total for adm_area_2 = Malmö
           malmo_count += confirmed_cumulative;
-        else if (req[1] == "Göteborg")
+        else if (featureAttribute.KnNamn == "Göteborg")
           // Add to the total for adm_area_2 = Göteborg
           goteborg_count += confirmed_cumulative;
-        else if (req[2] == "Stockholm")
+        else if (featureAttribute.KnNamn == "Stockholm") {
           // Add to the total for adm_area_2 = Stockholm
           stockholm_count += confirmed_cumulative;
+        }
+        
+        //TODO verify that the hardcoded source is the correct source
+        let demographic_data = [ 'table: ' + table + 'source: ' + source + 'date: ' + date, 'country_code: ' + country_code, 'area1_code: ' + area1_code, 'area2_code: ' + area2_code, 'gid: ' + gid, 'confirmed: ' + confirmed_cumulative]
 
+        if (typeof(area3_code) != 'undefined' && area3_code != null) {
+          demographic_data.splice(4, 0, 'area3_code: ' + area3_code);
+        }
 
-        if (area3_code != null)
-          demographic_data.splice(4, 0, area3_code);
-
-        console.log(demographic_data);
-        // console.log(featureAttribute);
+        Pool.upsertTimeseries(demographic_data)
       }
     })
     .catch(function (error) {
@@ -138,6 +140,30 @@ export default function () {
 
   // write the data into the database
 
+}
+
+// TODO test this code when i have tables again
+// async function HandleResponseData(index, response) {
+//   let featureAttribute = response.data.features[index].attributes;
+
+//   if (featureAttribute.KnNamn == "Upplands Väsby")
+//     featureAttribute.KnNamn = "Upplands-Väsby"; //# Fix naming difference between FHM and OxCOVID19 database
+
+//   let data = await getAdmArea(featureAttribute.KnNamn);
+
+//   return data.rows[0];
+// }
+
+function ConvertArrayToQueryValues(array) {
+  let query = "(";
+
+  for (var i = 0; i < array.length; i++) {
+    query += "'" + array[i] + "'";
+    if (i != array.length - 1)
+      query += ", ";
+  }
+
+  return query + ")";
 }
 
 async function getAdmArea(req) {
