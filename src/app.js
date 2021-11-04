@@ -4,7 +4,6 @@ import dotenv from 'dotenv'
 import routes from './routes.js'
 import {initDB} from './db.js'
 import {startFetchers} from './fetchers.js'
-import fhm_kommun from './fetchers/fhm_kommun.js'
 
 dotenv.config()
 initDB()

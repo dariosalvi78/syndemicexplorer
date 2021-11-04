@@ -19,6 +19,7 @@
 // for those, we can sum up all the cases for each stadsdel and also add the overall statistics for adm_area_2
 import axios from 'axios';
 import { Pool } from '../db.js'
+import { upsertTimeseries } from '../db.js'
 
 //from https://stackoverflow.com/questions/7580824/how-to-convert-a-week-number-to-a-date-in-javascript
 function firstDayOfWeek(week) { 
@@ -88,7 +89,7 @@ export default function () {
         if (featureAttribute.KnNamn == "Upplands Väsby")
           featureAttribute.KnNamn = "Upplands-Väsby"; //# Fix naming difference between FHM and OxCOVID19 database
 
-        let data = await getAdmArea(featureAttribute.KnNamn);
+        let data = await getAdmArea(featureAttribute.KnNamn, featureAttribute.stadsdel);
 
         if (data == undefined) //Happens if authentication fails or the table doesn't exist
           continue;
@@ -125,13 +126,9 @@ export default function () {
         }
         
         //TODO verify that the hardcoded source is the correct source
-        let demographic_data = [ 'table: ' + table + 'source: ' + source + 'date: ' + date, 'country_code: ' + country_code, 'area1_code: ' + area1_code, 'area2_code: ' + area2_code, 'gid: ' + gid, 'confirmed: ' + confirmed_cumulative]
+        let demographic_data = { table: table, source: source, date: date, country_code: country_code, area1_code: area1_code, area2_code: area2_code, area3_code: area3_code, gid: gid, confirmed: confirmed_cumulative }
 
-        if (typeof(area3_code) != 'undefined' && area3_code != null) {
-          demographic_data.splice(4, 0, 'area3_code: ' + area3_code);
-        }
-
-        Pool.upsertTimeseries(demographic_data)
+        await upsertTimeseries(demographic_data)
       }
     })
     .catch(function (error) {
@@ -166,23 +163,23 @@ function ConvertArrayToQueryValues(array) {
   return query + ")";
 }
 
-async function getAdmArea(req) {
-  let kommunNamn = req[0];
-  let stadsdel = req[1];
+async function getAdmArea(municipality, district) {
+  let kommunNamn = municipality;
+  let stadsdel = district;
   if (!kommunNamn) {
     console.log("Missing kommunNamn!")
   } else {
     let query = "SELECT area1_code, area2_code, area3_code FROM admin_areas WHERE country_code = 'SWE' AND area2_name = $1"
     let parameters = [kommunNamn];
 
-    if (stadsdel != null) {
+    if (stadsdel != null && stadsdel != undefined) {
       query += " AND area3_name = $2";
       parameters.push(" " + stadsdel); //TODO remove this space when database is fixed
     }
     try {
       return await Pool.query(query, parameters);
     } catch (error) {
-      console.log(error.message)
+      console.log(error)
     }
   }
 }

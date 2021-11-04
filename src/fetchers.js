@@ -1,9 +1,7 @@
-import {upsertTimeseries} from './db.js'
-import fhm_kommun from './fetchers/fhm_kommun.js'
-
+import fhmKommun from './fetchers/fhm_kommun.js'
 
 let startFetchers = async function () {
-    await fhm_kommun();
+    await fhmKommun()
 }
 
-export {startFetchers as startFetchers}
+export { startFetchers as startFetchers }

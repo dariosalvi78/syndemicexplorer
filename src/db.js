@@ -22,6 +22,9 @@ let upsertTimeseries = async function(arg) {
 
   for (let field in arg) {
     if (arg[field] !== undefined) {
+      if(field == 'table') {
+        continue;
+      }
       fields.push(field)
       values.push(arg[field])
     }
@@ -56,7 +59,7 @@ let upsertTimeseries = async function(arg) {
     values: values
   }
   try {
-    await this.client.query(queryObj)
+    await pool.query(queryObj)
   } catch (err) {
     console.error('Problem executing query', queryObj)
     throw err
