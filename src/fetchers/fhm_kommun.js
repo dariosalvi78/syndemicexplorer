@@ -21,6 +21,8 @@ import axios from 'axios';
 import { Pool } from '../db.js'
 import { upsertTimeseries } from '../db.js'
 
+let millisecondsPerDay = 24*60*60*1000;
+
 //from https://stackoverflow.com/questions/7580824/how-to-convert-a-week-number-to-a-date-in-javascript
 function firstDayOfWeek(week) { 
   var date       = firstWeekOfYear(),
@@ -58,14 +60,29 @@ function firstWeekday(firstOfJanuaryDate) {
       // the current week has not the minimum 4 days required by iso 8601 => add one week
       dayOffset += WEEK_LENGTH;
   }
-  return new Date(firstOfJanuaryDate.getTime()+dayOffset*24*60*60*1000);
+  return new Date(firstOfJanuaryDate.getTime()+dayOffset * millisecondsPerDay);
 }
 
-
 export default function () {
+  //define a date object variable that will take the current system date  
+  let todaydate = new Date();  
+  
+  //find the year of the current date  
+  var oneJan =  new Date(todaydate.getFullYear(), 0, 1);   
+  // calculating number of days in given year before a given date   
+  var numberOfDays =  Math.floor((todaydate - oneJan) / millisecondsPerDay);   
+  // adding 1 since to current date and returns value starting from 0   
+  var result = Math.ceil(( todaydate.getDay() + 1 + numberOfDays) / 7);
+
+  if (todaydate.getDay() != 0) {
+    result -= 1;
+  }
+
+  let dataUrl = 'https://utility.arcgis.com/usrsvcs/servers/63de09e702d142eb9ddd865838f80bd5/rest/services/FOHM_Covid_19_kommun_FME_20201228/FeatureServer/0/query?f=json&where=veckonr_txt%3D%27' + todaydate.getFullYear() + '-' + result + '%27&returnGeometry=false&outFields=*&outSR=4326&cacheHint=true';
+
   var config = {
     method: 'get',
-    url: 'https://utility.arcgis.com/usrsvcs/servers/63de09e702d142eb9ddd865838f80bd5/rest/services/FOHM_Covid_19_kommun_FME_20201228/FeatureServer/0/query?f=json&where=veckonr_txt%3D%272021-15%27&returnGeometry=false&outFields=*&outSR=4326&cacheHint=true',
+    url: dataUrl,
     headers: {
       'origin': 'https://fohm.maps.arcgis.com',
       'referer': 'https://fohm.maps.arcgis.com/apps/opsdashboard/index.html'
@@ -134,9 +151,6 @@ export default function () {
     .catch(function (error) {
       console.log(error);
     });
-
-  // write the data into the database
-
 }
 
 // TODO test this code when i have tables again
@@ -151,21 +165,11 @@ export default function () {
 //   return data.rows[0];
 // }
 
-function ConvertArrayToQueryValues(array) {
-  let query = "(";
-
-  for (var i = 0; i < array.length; i++) {
-    query += "'" + array[i] + "'";
-    if (i != array.length - 1)
-      query += ", ";
-  }
-
-  return query + ")";
-}
 
 async function getAdmArea(municipality, district) {
   let kommunNamn = municipality;
   let stadsdel = district;
+
   if (!kommunNamn) {
     console.log("Missing kommunNamn!")
   } else {
