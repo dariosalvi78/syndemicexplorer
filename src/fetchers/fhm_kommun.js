@@ -18,8 +18,7 @@
 // we know that we have stads del (adm_area_3) statistics only for Malmö Göteborg and Stockholm
 // for those, we can sum up all the cases for each stadsdel and also add the overall statistics for adm_area_2
 import axios from 'axios';
-import { Pool } from '../db.js'
-import { upsertTimeseries } from '../db.js'
+import { Pool, upsertTimeseries } from '../db.js'
 
 let millisecondsPerDay = 24*60*60*1000;
 
@@ -63,7 +62,7 @@ function firstWeekday(firstOfJanuaryDate) {
   return new Date(firstOfJanuaryDate.getTime()+dayOffset * millisecondsPerDay);
 }
 
-export default function () {
+function currentOrLastWeek() {
   //define a date object variable that will take the current system date  
   let todaydate = new Date();  
   
@@ -72,100 +71,95 @@ export default function () {
   // calculating number of days in given year before a given date   
   var numberOfDays =  Math.floor((todaydate - oneJan) / millisecondsPerDay);   
   // adding 1 since to current date and returns value starting from 0   
-  var result = Math.ceil(( todaydate.getDay() + 1 + numberOfDays) / 7) - 1;
+
+  let currentWeek = Math.ceil(( todaydate.getDay() + 1 + numberOfDays) / 7) - 1;
 
   if (todaydate.getDay() != 0) {
-    console.log("It's not sunday decreasing week by 1, week is currently before change " + result);
-    result -= 1;
+    console.log("It's not sunday decreasing week by 1, week is currently before change " + currentWeek);
+    currentWeek -= 1;
   }
 
-  let dataUrl = 'https://utility.arcgis.com/usrsvcs/servers/63de09e702d142eb9ddd865838f80bd5/rest/services/FOHM_Covid_19_kommun_FME_20201228/FeatureServer/0/query?f=json&where=veckonr_txt%3D%27' + todaydate.getFullYear() + '-' + result + '%27&returnGeometry=false&outFields=*&outSR=4326&cacheHint=true';
-
-  var config = {
-    method: 'get',
-    url: dataUrl,
-    headers: {
-      'origin': 'https://fohm.maps.arcgis.com',
-      'referer': 'https://fohm.maps.arcgis.com/apps/opsdashboard/index.html'
-    }
-  }
-
-  console.clear();
-
-  // Accumulate data for three kommuner (adm_area_2) since
-  // data only exists for stadsdelar (adm_area_3) within them
-  let malmo_count = 0
-  let goteborg_count = 0
-  let stockholm_count = 0
-
-  //How do i extract the data from this .then function?
-  axios(config)
-    .then(async function (response) {
-      for (var i = 0; i < response.data.features.length; i++) {
-        let featureAttribute = response.data.features[i].attributes;
-
-        if (featureAttribute.KnNamn == "Upplands Väsby")
-          featureAttribute.KnNamn = "Upplands-Väsby"; //# Fix naming difference between FHM and OxCOVID19 database
-
-        let data = await getAdmArea(featureAttribute.KnNamn, featureAttribute.stadsdel);
-
-        if (data == undefined) //Happens if authentication fails or the table doesn't exist
-          continue;
-
-        data = data.rows[0];
-
-        let veckoNr = featureAttribute.veckonr;
-
-        if (data == undefined) {
-          console.error("Data is null on: " + featureAttribute.KnNamn);
-          continue;
-        }
-        
-        let table = "epidemiology";
-        let source = "Folkhälsomyndigheten";
-        let date = firstDayOfWeek(veckoNr); //Converts veckoNr to date
-        let country_code = "SWE";
-        let area1_code = data.area1_code; //region
-        let area2_code = data.area2_code; //municipality
-        let area3_code = data.area3_code;
-        let gid = (area3_code != null) ? area3_code : area2_code;
-        let confirmed_cumulative = featureAttribute.cumfreq;
-
-        //TODO use these counts for cities
-        if (featureAttribute.KnNamn == "Malmö")
-          // Add to the total for adm_area_2 = Malmö
-          malmo_count += confirmed_cumulative;
-        else if (featureAttribute.KnNamn == "Göteborg")
-          // Add to the total for adm_area_2 = Göteborg
-          goteborg_count += confirmed_cumulative;
-        else if (featureAttribute.KnNamn == "Stockholm") {
-          // Add to the total for adm_area_2 = Stockholm
-          stockholm_count += confirmed_cumulative;
-        }
-        
-        //TODO verify that the hardcoded source is the correct source
-        let demographic_data = { table: table, source: source, date: date, country_code: country_code, area1_code: area1_code, area2_code: area2_code, area3_code: area3_code, gid: gid, confirmed: confirmed_cumulative }
-
-        await upsertTimeseries(demographic_data)
-      }
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
+  return currentWeek;
 }
 
-// TODO test this code when i have tables again
-// async function HandleResponseData(index, response) {
-//   let featureAttribute = response.data.features[index].attributes;
+export default function () {
+  let thisWeekNbr = currentOrLastWeek();
 
-//   if (featureAttribute.KnNamn == "Upplands Väsby")
-//     featureAttribute.KnNamn = "Upplands-Väsby"; //# Fix naming difference between FHM and OxCOVID19 database
+  for (let week = thisWeekNbr; week > 0; week--) {
+    let dataUrl = 'https://utility.arcgis.com/usrsvcs/servers/63de09e702d142eb9ddd865838f80bd5/rest/services/FOHM_Covid_19_kommun_FME_20201228/FeatureServer/0/query?f=json&where=veckonr_txt%3D%27' + new Date().getFullYear() + '-' + week + '%27&returnGeometry=false&outFields=*&outSR=4326&cacheHint=true';
 
-//   let data = await getAdmArea(featureAttribute.KnNamn);
-
-//   return data.rows[0];
-// }
-
+    var config = {
+      method: 'get',
+      url: dataUrl,
+      headers: {
+        'origin': 'https://fohm.maps.arcgis.com',
+        'referer': 'https://fohm.maps.arcgis.com/apps/opsdashboard/index.html'
+      }
+    }
+  
+    // Accumulate data for three kommuner (adm_area_2) since
+    // data only exists for stadsdelar (adm_area_3) within them
+    let malmo_count = 0
+    let goteborg_count = 0
+    let stockholm_count = 0
+  
+    //How do i extract the data from this .then function?
+    axios(config)
+      .then(async function (response) {
+        for (var i = 0; i < response.data.features.length; i++) {
+          let featureAttribute = response.data.features[i].attributes;
+  
+          if (featureAttribute.KnNamn == "Upplands Väsby")
+            featureAttribute.KnNamn = "Upplands-Väsby"; //# Fix naming difference between FHM and OxCOVID19 database
+  
+          let data = await getAdmArea(featureAttribute.KnNamn, featureAttribute.stadsdel);
+  
+          if (data == undefined) //Happens if authentication fails or the table doesn't exist
+            continue;
+  
+          data = data.rows[0];
+  
+          let veckoNr = featureAttribute.veckonr;
+  
+          if (data == undefined) {
+            console.error("Data is null on: " + featureAttribute.KnNamn);
+            continue;
+          }
+          
+          let table = "epidemiology";
+          let source = "Folkhälsomyndigheten";
+          let date = firstDayOfWeek(veckoNr); //Converts veckoNr to date
+          let country_code = "SWE";
+          let area1_code = data.area1_code; //region
+          let area2_code = data.area2_code; //municipality
+          let area3_code = data.area3_code;
+          let gid = (area3_code != null) ? area3_code : area2_code;
+          let confirmed_cumulative = featureAttribute.cumfreq;
+  
+          //TODO use these counts for cities
+          if (featureAttribute.KnNamn == "Malmö")
+            // Add to the total for adm_area_2 = Malmö
+            malmo_count += confirmed_cumulative;
+          else if (featureAttribute.KnNamn == "Göteborg")
+            // Add to the total for adm_area_2 = Göteborg
+            goteborg_count += confirmed_cumulative;
+          else if (featureAttribute.KnNamn == "Stockholm") {
+            // Add to the total for adm_area_2 = Stockholm
+            stockholm_count += confirmed_cumulative;
+          }
+          
+          //TODO verify that the hardcoded source is the correct source
+          let demographic_data = { table: table, source: source, date: date, country_code: country_code, area1_code: area1_code, area2_code: area2_code, area3_code: area3_code, gid: gid, confirmed: confirmed_cumulative }
+  
+          console.log(demographic_data);
+          await upsertTimeseries(demographic_data)
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
+}
 
 async function getAdmArea(municipality, district) {
   let kommunNamn = municipality;
