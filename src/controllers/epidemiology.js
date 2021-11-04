@@ -15,14 +15,17 @@ export default {
         let indicatorsList = req.params.indicators
         let indicators = indicatorsList.split(',')
 
-        // TODO: never ever include user input inside the query without sanitizing it !!!
-        let query = `select ` + indicators[0] + ` from epidemiology where `;
-        try {
-            let data = await Pool.query(query);
-            res.send(data.rows);
-        } catch (e) {
-            console.error(e);
-            res.sendStatus(500);
+        if(!startdate && !enddate && !indicators) {
+            res.sendStatus(400)
+        } else {
+            let query = `select $1 from epidemiology where date between $2 and $3`
+            try {
+                let data = await Pool.query(query, [indicators, startdate, enddate])
+                res.send(data.rows)
+            } catch (e) {
+                console.error(e)
+                res.sendStatus(500)
+            }
         }
     }
 }

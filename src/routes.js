@@ -1,5 +1,6 @@
 import express from 'express';
 import mapsCtrl from './controllers/maps.js';
+import epidemiologyCtrl from './controllers/epidemiology.js';
 
 const router = express.Router();
 
@@ -21,5 +22,9 @@ router.get('/maps/admareas2', mapsCtrl.getAdmAreas2);
 // endpoint for city district data of a municipality
 // area2Code has to be specified as query parameter
 router.get('/maps/admareas3', mapsCtrl.getAdmAreas3);
+
+// endpoint for epidemiology data
+// indicators, startdate and enddate has to be specified as query parameters
+router.get('/epidemiology', epidemiologyCtrl.getEpidemiologyIndicators)
 
 export default router;
