@@ -72,9 +72,10 @@ export default function () {
   // calculating number of days in given year before a given date   
   var numberOfDays =  Math.floor((todaydate - oneJan) / millisecondsPerDay);   
   // adding 1 since to current date and returns value starting from 0   
-  var result = Math.ceil(( todaydate.getDay() + 1 + numberOfDays) / 7);
+  var result = Math.ceil(( todaydate.getDay() + 1 + numberOfDays) / 7) - 1;
 
   if (todaydate.getDay() != 0) {
+    console.log("It's not sunday decreasing week by 1, week is currently before change " + result);
     result -= 1;
   }
 
