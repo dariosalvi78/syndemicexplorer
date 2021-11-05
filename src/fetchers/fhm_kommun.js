@@ -103,7 +103,6 @@ export default function () {
     let goteborg_count = 0
     let stockholm_count = 0
   
-    //How do i extract the data from this .then function?
     axios(config)
       .then(async function (response) {
         for (var i = 0; i < response.data.features.length; i++) {
@@ -134,24 +133,23 @@ export default function () {
           let area2_code = data.area2_code; //municipality
           let area3_code = data.area3_code;
           let gid = (area3_code != null) ? area3_code : area2_code;
-          let confirmed_cumulative = featureAttribute.cumfreq;
+          let cases_this_week = featureAttribute.fall;
   
           //TODO use these counts for cities
           if (featureAttribute.KnNamn == "Malmö")
             // Add to the total for adm_area_2 = Malmö
-            malmo_count += confirmed_cumulative;
+            malmo_count += cases_this_week;
           else if (featureAttribute.KnNamn == "Göteborg")
             // Add to the total for adm_area_2 = Göteborg
-            goteborg_count += confirmed_cumulative;
+            goteborg_count += cases_this_week;
           else if (featureAttribute.KnNamn == "Stockholm") {
             // Add to the total for adm_area_2 = Stockholm
-            stockholm_count += confirmed_cumulative;
+            stockholm_count += cases_this_week;
           }
           
-          //TODO verify that the hardcoded source is the correct source
-          let demographic_data = { table: table, source: source, date: date, country_code: country_code, area1_code: area1_code, area2_code: area2_code, area3_code: area3_code, gid: gid, confirmed: confirmed_cumulative }
+          let demographic_data = { table: table, source: source, date: date, country_code: country_code, area1_code: area1_code, area2_code: area2_code, area3_code: area3_code, gid: gid, confirmed: cases_this_week }
   
-          console.log(demographic_data);
+          console.log(featureAttribute);
           await upsertTimeseries(demographic_data)
         }
       })
@@ -173,7 +171,7 @@ async function getAdmArea(municipality, district) {
 
     if (stadsdel != null && stadsdel != undefined) {
       query += " AND area3_name = $2";
-      parameters.push(" " + stadsdel); //TODO remove this space when database is fixed
+      parameters.push(stadsdel);
     }
     try {
       return await Pool.query(query, parameters);
