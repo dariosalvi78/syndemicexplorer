@@ -92,7 +92,7 @@ function fillDropDown2() {
 const dropDownContent3 = document.querySelector('.dropContent3');
 const level3Text = document.getElementById('level3Text');
 const urlLevel3 =
-  '/api/v1/maps/admareas2?area1Code=SWE.13_1';
+  'http://localhost:5000/api/v1/maps/admareas2?area1Code=SWE.13_1';
 function fillDropDown3() {
   fetch(urlLevel3)
     .then(function (response) {
