@@ -1,40 +1,11 @@
-/*var data = [
-  {
-    key: 'ExampleData',
-    values: [
-      [10000000, 10024900],
-      [21241, 21414],
-    ],
-  },
-];
-
-nv.addGraph(function () {
-  var chart = nv.models
-    .cumulativeLineChart()
-    .x(function (d) {
-      return d[0];
-    })
-    //adjusting, 100% is 1.00, not 100 as it is in the data
-    .y(function (d) {
-      return d[1] / 100;
-    })
-    .color(d3.scale.category10().range())
-    .useInteractiveGuideline(true);
-  chart.xAxis.tickFormat(function (d) {
-    return d3.time.format('%x')(new Date(d));
-  });
-
-  chart.yAxis.tickFormat(d3.format(',.1%'));
-
-  d3.select('#chart svg').datum(data).transition().duration(500).call(chart);
-
-  nv.utils.windowResize(chart.update);
-
-  return chart;
-});
-*/
-
+/*
 const labels = ['January', 'February', 'March', 'April', 'May', 'June'];
+const apiUrl = 'http://dummy.restapiexample.com/api/v1/employees';
+
+var employeeLabel = [],
+  employeeSalaryData = [],
+  employeeAgeData = [];
+
 const data = {
   labels: labels,
   datasets: [
@@ -42,13 +13,64 @@ const data = {
       label: 'Confirmed Cases',
       backgroundColor: 'rgb(255, 99, 132)',
       borderColor: 'rgb(255, 99, 132)',
-      data: [0, 10, 5, 2, 20, 30, 45],
+      data: employeeSalaryData,
     },
   ],
 };
 const config = {
   type: 'line',
-  data: data,
+  data: employeeSalaryData,
   options: {},
 };
-const myChart = new Chart(document.getElementById('myChart'), config);
+const myChart = new Chart(document.getElementById('myChart'), config);*/
+
+async function dummyChart() {
+  await getDummyData();
+
+  const ctx = document.getElementById('myChart').getContext('2d');
+
+  const chart = new Chart(ctx, {
+    // The type of chart we want to create
+    type: 'line',
+
+    // The data for our dataset
+    data: {
+      labels: employeeLabel,
+      datasets: [
+        {
+          label: 'Employee Salary',
+          backgroundColor: 'blue',
+          borderColor: 'rgb(255, 99, 132)',
+          data: employeeSalaryData,
+        },
+      ],
+    },
+
+    // Configuration options go here
+    options: {
+      tooltips: {
+        mode: 'index',
+      },
+    },
+  });
+}
+
+dummyChart();
+
+//Fetch Data from API
+
+async function getDummyData() {
+  const apiUrl = 'http://dummy.restapiexample.com/api/v1/employees';
+
+  const response = await fetch(apiUrl);
+  const barChatData = await response.json();
+
+  const salary = barChatData.data.map((x) => x.employee_salary);
+  console.log(salary);
+  const age = barChatData.data.map((x) => x.employee_age);
+  const name = barChatData.data.map((x) => x.employee_name);
+
+  employeeSalaryData = salary;
+  employeeAgeData = age;
+  employeeLabel = name;
+}
