@@ -1,39 +1,23 @@
-/*
-const labels = ['January', 'February', 'March', 'April', 'May', 'June'];
-const apiUrl = 'http://dummy.restapiexample.com/api/v1/employees';
-
-var employeeLabel = [],
-  employeeSalaryData = [],
-  employeeAgeData = [];
-
-const data = {
-  labels: labels,
-  datasets: [
-    {
-      label: 'Confirmed Cases',
-      backgroundColor: 'rgb(255, 99, 132)',
-      borderColor: 'rgb(255, 99, 132)',
-      data: employeeSalaryData,
-    },
-  ],
-};
-const config = {
-  type: 'line',
-  data: employeeSalaryData,
-  options: {},
-};
-const myChart = new Chart(document.getElementById('myChart'), config);*/
-
 let dateLabel = [],
   confirmedLabel = [],
   employeeAgeData = [];
 
-async function dummyChart() {
-  await getDummyData();
+let chart;
 
+function deleteAndAddChart() {
+  let element = document.getElementById('myChart');
+  element.parentNode.removeChild(element);
+  const canvas = document.createElement('canvas');
+  canvas.setAttribute('id', 'myChart');
+  document.getElementById('chartArea').appendChild(canvas);
+}
+
+async function dummyChart(pelle) {
+  deleteAndAddChart();
+  await getDummyData(pelle);
   const ctx = document.getElementById('myChart').getContext('2d');
 
-  const chart = new Chart(ctx, {
+  chart = new Chart(ctx, {
     // The type of chart we want to create
     type: 'line',
 
@@ -59,20 +43,18 @@ async function dummyChart() {
   });
 }
 
-dummyChart();
-
 //Fetch Data from API
 
-async function getDummyData() {
-  const apiUrl = 'http://localhost:5000/api/v1/epidemiology/';
-
+async function getDummyData(pelle) {
+  const apiUrl = `http://localhost:5000/api/v1/epidemiology/admareas2?area2Code=${pelle}`;
+  console.log(apiUrl);
   const response = await fetch(apiUrl);
   const barChatData = await response.json();
   console.log(barChatData);
 
-  const confirmed = barChatData.map((x) => x.confirmed).slice(0, 25);
+  const confirmed = barChatData.map((x) => x.confirmed);
   console.log(confirmed);
-  const date = barChatData.map((x) => x.date).slice(0, 25);
+  const date = barChatData.map((x) => x.date.slice(0, 10));
 
   confirmedLabel = confirmed;
   dateLabel = date;
