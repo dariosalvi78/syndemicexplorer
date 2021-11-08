@@ -1,4 +1,5 @@
-// extract info from this page: https://experience.arcgis.com/experience/a6d20c1544f34d33b60026f45b786230
+// this function takes the data from this page: https://experience.arcgis.com/experience/a6d20c1544f34d33b60026f45b786230
+// and adds it to the database
 // data come on a weekly basis, so, when updating it, insert them on Sunday of that week
 
 // for each area you find:
@@ -14,8 +15,9 @@
 // if there is NOT -> print it because it may have a slightly different name! (so we can fix it later in code)
 // once you have the codes for all the areas you need, you insert the data
 
+// give that the statistics are provided per week, you need to find the sunday of that week and use that as the date
 
-// we know that we have stads del (adm_area_3) statistics only for Malmö Göteborg and Stockholm
+// we know that we have stads del (adm_area_3) statistics only for Malmö, Göteborg and Stockholm
 // for those, we can sum up all the cases for each stadsdel and also add the overall statistics for adm_area_2
 import axios from 'axios';
 import { Pool, upsertTimeseries } from '../db.js'
