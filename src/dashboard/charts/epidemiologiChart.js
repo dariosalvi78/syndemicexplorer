@@ -24,6 +24,10 @@ const config = {
 };
 const myChart = new Chart(document.getElementById('myChart'), config);*/
 
+let dateLabel = [],
+  confirmedLabel = [],
+  employeeAgeData = [];
+
 async function dummyChart() {
   await getDummyData();
 
@@ -35,13 +39,13 @@ async function dummyChart() {
 
     // The data for our dataset
     data: {
-      labels: employeeLabel,
+      labels: dateLabel,
       datasets: [
         {
-          label: 'Employee Salary',
+          label: 'Confirmed Cases',
           backgroundColor: 'blue',
           borderColor: 'rgb(255, 99, 132)',
-          data: employeeSalaryData,
+          data: confirmedLabel,
         },
       ],
     },
@@ -60,17 +64,17 @@ dummyChart();
 //Fetch Data from API
 
 async function getDummyData() {
-  const apiUrl = 'http://dummy.restapiexample.com/api/v1/employees';
+  const apiUrl = 'http://localhost:5000/api/v1/epidemiology/';
 
   const response = await fetch(apiUrl);
   const barChatData = await response.json();
+  console.log(barChatData);
 
-  const salary = barChatData.data.map((x) => x.employee_salary);
-  console.log(salary);
-  const age = barChatData.data.map((x) => x.employee_age);
-  const name = barChatData.data.map((x) => x.employee_name);
+  const confirmed = barChatData.map((x) => x.confirmed).slice(0, 20);
+  console.log(confirmed);
+  const date = barChatData.map((x) => x.date).slice(0, 20);
 
-  employeeSalaryData = salary;
-  employeeAgeData = age;
-  employeeLabel = name;
+  confirmedLabel = confirmed;
+  dateLabel = date;
+  console.log(dateLabel);
 }
