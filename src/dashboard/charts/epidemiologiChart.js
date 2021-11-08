@@ -70,9 +70,9 @@ async function getDummyData() {
   const barChatData = await response.json();
   console.log(barChatData);
 
-  const confirmed = barChatData.map((x) => x.confirmed).slice(0, 20);
+  const confirmed = barChatData.map((x) => x.confirmed).slice(0, 25);
   console.log(confirmed);
-  const date = barChatData.map((x) => x.date).slice(0, 20);
+  const date = barChatData.map((x) => x.date).slice(0, 25);
 
   confirmedLabel = confirmed;
   dateLabel = date;
