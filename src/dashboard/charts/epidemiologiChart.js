@@ -2,9 +2,12 @@ let dateLabel = [],
   confirmedLabel = [],
   employeeAgeData = [];
 
+let delayed;
 let chart;
 let options = {
   scales: {},
+
+  responsive: true,
   pan: {
     enabled: true,
     mode: 'x',
@@ -53,6 +56,10 @@ async function dummyChart(pelle) {
   deleteAndAddChart();
   await getDummyData(pelle);
   const ctx = document.getElementById('myChart').getContext('2d');
+  //Fill gradient
+  let gradient = ctx.createLinearGradient(0, 0, 0, 400);
+  gradient.addColorStop(0, 'rgba(58,123, 213, 1');
+  gradient.addColorStop(1, 'rgba(0,210, 255, 0.1)');
 
   chart = new Chart(ctx, {
     // The type of chart we want to create
@@ -64,10 +71,15 @@ async function dummyChart(pelle) {
       datasets: [
         {
           label: 'Confirmed Cases',
-          backgroundColor: 'white',
-          borderColor: 'rgb(53, 20, 20)',
+          backgroundColor: gradient,
+          borderColor: '#fff',
+          pointBackgroundColor: 'rgb(189,195,199)',
           data: confirmedLabel,
-          fill: false,
+          fill: true,
+          radius: 3,
+          hitRadius: 10,
+          hoverRadius: 5,
+          tension: 0.3,
         },
       ],
     },
