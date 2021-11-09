@@ -25,8 +25,8 @@ import { Pool, upsertTimeseries } from '../db.js'
 let millisecondsPerDay = 24*60*60*1000;
 
 //from https://stackoverflow.com/questions/7580824/how-to-convert-a-week-number-to-a-date-in-javascript
-function firstDayOfWeek(week) { 
-  var date       = firstWeekOfYear(),
+function firstDayOfWeek(week, year) { 
+  var date       = firstWeekOfYear(year),
       weekTime   = weeksToMilliseconds(week),
       targetTime = date.getTime() + weekTime;
 
@@ -41,8 +41,8 @@ function weeksToMilliseconds(weeks) {
   return 1000 * 60 * 60 * 24 * 7 * (weeks - 1);
 }
 
-function firstWeekOfYear() {
-  var date = new Date(new Date().getFullYear(), 0, 1, 0, 0, 0, 0); //First week of the year
+function firstWeekOfYear(year) {
+  var date = new Date(year, 0, 1, 0, 0, 0, 0); //First week of the year
   date = firstWeekday(date);
   return date;
 }
@@ -152,9 +152,8 @@ export default function () {
               stockholm_count += cases_this_week;
             }
             
-            let epidemiology_data = { table: "epidemiology", source: "Folkhälsomyndigheten", date: firstDayOfWeek(veckoNr), country_code: "SWE", area1_code: data.area1_code, area2_code: area2_code, area3_code: area3_code, gid: gid, confirmed: cases_this_week }
-    
-            console.log(selectedYear + " " + weekStr);
+            let epidemiology_data = { table: "epidemiology", source: "Folkhälsomyndigheten", date: firstDayOfWeek(veckoNr, selectedYear), country_code: "SWE", area1_code: data.area1_code, area2_code: area2_code, area3_code: area3_code, gid: gid, confirmed: cases_this_week }
+
             await upsertTimeseries(epidemiology_data)
           }
         })
