@@ -23,3 +23,7 @@
 
   border-radius: 50px 5px 30px 15px;
 }
+.dropdown-content {
+  max-height: 20em;
+  overflow: auto;
+}

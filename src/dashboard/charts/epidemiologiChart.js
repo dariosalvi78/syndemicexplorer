@@ -13,6 +13,32 @@ let options = {
     enabled: true,
     mode: 'x', // or 'x' for "drag" version
   },
+  transitions: {
+    show: {
+      animations: {
+        x: {
+          from: 0,
+          xAxis: true,
+        },
+        y: {
+          from: 0,
+          yAxis: true,
+        },
+      },
+    },
+    hide: {
+      animations: {
+        x: {
+          to: 0,
+          xAxis: true,
+        },
+        y: {
+          to: 0,
+          yAxis: true,
+        },
+      },
+    },
+  },
 };
 
 function deleteAndAddChart() {
@@ -38,8 +64,8 @@ async function dummyChart(pelle) {
       datasets: [
         {
           label: 'Confirmed Cases',
-          backgroundColor: 'blue',
-          borderColor: 'rgb(255, 99, 132)',
+          backgroundColor: 'white',
+          borderColor: 'rgb(53, 20, 20)',
           data: confirmedLabel,
           fill: false,
         },
