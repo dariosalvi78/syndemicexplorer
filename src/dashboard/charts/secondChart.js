@@ -1,4 +1,4 @@
-const data2 = [
+/*const data2 = [
   {
     key: 'People',
     bar: true,
@@ -196,3 +196,4 @@ nv.addGraph(function () {
 
   return chart;
 });
+*/

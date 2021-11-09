@@ -18,7 +18,7 @@ export default {
         if (!area3Code) {
           res.sendStatus(400)
         }
-        let query = `select date, area3_code, confirmed from epidemiology where area3_code = $1`
+        let query = `select date, area3_code, confirmed from epidemiology where area3_code = $1 order by date`
         try {
             let data = await Pool.query(query, [area3Code])
             res.send(data.rows)
@@ -33,7 +33,7 @@ export default {
         if (!area2Code) {
           res.sendStatus(400)
         }
-        let query = `select date, area2_code, confirmed from epidemiology where area2_code = $1`
+        let query = `select date, area2_code, confirmed from epidemiology where area2_code = $1 order by date`
         try {
             let data = await Pool.query(query, [area2Code])
             res.send(data.rows)
@@ -47,7 +47,7 @@ export default {
         if(!area1Code) {
             res.sendStatus(400)
         }
-        let query = `select date, area1_code, sum(confirmed) as confirmed from epidemiology where area1_code = $1 group by area1_code, date`
+        let query = `select date, area1_code, sum(confirmed) as confirmed from epidemiology where area1_code = $1 group by area1_code, date order by date`
         try {
             let data = await Pool.query(query, [area1Code])
             res.send(data.rows)

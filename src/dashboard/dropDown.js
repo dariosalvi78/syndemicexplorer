@@ -108,6 +108,8 @@ function fillDropDown3() {
             [myJson.bounding_box[0], myJson.bounding_box[1]],
             [myJson.bounding_box[2], myJson.bounding_box[3]]
           );
+          //getDummyData(myJson.area2_code);
+          dummyChart(myJson.area2_code);
         });
         const newLine = document.createElement('br');
         level3.innerHTML = myJson.area2_name;
@@ -120,8 +122,7 @@ function fillDropDown3() {
 
 const dropDownContent4 = document.querySelector('.dropContent4');
 const level4Text = document.getElementById('level4Text');
-const urlLevel4 =
-  '/api/v1/maps/admareas3?area2Code=SWE.13.19_1';
+const urlLevel4 = '/api/v1/maps/admareas3?area2Code=SWE.13.19_1';
 
 function fillDropDown4() {
   fetch(urlLevel4)
