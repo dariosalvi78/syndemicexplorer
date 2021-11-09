@@ -85,79 +85,83 @@ function currentOrLastWeek() {
 }
 
 export default function () {
-  let thisWeekNbr = currentOrLastWeek();
+  let currentYear = new Date().getFullYear();
+  let startYear = 2020; //Grab data from 2020 til now
 
-  for (let week = thisWeekNbr; week > 0; week--) {
-    let dataUrl = 'https://utility.arcgis.com/usrsvcs/servers/63de09e702d142eb9ddd865838f80bd5/rest/services/FOHM_Covid_19_kommun_FME_20201228/FeatureServer/0/query?f=json&where=veckonr_txt%3D%27' + new Date().getFullYear() + '-' + week + '%27&returnGeometry=false&outFields=*&outSR=4326&cacheHint=true';
-
-    var config = {
-      method: 'get',
-      url: dataUrl,
-      headers: {
-        'origin': 'https://fohm.maps.arcgis.com',
-        'referer': 'https://fohm.maps.arcgis.com/apps/opsdashboard/index.html'
-      }
+  var config = {
+    method: 'get',
+    url: "",
+    headers: {
+      'origin': 'https://fohm.maps.arcgis.com',
+      'referer': 'https://fohm.maps.arcgis.com/apps/opsdashboard/index.html'
     }
-  
-    // Accumulate data for three kommuner (adm_area_2) since
-    // data only exists for stadsdelar (adm_area_3) within them
-    let malmo_count = 0
-    let goteborg_count = 0
-    let stockholm_count = 0
-  
-    axios(config)
-      .then(async function (response) {
-        for (var i = 0; i < response.data.features.length; i++) {
-          let featureAttribute = response.data.features[i].attributes;
-  
-          if (featureAttribute.KnNamn == "Upplands Väsby")
-            featureAttribute.KnNamn = "Upplands-Väsby"; //# Fix naming difference between FHM and OxCOVID19 database
-  
-          let data = await getAdmArea(featureAttribute.KnNamn, featureAttribute.stadsdel);
-  
-          if (data == undefined) //Happens if authentication fails or the table doesn't exist
-            continue;
-  
-          data = data.rows[0];
-  
-          let veckoNr = featureAttribute.veckonr;
-  
-          if (data == undefined) {
-            console.error("Data is null on: " + featureAttribute.KnNamn);
-            continue;
+  }
+
+  for (let selectedYear = startYear; selectedYear <= currentYear; selectedYear++) {
+    let thisWeekNbr = (selectedYear == currentYear) ? currentOrLastWeek() : 52;
+
+    for (let selectedWeek = thisWeekNbr; selectedWeek > 0; selectedWeek--) {
+      let weekStr = selectedWeek.toString();
+      if (selectedWeek < 10)
+        weekStr = 0 + thisWeekNbr;
+
+      config.url = 'https://utility.arcgis.com/usrsvcs/servers/63de09e702d142eb9ddd865838f80bd5/rest/services/FOHM_Covid_19_kommun_FME_20201228/FeatureServer/0/query?f=json&where=veckonr_txt%3D%27' + selectedYear + '-' + weekStr + '%27&returnGeometry=false&outFields=*&outSR=4326&cacheHint=true';
+
+      // Accumulate data for three kommuner (adm_area_2) since
+      // data only exists for stadsdelar (adm_area_3) within them
+      let malmo_count = 0
+      let goteborg_count = 0
+      let stockholm_count = 0
+    
+      axios(config)
+        .then(async function (response) {
+          for (var i = 0; i < response.data.features.length; i++) {
+            let featureAttribute = response.data.features[i].attributes;
+    
+            if (featureAttribute.KnNamn == "Upplands Väsby")
+              featureAttribute.KnNamn = "Upplands-Väsby"; //# Fix naming difference between FHM and OxCOVID19 database
+    
+            let data = await getAdmArea(featureAttribute.KnNamn, featureAttribute.stadsdel);
+    
+            if (data == undefined) //Happens if authentication fails or the table doesn't exist
+              continue;
+    
+            data = data.rows[0];
+    
+            let veckoNr = featureAttribute.veckonr;
+    
+            if (data == undefined) {
+              console.error("Data is null on: " + featureAttribute.KnNamn);
+              continue;
+            }
+            
+            let area2_code = data.area2_code; //municipality
+            let area3_code = data.area3_code;
+            let gid = (area3_code != null) ? area3_code : area2_code;
+            let cases_this_week = featureAttribute.fall;
+    
+            //TODO use these counts for cities
+            if (featureAttribute.KnNamn == "Malmö")
+              // Add to the total for adm_area_2 = Malmö
+              malmo_count += cases_this_week;
+            else if (featureAttribute.KnNamn == "Göteborg")
+              // Add to the total for adm_area_2 = Göteborg
+              goteborg_count += cases_this_week;
+            else if (featureAttribute.KnNamn == "Stockholm") {
+              // Add to the total for adm_area_2 = Stockholm
+              stockholm_count += cases_this_week;
+            }
+            
+            let epidemiology_data = { table: "epidemiology", source: "Folkhälsomyndigheten", date: firstDayOfWeek(veckoNr), country_code: "SWE", area1_code: data.area1_code, area2_code: area2_code, area3_code: area3_code, gid: gid, confirmed: cases_this_week }
+    
+            console.log(selectedYear + " " + weekStr);
+            await upsertTimeseries(epidemiology_data)
           }
-          
-          let table = "epidemiology";
-          let source = "Folkhälsomyndigheten";
-          let date = firstDayOfWeek(veckoNr); //Converts veckoNr to date
-          let country_code = "SWE";
-          let area1_code = data.area1_code; //region
-          let area2_code = data.area2_code; //municipality
-          let area3_code = data.area3_code;
-          let gid = (area3_code != null) ? area3_code : area2_code;
-          let cases_this_week = featureAttribute.fall;
-  
-          //TODO use these counts for cities
-          if (featureAttribute.KnNamn == "Malmö")
-            // Add to the total for adm_area_2 = Malmö
-            malmo_count += cases_this_week;
-          else if (featureAttribute.KnNamn == "Göteborg")
-            // Add to the total for adm_area_2 = Göteborg
-            goteborg_count += cases_this_week;
-          else if (featureAttribute.KnNamn == "Stockholm") {
-            // Add to the total for adm_area_2 = Stockholm
-            stockholm_count += cases_this_week;
-          }
-          
-          let epidemiology_data = { table: table, source: source, date: date, country_code: country_code, area1_code: area1_code, area2_code: area2_code, area3_code: area3_code, gid: gid, confirmed: cases_this_week }
-  
-          console.log(featureAttribute);
-          await upsertTimeseries(epidemiology_data)
-        }
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    }
   }
 }
 
