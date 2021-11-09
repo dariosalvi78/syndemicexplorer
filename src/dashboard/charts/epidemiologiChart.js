@@ -3,13 +3,24 @@ let dateLabel = [],
   employeeAgeData = [];
 
 let chart;
+let options = {
+  scales: {},
+  pan: {
+    enabled: true,
+    mode: 'x',
+  },
+  zoom: {
+    enabled: true,
+    mode: 'x', // or 'x' for "drag" version
+  },
+};
 
 function deleteAndAddChart() {
   let element = document.getElementById('myChart');
   element.parentNode.removeChild(element);
   const canvas = document.createElement('canvas');
   canvas.setAttribute('id', 'myChart');
-  document.getElementById('chartArea').appendChild(canvas);
+  document.getElementById('chartArea').append(canvas);
 }
 
 async function dummyChart(pelle) {
@@ -30,16 +41,13 @@ async function dummyChart(pelle) {
           backgroundColor: 'blue',
           borderColor: 'rgb(255, 99, 132)',
           data: confirmedLabel,
+          fill: false,
         },
       ],
     },
 
     // Configuration options go here
-    options: {
-      tooltips: {
-        mode: 'index',
-      },
-    },
+    options: options,
   });
 }
 

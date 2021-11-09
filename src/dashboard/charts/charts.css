@@ -1,1 +1,10 @@
+canvas {
+  border: 1px dotted red;
+}
 
+.chartAreaWrapper {
+  position: relative;
+  margin: auto;
+  height: 300px !important;
+  width: 100% !important;
+}
