@@ -1,6 +1,5 @@
 let dateLabel = [],
-  confirmedLabel = [],
-  employeeAgeData = [];
+  confirmedLabel = [];
 
 let delayed;
 let chart;
@@ -44,17 +43,11 @@ let options = {
   },
 };
 
-function deleteAndAddChart() {
-  let element = document.getElementById('myChart');
-  element.parentNode.removeChild(element);
-  const canvas = document.createElement('canvas');
-  canvas.setAttribute('id', 'myChart');
-  document.getElementById('chartArea').append(canvas);
-}
+//Creates a graph with confirmed cases for the area
 
-async function dummyChart(pelle) {
+async function confirmedCasesChart(param) {
   deleteAndAddChart();
-  await getDummyData(pelle);
+  await confirmedCasesData(param);
   const ctx = document.getElementById('myChart').getContext('2d');
   //Fill gradient
   let gradient = ctx.createLinearGradient(0, 0, 0, 400);
@@ -89,20 +82,26 @@ async function dummyChart(pelle) {
   });
 }
 
-//Fetch Data from API
-
-async function getDummyData(pelle) {
-  const apiUrl = `http://localhost:5000/api/v1/epidemiology/admareas2?area2Code=${pelle}`;
+//Fetches the data of area2Code depending on which dropdown menu value
+async function confirmedCasesData(param) {
+  const apiUrl = `http://localhost:5000/api/v1/epidemiology/${param}`;
   console.log(apiUrl);
   const response = await fetch(apiUrl);
-  const barChatData = await response.json();
-  console.log(barChatData);
+  const barChartData = await response.json();
+  console.log(barChartData);
 
-  const confirmed = barChatData.map((x) => x.confirmed);
+  const confirmed = barChartData.map((x) => x.confirmed);
   console.log(confirmed);
-  const date = barChatData.map((x) => x.date.slice(0, 10));
+  const date = barChartData.map((x) => x.date.slice(0, 10));
 
   confirmedLabel = confirmed;
   dateLabel = date;
   console.log(dateLabel);
+}
+function deleteAndAddChart() {
+  let element = document.getElementById('myChart');
+  element.parentNode.removeChild(element);
+  const canvas = document.createElement('canvas');
+  canvas.setAttribute('id', 'myChart');
+  document.getElementById('chartArea').append(canvas);
 }

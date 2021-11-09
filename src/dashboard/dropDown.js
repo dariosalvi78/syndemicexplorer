@@ -32,7 +32,7 @@ dropdown4.addEventListener('click', function (event) {
 
 const dropDownContent1 = document.querySelector('.dropContent1');
 const level1Text = document.getElementById('level1Text');
-const urlLevel1 = '/api/v1/maps/countrynames';
+const urlLevel1 = 'http://localhost:5000/api/v1/maps/countrynames';
 
 function fillDropDown1() {
   fetch(urlLevel1)
@@ -62,7 +62,7 @@ function fillDropDown1() {
 
 const dropDownContent2 = document.querySelector('.dropContent2');
 const level2Text = document.getElementById('level2Text');
-const urlLevel2 = '/api/v1/maps/admareas1?countryCode=SWE';
+const urlLevel2 = 'http://localhost:5000/api/v1/maps/admareas1?countryCode=SWE';
 
 function fillDropDown2() {
   fetch(urlLevel2)
@@ -79,6 +79,7 @@ function fillDropDown2() {
             [myJson.bounding_box[0], myJson.bounding_box[1]],
             [myJson.bounding_box[2], myJson.bounding_box[3]]
           );
+          confirmedCasesChart('admareas1?area1Code=' + myJson.area1_code);
         });
         const newLine = document.createElement('br');
         level2.innerHTML = myJson.area1_name;
@@ -109,7 +110,7 @@ function fillDropDown3() {
             [myJson.bounding_box[2], myJson.bounding_box[3]]
           );
           //getDummyData(myJson.area2_code);
-          dummyChart(myJson.area2_code);
+          confirmedCasesChart('admareas2?area2Code=' + myJson.area2_code);
         });
         const newLine = document.createElement('br');
         level3.innerHTML = myJson.area2_name;
@@ -122,7 +123,8 @@ function fillDropDown3() {
 
 const dropDownContent4 = document.querySelector('.dropContent4');
 const level4Text = document.getElementById('level4Text');
-const urlLevel4 = '/api/v1/maps/admareas3?area2Code=SWE.13.19_1';
+const urlLevel4 =
+  'http://localhost:5000/api/v1/maps/admareas3?area2Code=SWE.13.19_1';
 
 function fillDropDown4() {
   fetch(urlLevel4)
@@ -139,6 +141,7 @@ function fillDropDown4() {
             [myJson.bounding_box[0], myJson.bounding_box[1]],
             [myJson.bounding_box[2], myJson.bounding_box[3]]
           );
+          confirmedCasesChart('admareas3?area3Code=' + myJson.area3_code);
         });
         level4.setAttribute('class', 'dropdown-item');
         const newLine = document.createElement('br');
