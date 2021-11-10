@@ -8,8 +8,8 @@
   <script src='https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.js'></script>
   <link href='https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.css' rel='stylesheet' />
   <!-- Graphs -->
-  
-  
+
+
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"></script>
@@ -20,7 +20,7 @@
   <link rel="stylesheet" href="navBar.css">
   <link rel="stylesheet" href="dashboard.css">
   <link rel="stylesheet" href="./charts/charts.css">
-  
+
 
 
   <!-- <script src="https://use.fontawesome.com/1f36b18d6f.js"></script> -->
@@ -39,7 +39,7 @@
         <span></span>
         <span></span>
         <span></span>
-        
+
       </div>
 
       <div id="Navbar is-fixed-top" class="navbar-menu">
@@ -90,7 +90,7 @@
       </div>
       <div class="dropdown-menu" id="dropdown-menu3" role="menu">
         <div class="dropdown-content dropContent3">
-         
+
         </div class="dropdown-item">
         </a>
       </div>
@@ -126,11 +126,12 @@
         <div class="dropdown-trigger">
         </div>
       </div>
+
       <div class="container mr-2 mb-3">
-        
-          <div class="chartAreaWrapper" id = 'chartArea' style= "width:100%" >
-            <canvas id="myChart" ></canvas>
-          
+
+        <div class="chartAreaWrapper" id='chartArea' style="width:100%">
+          <canvas id="myChart"></canvas>
+
         </div>
       </div>
 
@@ -150,6 +151,15 @@
         </div>
       </div>
     </div>
+  </div>
+
+  <!-- Modal if no statistics are available -->
+  <div class="modal modal-fx-fadeInScale">
+    <div class="modal-background"></div>
+    <div class="modal-content has-background-white py-5 px-5">
+      <p class="title mb-6">No Statistic Available For The Chosen Area</p>
+    </div>
+    <button class="modal-close is-large" aria-label="close"></button>
   </div>
 
   <footer class="footer initial-scale">

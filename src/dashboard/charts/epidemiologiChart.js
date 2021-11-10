@@ -44,7 +44,6 @@ let options = {
 };
 
 //Creates a graph with confirmed cases for the area
-
 async function confirmedCasesChart(param) {
   deleteAndAddChart();
   await confirmedCasesData(param);
@@ -88,6 +87,9 @@ async function confirmedCasesData(param) {
   console.log(apiUrl);
   const response = await fetch(apiUrl);
   const barChartData = await response.json();
+  if (barChartData.length == 0) {
+    modal.classList.add('is-active');
+  }
   console.log(barChartData);
 
   const confirmed = barChartData.map((x) => x.confirmed);
@@ -98,6 +100,7 @@ async function confirmedCasesData(param) {
   dateLabel = date;
   console.log(dateLabel);
 }
+
 function deleteAndAddChart() {
   let element = document.getElementById('myChart');
   element.parentNode.removeChild(element);
@@ -105,3 +108,11 @@ function deleteAndAddChart() {
   canvas.setAttribute('id', 'myChart');
   document.getElementById('chartArea').append(canvas);
 }
+
+//modal
+const modalBg = document.querySelector('.modal-background');
+const modal = document.querySelector('.modal');
+
+modalBg.addEventListener('click', () => {
+  modal.classList.remove('is-active');
+});
