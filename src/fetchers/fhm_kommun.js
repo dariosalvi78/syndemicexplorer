@@ -102,8 +102,11 @@ export default function () {
 
     for (let selectedWeek = thisWeekNbr; selectedWeek > 0; selectedWeek--) {
       let weekStr = selectedWeek.toString();
-      if (selectedWeek < 10)
-        weekStr = 0 + thisWeekNbr;
+      if (selectedWeek < 10) {
+        weekStr = 0 + weekStr;
+        console.log(weekStr);
+      }
+        
 
       config.url = 'https://utility.arcgis.com/usrsvcs/servers/63de09e702d142eb9ddd865838f80bd5/rest/services/FOHM_Covid_19_kommun_FME_20201228/FeatureServer/0/query?f=json&where=veckonr_txt%3D%27' + selectedYear + '-' + weekStr + '%27&returnGeometry=false&outFields=*&outSR=4326&cacheHint=true';
 
