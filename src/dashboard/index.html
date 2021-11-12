@@ -1,20 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Syndemic Dashboard</title>
-    <script src='https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.js'></script>
-    <link href='https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.css' rel='stylesheet' />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
-    <link rel="stylesheet" href="dropDown.css">
-    <link rel="stylesheet" href="navBar.css">
-   <!-- <script src="https://use.fontawesome.com/1f36b18d6f.js"></script> -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Syndemic explorer</title>
+  <script src='https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.js'></script>
+  <link href='https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.css' rel='stylesheet' />
+  <!-- Graphs -->
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-zoom/0.6.6/chartjs-plugin-zoom.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+  <link rel="stylesheet" href="dropDown.css">
+  <link rel="stylesheet" href="navBar.css">
+  <link rel="stylesheet" href="dashboard.css">
+  <link rel="stylesheet" href="./charts/charts.css">
+
+
+
+  <!-- <script src="https://use.fontawesome.com/1f36b18d6f.js"></script> -->
 </head>
+
 <body>
 
+
   <!-- Navbar information and headings -->
-  <nav class="navbar is-transparent">
+  <nav class="navbar is-light mb-4">
     <div class="navbar-brand">
       <a class="navbar-item">
         <img src='../images/covidDashboardLogo.png' width="30" height="30">
@@ -23,150 +39,143 @@
         <span></span>
         <span></span>
         <span></span>
-      </a>
-    </div>
-  
-    <div id="Navbar is-fixed-top" class="navbar-menu">
-      <div class="navbar-start">
-        <div class="navbar-item">
-          Corona Dashboard
+
+      </div>
+
+      <div id="Navbar is-fixed-top" class="navbar-menu">
+        <div class="navbar-start">
+          <div class="navbar-item">
+            Syndemic Explorer
+          </div>
         </div>
       </div>
     </div>
-  </div>
- 
-  <!-- Navbar holdings of the dropdown with information about the links -->
-        <div class="navbar-end">
-          <div class="navbar-item">
-        <div class="navbar-item has-dropdown is-hoverable">
-          <a class="navbar-link">
-            Links
-          </a>
-          <div class="navbar-dropdown is-boxed">
-            <a class="navbar-item" href="https://bulma.io/documentation/overview/start/">
-              Overview
-            </a>
-            <a class="navbar-item" href="https://www.folkhalsomyndigheten.se/smittskydd-beredskap/utbrott/aktuella-utbrott/covid-19/statistik-och-analyser/bekraftade-fall-i-sverige/">
-              Statistic
-            </a>
-            <a class="navbar-item" href="https://www.folkhalsomyndigheten.se/smittskydd-beredskap/utbrott/aktuella-utbrott/covid-19/">
-              Folkhälsomyndigheten
-            </a>
-            <a class="navbar-item" href="https://www.google.se/maps">
-              Sverige
-            </a>
-            <a class="navbar-item" href="https://www.mapbox.com/">
-              Mapbox
-            </a>
-          </div>
-        </div>
+
+    <!-- Navbar holdings of the dropdown with information about the links -->
+    <div class="dropdown" id="level1">
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link" id="level1Text">Level 1</a>
+        <span class="icon is-small">
+          <i class="fas fa-angle-down" aria-hidden="true"></i>
+        </span>
+
+      </div>
+      <div class="dropdown-menu" id="dropdown-menu1" role="menu">
+        <div class="dropdown-content dropContent1">
+        </div class="dropdown-item">
+      </div>
+    </div>
+    <!-- Level 2 -->
+    <div class="dropdown" id="level2">
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link" id="level2Text">Level 2</a>
+        <span class="icon is-small">
+          <i class="fas fa-angle-down" aria-hidden="true"></i>
+        </span>
+
+      </div>
+      <div class="dropdown-menu" id="dropdown-menu2" role="menu">
+        <div class="dropdown-content dropContent2">
+        </div class="dropdown-item">
+      </div>
+    </div>
+    <!-- Level 3 -->
+    <div class="dropdown" id="level3">
+      <div class="navbar-item has-dropdown">
+        <a class="navbar-link" id="level3Text">Level 3</a>
+        <span class="icon is-small">
+          <i class="fas fa-angle-down" aria-hidden="true"></i>
+        </span>
+
+      </div>
+      <div class="dropdown-menu" id="dropdown-menu3" role="menu">
+        <div class="dropdown-content dropContent3">
+
+        </div class="dropdown-item">
+        </a>
+      </div>
+    </div>
+    <!-- Level 4 -->
+    <div class="dropdown" id="level4">
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link" id="level4Text">Level 4</a>
+        <span class="icon is-small">
+          <i class="fas fa-angle-down" aria-hidden="true"></i>
+        </span>
+
+      </div>
+      <div class="dropdown-menu" id="dropdown-menu4" role="menu">
+        <div class="dropdown-content dropContent4">
+        </div class="dropdown-item">
+        </a>
       </div>
   </nav>
-
-  
   <div class="columns">
-    <div class="column is-one-fifth columnOne" >
-  
-       <!-- Level 1 -->
-      <div class="dropdown" id = "level1">
-        <a class="navbar-link" id= "level1Text">Level 1</a>
-        <div class="dropdown-trigger">
-         
-            <span class="icon is-small">
-              <i class="fas fa-angle-down" aria-hidden="true"></i>
-            </span>
-          </button>
-        </div>
-        <div class="dropdown-menu" id="dropdown-menu3" role="menu">
-          <div class="dropdown-content dropContent1" >
-          </div class= "dropdown-item">
-        </div>
-      </div>
-    <!-- Level 2 -->
-      <div class="dropdown" id = "level2">
-        <a class="navbar-link" id ="level2Text">Level 2</a>
-        <div class="dropdown-trigger">
-    
-            <span class="icon is-large">
-              <i class="fas fa-angle-down" aria-hidden="true"></i>
-            </span>
-          </button>
-        </div>
-        <div class="dropdown-menu" id="dropdown-menu3" role="menu">
-          <div class="dropdown-content dropContent2">
-          
-           
-          </div>
-        </div>
-      </div>
-    <!-- Level 3 -->
-    <div class="dropdown" id = "level3">
-      <a class="navbar-link" id ="level3Text">Level 3</a>
-        <div class="dropdown-trigger">
-        
-            <span class="icon is-small">
-              <i class="fas fa-angle-down" aria-hidden="true"></i>
-            </span>
-          </button>
-        </div>
-        <div class="dropdown-menu" id="dropdown-menu3" role="menu">
-          <div class="dropdown-content dropContent3">
-          </div>
-        </div>
-      </div>
-      <!-- Level 4 -->
-      <div class="dropdown" id = "level4">
-        <a class="navbar-link" id="level4Text">Level 4</a>
-        <div class="dropdown-trigger">
-           
-            <span class="icon is-small">
-              <i class="fas fa-angle-down" aria-hidden="true"></i>
-            </span>
-          </button>
-        </div>
-        <div class="dropdown-menu" id="dropdown-menu3" role="menu">
-          <div class="dropdown-content dropContent4">
-           <div class = "dropdown-item">
-           </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="column is-half">
-
-      
-      <div class = "container containerMiddle" id = 'map' style='width: 600px; height: 500px;'></div>
-
-     
+    <div class="column is-0">
     </div>
     <div class="column">
-      Activ cases
-      <div class="container">
-        <div class="notification">
-          This is where we will show the statistics from the areas represented in the maps
+      <!-- Information about the map and size, rounded corners -->
+      <div class="container containerMiddle" id='map' style='width: 700px; height: 500px;'></div>
+
+
+      <!-- Button and statistic for the country -->
+    </div>
+    <div class="column">
+      <div class="dropdown" id="statistic1">
+        <a class="navbar-link" id="stats1">Confirmed cases</a>
+        <div class="dropdown-trigger">
         </div>
       </div>
-      Total cases
-      <div class="container">
-        <div class="notification">
-          Second statistic field
+
+      <div class="container mr-2 mb-3">
+
+        <div class="chartAreaWrapper" id='chartArea' style="width:100%">
+          <canvas id="myChart"></canvas>
+
+        </div>
+      </div>
+
+      <!-- Button and total cases for the country -->
+      <div class="column">
+        <div class="dropdown" id="level1">
+          <a class="navbar-link" id="level1Text">Total cases</a>
+          <div class="dropdown-trigger">
+          </div>
+        </div>
+        <div class="container mr-2">
+          <div class="notification">
+            <div id="chart2">
+              <svg></svg>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
-    
 
-  <footer class="footer">
+  <!-- Modal if no statistics are available -->
+  <div class="modal modal-fx-fadeInScale">
+    <div class="modal-background"></div>
+    <div class="modal-content has-background-white py-5 px-5">
+      <p class="title mb-6">No Statistic Available For The Chosen Area</p>
+    </div>
+    <button class="modal-close is-large" aria-label="close"></button>
+  </div>
+
+  <footer class="footer initial-scale">
     <div class="content has-text-centered">
       <p>
-        <strong>Corona dashboard</strong> by <a href="https://mau.se/">Joel, Andreas, Ardian, Leo, Manna & Johanna</a>. The website content
-        is revived <a href="https://github.com/dariosalvi78/syndemicexplorer"> BY Dario 4.0</a>.
+        <strong>Syndemic explorer</strong> by <a href="https://mau.se/">Joel, Andreas, Ardian, Leo, Manna & Johanna</a>.
+        The website content
+        is revived <a href="https://github.com/dariosalvi78/syndemicexplorer"> BY Dario</a>.
       </p>
     </div>
   </footer>
-   
+
 </body>
-<script src ="mapbox.js" ></script>
-<script src ="dropDown.js"></script>
+<script src="mapbox.js"></script>
+<script src="dropDown.js"></script>
+<script src="./charts/epidemiologiChart.js"></script>
+<script src="./charts/secondChart.js"></script>
 
 </html>

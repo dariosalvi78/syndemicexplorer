@@ -103,10 +103,7 @@ export default {
     } else {
       let query =
         getQuery('area3') +
-        `where area2_name in 
-                (select area2_name 
-                from admin_areas
-                where area2_code = $1)`;
+        `where area2_code = $1 and area3_code is not null`;
       try {
         let data = await Pool.query(query, [area2Code]);
         for (let i in data.rows) {

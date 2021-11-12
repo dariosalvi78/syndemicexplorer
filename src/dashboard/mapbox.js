@@ -29,3 +29,5 @@ const setBoundingBox = (bound1, bound2) => {
   console.log('hej' + bounds);
   map.fitBounds(bounds);
 };
+
+
