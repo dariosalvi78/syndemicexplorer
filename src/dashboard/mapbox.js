@@ -29,5 +29,17 @@ const setBoundingBox = (bound1, bound2) => {
   console.log('hej' + bounds);
   map.fitBounds(bounds);
 };
-
-
+let total = 0;
+fetch('http://localhost:5000/api/v1/epidemiology/')
+  .then((response) => response.json())
+  .then((data) => {
+    console.log(data);
+    data.forEach((dat) => {
+      let { area1_code, area2_code, confirmed, area3_code } = dat;
+      if (area1_code === 'SWE.13_1') {
+        total += confirmed;
+        console.log(area2_code + ' ' + total + ' ' + area2_code);
+      }
+      new mapboxgl.Marker({}).setLngLat([0, 0]).addTo(map);
+    });
+  });
