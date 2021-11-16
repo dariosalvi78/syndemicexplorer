@@ -178,6 +178,7 @@ async function getAdmArea(municipality, district) {
     let parameters = [kommunNamn];
 
     if (stadsdel != null && stadsdel != undefined) {
+      stadsdel = " " + stadsdel
       query += " AND area3_name = $2";
       parameters.push(stadsdel);
     }
