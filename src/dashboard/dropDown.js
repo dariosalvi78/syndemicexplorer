@@ -103,7 +103,7 @@ function fillDropDown3() {
       myJson.forEach(function (myJson) {
         const level3 = document.createElement('a');
         level3.addEventListener('click', function () {
-          level3Text.innerHTML = myJson.area2_code;
+          level3Text.innerHTML = myJson.area2_name;
           console.log(myJson);
           setBoundingBox(
             [myJson.bounding_box[0], myJson.bounding_box[1]],
