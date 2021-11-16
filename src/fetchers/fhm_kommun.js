@@ -150,8 +150,6 @@ export default function () {
           }
           
           let epidemiology_data = { table: table, source: source, date: date, country_code: country_code, area1_code: area1_code, area2_code: area2_code, area3_code: area3_code, gid: gid, confirmed: cases_this_week }
-  
-          console.log(featureAttribute);
           await upsertTimeseries(epidemiology_data)
         }
       })
