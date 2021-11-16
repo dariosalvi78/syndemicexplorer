@@ -3,7 +3,7 @@ mapboxgl.accessToken =
 
 const map = new mapboxgl.Map({
   container: 'map',
-  style: 'mapbox://styles/joelsven/ckw1uej5d51ii14paeujalcqb',
+  style: 'mapbox://styles/joelsven/ckw29pxch04ls14p4lndhhfjf',
   center: [-5.0, 52.47],
   zoom: 1,
 });
@@ -23,12 +23,12 @@ var popup = new mapboxgl.Popup({
 map.on('load', function () {
   // Add the source to query. In this example we're using
   // county polygons uploaded as vector tiles
-  map.addSource('heatmapcovid', {
+  map.addSource('heatmap', {
     type: 'vector',
     url: 'joelsven.ckw12tb6k0wmv24qalr4bd9d0-5dzee',
   });
 
-  map.on('mousemove', 'heatmapcovid', function (e) {
+  map.on('mousemove', 'heatmap', function (e) {
     // Change the cursor style as a UI indicator.
     map.getCanvas().style.cursor = 'pointer';
 
