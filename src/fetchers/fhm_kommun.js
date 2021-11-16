@@ -188,3 +188,12 @@ async function getAdmArea(municipality, district) {
     }
   }
 }
+
+function ParsePBF(url) {
+  const response = await axios.get(url,  { responseType: 'arraybuffer' })
+  const buffer = Buffer.from(response.data, "utf-8")
+
+  var tinyosmpbf = require('tiny-osmpbf');
+  var osmData = tinyosmpbf(buffer);
+  console.log(osmData);
+}
