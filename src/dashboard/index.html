@@ -34,11 +34,11 @@
   <!-- <script src="https://use.fontawesome.com/1f36b18d6f.js"></script> -->
 </head>
 
-<body>
+<body class = "main">
 
 
   <!-- Navbar information and headings -->
-  <nav class="navbar is-light mb-4">
+  <nav class="navbar is-light">
     <div class="navbar-brand">
       <a class="navbar-item">
         <img src='../images/covidDashboardLogo.png' width="30" height="30">
@@ -119,48 +119,50 @@
         </a>
       </div>
   </nav>
+
+   <!-- Main body with columns -->
+
+  <section class ="section">
   <div class="columns">
-    <div class="column is-0">
-    </div>
     <div class="column">
       <!-- Information about the map and size, rounded corners -->
-      <div class="container containerMiddle" id='map' style='width: 700px; height: 500px;'></div>
+      <div class="container containerMiddle" id='map' style='width: 100%; height: 500px;'></div>
 
-
-      <!-- Button and statistic for the country -->
     </div>
+      <!-- Button and statistic for the country -->
+    
     <div class="column">
       <div class="dropdown" id="statistic1">
         <a class="navbar-link" id="stats1">Confirmed cases</a>
-        <div class="dropdown-trigger">
-        </div>
+        <a class="navbar-link" id="startDate">Start Date</a>
+        <a class="navbar-link" id="endDate">End Date</a>
+        <div class="dropdown-trigger"></div>
       </div>
 
-      <div class="container mr-2 mb-3">
+      <div class="container mr-2 mb-5">
 
-        <div class="chartAreaWrapper" id='chartArea' style="width:100%">
+        <div class="chartAreaWrapper" id='chartArea' style="width:100%; height:100%;">
           <canvas id="myChart"></canvas>
 
         </div>
       </div>
 
       <!-- Button and total cases for the country -->
-      <div class="column">
+      
         <div class="dropdown" id="level1">
-          <a class="navbar-link" id="level1Text">Total cases</a>
+          <a class="navbar-link" id="level1Text">Socioeconomic</a>
           <div class="dropdown-trigger">
           </div>
         </div>
         <div class="container mr-2">
-          <div class="notification">
-            <div id="chart2">
-              <svg></svg>
-            </div>
+          <div class="chartAreaWrapper2" id='chartArea2' style="width:100%"></div>
+            <canvas id="chart2"></canvas>
           </div>
         </div>
       </div>
     </div>
-  </div>
+  </section>
+  
 
   <!-- Modal if no statistics are available -->
   <div class="modal modal-fx-fadeInScale">
@@ -171,7 +173,7 @@
     <button class="modal-close is-large" aria-label="close"></button>
   </div>
 
-  <footer class="footer initial-scale">
+  <footer class="footer">
     <div class="content has-text-centered">
       <p>
         <strong>Syndemic explorer</strong> by <a href="https://mau.se/">Joel, Andreas, Ardian, Leo, Manna & Johanna</a>.
