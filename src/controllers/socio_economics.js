@@ -17,7 +17,7 @@ export default {
     let area3Code = req.query.area3Code;
     let year = req.query.year;
     let query = `select year, gid, indicator, value from socio_economic 
-        where area3_code = $1 and year = `;
+        where indicator LIKE 'demographics_%' and area3_code = $1 and year = `;
 
     if (!area3Code) {
       res.sendStatus(400);

@@ -42,7 +42,7 @@ map.on('load', function () {
       .addTo(map);
   });
 
-  map.on('mouseleave', 'heatmapcovid', function () {
+  map.on('mouseleave', 'heatmap', function () {
     map.getCanvas().style.cursor = '';
     popup.remove();
   });

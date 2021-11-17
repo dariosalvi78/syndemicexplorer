@@ -38,7 +38,7 @@
 
 
   <!-- Navbar information and headings -->
-  <nav class="navbar is-light">
+  <nav class="navbar is-light mb-2">
     <div class="navbar-brand">
       <a class="navbar-item">
         <img src='../images/covidDashboardLogo.png' width="30" height="30">
@@ -122,24 +122,25 @@
 
    <!-- Main body with columns -->
 
-  <section class ="section">
-  <div class="columns">
-    <div class="column">
+  <div class ="container">
+    <div class="columns">
+    <div class="column mt-6">
       <!-- Information about the map and size, rounded corners -->
       <div class="container containerMiddle" id='map' style='width: 100%; height: 500px;'></div>
 
     </div>
       <!-- Button and statistic for the country -->
     
-    <div class="column">
-      <div class="dropdown" id="statistic1">
-        <a class="navbar-link" id="stats1">Confirmed cases</a>
-        <a class="navbar-link" id="startDate">Start Date</a>
-        <a class="navbar-link" id="endDate">End Date</a>
-        <div class="dropdown-trigger"></div>
-      </div>
+      <div class="column">
 
-      <div class="container mr-2 mb-5">
+      <div class="container mr-2 mb-2">
+       
+          <div class="dropdown" id="statistic1">
+            <a class="navbar-link" id="stats1">Confirmed cases</a>
+            <a class="navbar-link" id="startDate">Start Date</a>
+            <a class="navbar-link" id="endDate">End Date</a>
+            <div class="dropdown-trigger"></div>
+          </div>
 
         <div class="chartAreaWrapper" id='chartArea' style="width:100%; height:100%;">
           <canvas id="myChart"></canvas>
@@ -149,26 +150,34 @@
 
       <!-- Button and total cases for the country -->
       
-        <div class="dropdown" id="level1">
-          <a class="navbar-link" id="level1Text">Socioeconomic</a>
-          <div class="dropdown-trigger">
+        
+        <div class="container mr-2 mb-10">
+          <div class="dropdown" id="level1">
+            <a class="navbar-link" id="level1Text">Socioeconomic</a>
+            <div class="dropdown-trigger">
+            </div>
           </div>
-        </div>
-        <div class="container mr-2">
           <div class="chartAreaWrapper2" id='chartArea2' style="width:100%"></div>
             <canvas id="chart2"></canvas>
           </div>
         </div>
       </div>
     </div>
-  </section>
+
   
 
   <!-- Modal if no statistics are available -->
-  <div class="modal modal-fx-fadeInScale">
-    <div class="modal-background"></div>
+  <div class="modal modal-fx-fadeInScale modalEpidem">
+    <div class="modal-background modal-background1"></div>
     <div class="modal-content has-background-white py-5 px-5">
       <p class="title mb-6">No Statistic Available For The Chosen Area</p>
+    </div>
+    <button class="modal-close is-large" aria-label="close"></button>
+  </div>
+  <div class="modal modal-fx-fadeInScale modalSocio">
+    <div class="modal-background modal-background2"></div>
+    <div class="modal-content has-background-white py-5 px-5">
+      <p class="title mb-6">No Population Data Available For The Chosen Area</p>
     </div>
     <button class="modal-close is-large" aria-label="close"></button>
   </div>
@@ -187,6 +196,6 @@
 <script src="mapbox.js"></script>
 <script src="dropDown.js"></script>
 <script src="./charts/epidemiologiChart.js"></script>
-<script src="./charts/secondChart.js"></script>
+<script src="./charts/socioeconomicChart.js"></script>
 
 </html>

@@ -111,6 +111,7 @@ function fillDropDown3() {
           );
           //getDummyData(myJson.area2_code);
           confirmedCasesChart('admareas2?area2Code=' + myJson.area2_code);
+          populationSocioChart('population?area3Code=' + myJson.area2_code);
         });
         const newLine = document.createElement('br');
         level3.innerHTML = myJson.area2_name;
@@ -135,13 +136,14 @@ function fillDropDown4() {
       myJson.forEach(function (myJson) {
         const level4 = document.createElement('a');
         level4.addEventListener('click', function () {
-          level4Text.innerHTML = myJson.area3_code;
+          level4Text.innerHTML = myJson.area3_name;
           console.log(myJson);
           setBoundingBox(
             [myJson.bounding_box[0], myJson.bounding_box[1]],
             [myJson.bounding_box[2], myJson.bounding_box[3]]
           );
           confirmedCasesChart('admareas3?area3Code=' + myJson.area3_code);
+          populationSocioChart('population?area3Code=' + myJson.area3_code);
         });
         level4.setAttribute('class', 'dropdown-item');
         const newLine = document.createElement('br');

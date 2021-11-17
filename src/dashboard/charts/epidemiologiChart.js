@@ -110,9 +110,15 @@ function deleteAndAddChart() {
 }
 
 //modal
-const modalBg = document.querySelector('.modal-background');
-const modal = document.querySelector('.modal');
+const modalBgEpi = document.querySelector('.modal-background1');
+const modalBgSoc = document.querySelector('.modal-background2');
+const modalEpi = document.querySelector('.modalEpidem');
+const modalSoc = document.querySelector('.modalSocio');
 
-modalBg.addEventListener('click', () => {
-  modal.classList.remove('is-active');
+modalBgEpi.addEventListener('click', () => {
+  modalEpi.classList.remove('is-active');
+});
+
+modalBgSoc.addEventListener('click', () => {
+  modalSoc.classList.remove('is-active');
 });
