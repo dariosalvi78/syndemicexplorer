@@ -85,6 +85,10 @@ function currentOrLastWeek() {
 }
 
 export default function () {
+  let totalDataUrl = "https://utility.arcgis.com/usrsvcs/servers/f336ef7192324210a8708d991a137e01/rest/services/FOHM_Covid_19_region_FME_20201228/FeatureServer/0/query?f=pbf&cacheHint=true&resultOffset=0&resultRecordCount=300&where=veckonr_txt='2021-44'&orderByFields=Antal_fall_100000inv_vecka desc&outFields=*&resultType=standard&returnGeometry=false&spatialRel=esriSpatialRelIntersects"
+  // ParsePBF(totalDataUrl)
+
+
   let currentYear = new Date().getFullYear();
   let startYear = 2020; //Grab data from 2020 til now
 
@@ -190,7 +194,17 @@ async function getAdmArea(municipality, district) {
 }
 
 function ParsePBF(url) {
-  const response = await axios.get(url,  { responseType: 'arraybuffer' })
+  var config = {
+    method: 'get',
+    url: url,
+    headers: {
+      'origin': 'https://fohm.maps.arcgis.com',
+      'referer': 'https://fohm.maps.arcgis.com/apps/opsdashboard/index.html'
+    },
+    responseType: 'arraybuffer'
+  }
+
+  const response = await axios(config)
   const buffer = Buffer.from(response.data, "utf-8")
 
   var tinyosmpbf = require('tiny-osmpbf');
