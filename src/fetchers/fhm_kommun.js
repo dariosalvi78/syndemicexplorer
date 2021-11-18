@@ -141,21 +141,21 @@ export default function () {
             let area2_code = data.area2_code; //municipality
             let area3_code = data.area3_code;
             let gid = (area3_code != null) ? area3_code : area2_code;
-            let cases_this_week = featureAttribute.fall;
+            let cumulative_cases = featureAttribute.cumfreq;
     
             //TODO use these counts for cities
             if (featureAttribute.KnNamn == "Malmö")
               // Add to the total for adm_area_2 = Malmö
-              malmo_count += cases_this_week;
+              malmo_count += cumulative_cases;
             else if (featureAttribute.KnNamn == "Göteborg")
               // Add to the total for adm_area_2 = Göteborg
-              goteborg_count += cases_this_week;
+              goteborg_count += cumulative_cases;
             else if (featureAttribute.KnNamn == "Stockholm") {
               // Add to the total for adm_area_2 = Stockholm
-              stockholm_count += cases_this_week;
+              stockholm_count += cumulative_cases;
             }
             
-            let epidemiology_data = { table: "epidemiology", source: "Folkhälsomyndigheten", date: firstDayOfWeek(veckoNr, selectedYear), country_code: "SWE", area1_code: data.area1_code, area2_code: area2_code, area3_code: area3_code, gid: gid, confirmed: cases_this_week }
+            let epidemiology_data = { table: "epidemiology", source: "Folkhälsomyndigheten", date: firstDayOfWeek(veckoNr, selectedYear), country_code: "SWE", area1_code: data.area1_code, area2_code: area2_code, area3_code: area3_code, gid: gid, confirmed: cumulative_cases }
 
             await upsertTimeseries(epidemiology_data)
           }
