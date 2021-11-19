@@ -39,7 +39,7 @@ let optionsSocio = {
   },
 };
 
-function deleteAndAddChart() {
+function deleteAndAddSocioChart() {
   let element = document.getElementById('chart2');
   element.parentNode.removeChild(element);
   const canvas = document.createElement('canvas');
@@ -49,7 +49,7 @@ function deleteAndAddChart() {
 
 async function populationSocioChart(param) {
   console.log('DENNA FUNKAR');
-  deleteAndAddChart();
+  // deleteAndAddSocioChart();
   await populationSocioData(param);
   const ctx = document.getElementById('chart2').getContext('2d');
   //Fill gradient

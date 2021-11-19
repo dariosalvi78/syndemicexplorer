@@ -45,7 +45,7 @@ let options = {
 
 //Creates a graph with confirmed cases for the area
 async function confirmedCasesChart(param) {
-  deleteAndAddChart();
+  // deleteAndAddEpidemChart();
   await confirmedCasesData(param);
   const ctx = document.getElementById('myChart').getContext('2d');
   //Fill gradient
@@ -101,7 +101,7 @@ async function confirmedCasesData(param) {
   console.log(dateLabel);
 }
 
-function deleteAndAddChart() {
+function deleteAndAddEpidemChart() {
   let element = document.getElementById('myChart');
   element.parentNode.removeChild(element);
   const canvas = document.createElement('canvas');

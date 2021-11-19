@@ -49,6 +49,13 @@ function fillDropDown1() {
         level1.addEventListener('click', function () {
           level1Text.innerHTML = myJson.country_name;
           console.log(myJson);
+          deleteAndAddEpidemChart();
+          deleteAndAddSocioChart();
+          if (myJson.country_name === 'Sweden') {
+            level2Text.innerHTML = 'Region';
+            level3Text.innerHTML = 'Municipality';
+            level4Text.innerHTML = 'District';
+          }
 
           const boundingBox = new mapboxgl.LngLatBounds(
             [11.0273686052, 55.3617373725],
@@ -79,7 +86,10 @@ function fillDropDown2() {
             [myJson.bounding_box[0], myJson.bounding_box[1]],
             [myJson.bounding_box[2], myJson.bounding_box[3]]
           );
+          deleteAndAddEpidemChart();
+          deleteAndAddSocioChart();
           confirmedCasesChart('admareas1?area1Code=' + myJson.area1_code);
+          populationSocioChart('population?area3Code=' + myJson.area1_code);
         });
         const newLine = document.createElement('br');
         level2.innerHTML = myJson.area1_name;
@@ -109,7 +119,11 @@ function fillDropDown3() {
             [myJson.bounding_box[0], myJson.bounding_box[1]],
             [myJson.bounding_box[2], myJson.bounding_box[3]]
           );
-          //getDummyData(myJson.area2_code);
+
+          deleteAndAddEpidemChart();
+          deleteAndAddSocioChart();
+          compareWith.classList.toggle('is-active');
+          fillCompareWith('admareas2?area1Code=SWE.13_1');
           confirmedCasesChart('admareas2?area2Code=' + myJson.area2_code);
           populationSocioChart('population?area3Code=' + myJson.area2_code);
         });
@@ -142,6 +156,16 @@ function fillDropDown4() {
             [myJson.bounding_box[0], myJson.bounding_box[1]],
             [myJson.bounding_box[2], myJson.bounding_box[3]]
           );
+
+          deleteAndAddEpidemChart();
+          deleteAndAddSocioChart();
+          if (!compareWith.classList.toggle('is-active')) {
+            compareWithDropContent.innerHTML = '';
+            compareWith.classList.toggle('is-active');
+          }
+
+          fillCompareWith('admareas3?area2Code=SWE.13.19_1');
+
           confirmedCasesChart('admareas3?area3Code=' + myJson.area3_code);
           populationSocioChart('population?area3Code=' + myJson.area3_code);
         });
@@ -153,3 +177,40 @@ function fillDropDown4() {
       });
     });
 }
+
+function fillCompareWith(param) {
+  const compareUrl = `http://localhost:5000/api/v1/maps/${param}`;
+  fetch(compareUrl)
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (myJson) {
+      myJson.forEach(function (myJson) {
+        const compareData = document.createElement('a');
+        compareData.addEventListener('click', function () {
+          console.log(myJson);
+        });
+        compareData.setAttribute('class', 'dropdown-item');
+        const newLine = document.createElement('br');
+        if (myJson.area2_code) {
+          compareData.innerHTML = myJson.area2_name;
+        }
+        if (myJson.area3_code) {
+          compareData.innerHTML = myJson.area3_name;
+        }
+
+        compareWithDropContent.appendChild(compareData);
+        compareWithDropContent.appendChild(newLine);
+      });
+    });
+}
+const compareWithDropContent = document.querySelector(
+  '.compareWithDropContent'
+);
+const compareWithText = document.getElementById('compareWithText');
+const compareWith = document.getElementById('compareWithDropdown');
+//FUNKAR INTE RIKTIGT -- behöver tweeka det lite
+compareWith.addEventListener('click', function () {
+  compareWithDropContent.innerHTML = '';
+  compareWith.classList.toggle('is-active');
+});
