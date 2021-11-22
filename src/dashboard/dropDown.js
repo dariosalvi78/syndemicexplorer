@@ -187,8 +187,16 @@ function fillCompareWith(param) {
         const compareData = document.createElement('a');
         compareData.addEventListener('click', function () {
           console.log(myJson);
-          compareDataConfirmedData('admareas3?area3Code=' + myJson.area3_code);
-          //confirmedCasesChart('admareas3?area3Code=' + myJson.area3_code);
+          if (myJson.area2_code) {
+            compareDataConfirmedChart(
+              'admareas2?area2Code=' + myJson.area2_code
+            );
+          }
+          if (myJson.area3_code) {
+            compareDataConfirmedChart(
+              'admareas3?area3Code=' + myJson.area3_code
+            );
+          }
         });
         compareData.setAttribute('class', 'dropdown-item');
         const newLine = document.createElement('br');

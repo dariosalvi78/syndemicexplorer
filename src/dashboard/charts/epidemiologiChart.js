@@ -47,7 +47,7 @@ let options = {
 //Creates a graph with confirmed cases for the area
 async function confirmedCasesChart(param) {
   // deleteAndAddEpidemChart();
-  await compareDataConfirmedData(param);
+  // await compareDataConfirmedData(param);
   await confirmedCasesData(param);
   const ctx = document.getElementById('myChart').getContext('2d');
   //Fill gradient
@@ -75,24 +75,13 @@ async function confirmedCasesChart(param) {
           hoverRadius: 5,
           tension: 0.3,
         },
-        {
-          label: 'Compared confirmed cases',
-          backgroundColor: gradient,
-          borderColor: '#fff',
-          pointBackgroundColor: 'rgb(199,189,189)',
-          data: comparedConfirmedLabel,
-          fill: true,
-          radius: 3,
-          hitRadius: 10,
-          hoverRadius: 5,
-          tension: 0.3,
-        },
       ],
     },
 
     // Configuration options go here
     options: options,
   });
+  chart.update();
 }
 
 //Fetches the data of area2Code depending on which dropdown menu value
@@ -113,6 +102,35 @@ async function confirmedCasesData(param) {
   confirmedLabel = confirmed;
   dateLabel = date;
   console.log(dateLabel);
+}
+async function compareDataConfirmedChart(param) {
+  await compareDataConfirmedData(param);
+
+  const newDataset = {
+    label: 'Compared Cases',
+    backgroundColor: 'green',
+    borderColor: '#fff',
+    data: comparedConfirmedLabel,
+  };
+  console.log(comparedConfirmedLabel);
+  chart.data.datasets.push(newDataset);
+  chart.update();
+}
+
+async function compareDataConfirmedData(param) {
+  const apiUrl = `http://localhost:5000/api/v1/epidemiology/${param}`;
+  console.log(apiUrl);
+  const response = await fetch(apiUrl);
+  const barChartData = await response.json();
+  // if (barChartData.length == 0) {
+  //   modal.classList.add('is-active');
+  // }
+  console.log(barChartData);
+
+  const confirmed2 = barChartData.map((x) => x.confirmed);
+  console.log(confirmed2);
+
+  comparedConfirmedLabel = confirmed2;
 }
 
 function deleteAndAddEpidemChart() {
@@ -136,19 +154,3 @@ modalBgEpi.addEventListener('click', () => {
 modalBgSoc.addEventListener('click', () => {
   modalSoc.classList.remove('is-active');
 });
-
-async function compareDataConfirmedData(param) {
-  const apiUrl = `http://localhost:5000/api/v1/epidemiology/${param}`;
-  console.log(apiUrl);
-  const response = await fetch(apiUrl);
-  const barChartData = await response.json();
-  // if (barChartData.length == 0) {
-  //   modal.classList.add('is-active');
-  // }
-  console.log(barChartData);
-
-  const confirmed2 = barChartData.map((x) => x.confirmed);
-  console.log(confirmed2);
-
-  comparedConfirmedLabel = confirmed2;
-}
