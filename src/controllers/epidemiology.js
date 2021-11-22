@@ -27,7 +27,11 @@ export default {
         let area3Code = req.query.area3Code
         let startDate = req.query.startDate
         let endDate = req.query.endDate
-        let query = `select date, area3_code, confirmed from epidemiology where area3_code = $1`
+        let query = `select date, epidemiology.area3_code, area3_name, confirmed 
+        from epidemiology 
+        join admin_areas
+        on epidemiology.area3_code = admin_areas.area3_code
+        where epidemiology.area3_code = $1`
 
         if (!area3Code) {
           res.sendStatus(400)
