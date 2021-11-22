@@ -1,6 +1,8 @@
 let dateLabel = [],
   confirmedLabel = [],
-  comparedConfirmedLabel = [];
+  comparedConfirmedLabel = [],
+  comparedPopulationLabel = [],
+  placeLabel = [];
 
 let delayed;
 let chart;
@@ -52,7 +54,7 @@ async function confirmedCasesChart(param) {
   const ctx = document.getElementById('myChart').getContext('2d');
   //Fill gradient
   let gradient = ctx.createLinearGradient(0, 0, 0, 400);
-  gradient.addColorStop(0, 'rgba(58,123, 213, 1');
+  gradient.addColorStop(0, 'rgba(58,123, 213, 0.7');
   gradient.addColorStop(1, 'rgba(0,210, 255, 0.1)');
 
   chart = new Chart(ctx, {
@@ -64,7 +66,7 @@ async function confirmedCasesChart(param) {
       labels: dateLabel,
       datasets: [
         {
-          label: 'Confirmed Cases',
+          label: 'Confirmed Cases ' + placeLabel,
           backgroundColor: gradient,
           borderColor: '#fff',
           pointBackgroundColor: 'rgb(189,195,199)',
@@ -98,8 +100,10 @@ async function confirmedCasesData(param) {
   const confirmed = barChartData.map((x) => x.confirmed);
   console.log(confirmed);
   const date = barChartData.map((x) => x.date.slice(0, 10));
+  const place = barChartData[0].area3_name;
 
   confirmedLabel = confirmed;
+  placeLabel = place;
   dateLabel = date;
   console.log(dateLabel);
 }
@@ -107,10 +111,15 @@ async function compareDataConfirmedChart(param) {
   await compareDataConfirmedData(param);
 
   const newDataset = {
-    label: 'Compared Cases',
-    backgroundColor: 'green',
+    label: 'Confirmed cases ' + placeLabel,
+    backgroundColor: randomColor(),
     borderColor: '#fff',
     data: comparedConfirmedLabel,
+    fill: true,
+    radius: 3,
+    hitRadius: 10,
+    hoverRadius: 5,
+    tension: 0.3,
   };
   console.log(comparedConfirmedLabel);
   chart.data.datasets.push(newDataset);

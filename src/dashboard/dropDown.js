@@ -196,6 +196,9 @@ function fillCompareWith(param) {
             compareDataConfirmedChart(
               'admareas3?area3Code=' + myJson.area3_code
             );
+            comparePopulationSocioChart(
+              'population?area3Code=' + myJson.area3_code
+            );
           }
         });
         compareData.setAttribute('class', 'dropdown-item');
