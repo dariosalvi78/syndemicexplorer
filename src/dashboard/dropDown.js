@@ -122,7 +122,7 @@ function fillDropDown3() {
 
           deleteAndAddEpidemChart();
           deleteAndAddSocioChart();
-          compareWith.classList.toggle('is-active');
+          compareWithDropContent.innerHTML = '';
           fillCompareWith('admareas2?area1Code=SWE.13_1');
           confirmedCasesChart('admareas2?area2Code=' + myJson.area2_code);
           populationSocioChart('population?area3Code=' + myJson.area2_code);
@@ -159,11 +159,8 @@ function fillDropDown4() {
 
           deleteAndAddEpidemChart();
           deleteAndAddSocioChart();
-          if (!compareWith.classList.toggle('is-active')) {
-            compareWithDropContent.innerHTML = '';
-            compareWith.classList.toggle('is-active');
-          }
 
+          compareWithDropContent.innerHTML = '';
           fillCompareWith('admareas3?area2Code=SWE.13.19_1');
 
           confirmedCasesChart('admareas3?area3Code=' + myJson.area3_code);
@@ -180,6 +177,7 @@ function fillDropDown4() {
 
 function fillCompareWith(param) {
   const compareUrl = `http://localhost:5000/api/v1/maps/${param}`;
+  console.log(compareUrl);
   fetch(compareUrl)
     .then(function (response) {
       return response.json();
@@ -189,6 +187,8 @@ function fillCompareWith(param) {
         const compareData = document.createElement('a');
         compareData.addEventListener('click', function () {
           console.log(myJson);
+          compareDataConfirmedData('admareas3?area3Code=' + myJson.area3_code);
+          //confirmedCasesChart('admareas3?area3Code=' + myJson.area3_code);
         });
         compareData.setAttribute('class', 'dropdown-item');
         const newLine = document.createElement('br');
@@ -211,6 +211,5 @@ const compareWithText = document.getElementById('compareWithText');
 const compareWith = document.getElementById('compareWithDropdown');
 //FUNKAR INTE RIKTIGT -- behöver tweeka det lite
 compareWith.addEventListener('click', function () {
-  compareWithDropContent.innerHTML = '';
   compareWith.classList.toggle('is-active');
 });
