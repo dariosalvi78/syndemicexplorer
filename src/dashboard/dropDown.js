@@ -2,7 +2,8 @@
 const dropdown1 = document.getElementById('level1');
 
 let state = {};
-
+let startDate = {};
+let endDate = {};
 dropdown1.addEventListener('click', function () {
   dropDownContent1.innerHTML = '';
   fillDropDown1();
@@ -267,4 +268,75 @@ confirmedOption.addEventListener('click', function () {
   }
 
   epidemDataText.innerHTML = 'Confirmed cases';
+});
+
+const fillStartDates = () => {
+  const apiUrl = `http://localhost:5000/api/v1/epidemiology/admareas3?area3Code=${state.area3_code}`;
+  console.log(apiUrl);
+  fetch(apiUrl)
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (myJson) {
+      myJson.forEach(function (myJson) {
+        const dateData = document.createElement('a');
+        dateData.addEventListener('click', function () {
+          startDate = myJson.date;
+          dropStartDateText.innerHTML = date;
+        });
+        dateData.setAttribute('class', 'dropdown-item');
+        const newLine = document.createElement('br');
+        const date = myJson.date.slice(0, 10);
+        dateData.innerHTML = date;
+        dropDownContentStartDate.appendChild(dateData);
+        dropDownContentStartDate.appendChild(newLine);
+      });
+    });
+};
+const fillEndDates = () => {
+  const apiUrl = `http://localhost:5000/api/v1/epidemiology/admareas3?area3Code=${state.area3_code}`;
+  console.log(apiUrl);
+  fetch(apiUrl)
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (myJson) {
+      myJson.forEach(function (myJson) {
+        const dateData = document.createElement('a');
+        dateData.addEventListener('click', function () {
+          endDate = myJson.date + 1;
+          dropEndDateText.innerHTML = date;
+          confirmedCasesChart(
+            'admareas3?area3Code=' +
+              state.area3_code +
+              '&startDate=' +
+              startDate +
+              '&endDate=' +
+              endDate
+          );
+        });
+        dateData.setAttribute('class', 'dropdown-item');
+        const newLine = document.createElement('br');
+        const date = myJson.date.slice(0, 10);
+        dateData.innerHTML = date;
+        dropDownContentEndDate.appendChild(dateData);
+        dropDownContentEndDate.appendChild(newLine);
+      });
+    });
+};
+const dropDownContentStartDate = document.querySelector(
+  '.dropContentStartDate'
+);
+const dropStartDateText = document.getElementById('startDateText');
+const dropStartDate = document.getElementById('dropStartDate');
+dropStartDate.addEventListener('click', function () {
+  dropStartDate.classList.toggle('is-active');
+  fillStartDates();
+});
+const dropDownContentEndDate = document.querySelector('.dropContentEndDate');
+const dropEndDateText = document.getElementById('endDateText');
+const dropEndDate = document.getElementById('dropEndDate');
+dropEndDate.addEventListener('click', function () {
+  dropEndDate.classList.toggle('is-active');
+  fillEndDates();
 });
