@@ -22,23 +22,23 @@
 import axios from 'axios';
 import { Pool, upsertTimeseries } from '../db.js'
 
-let millisecondsPerDay = 24*60*60*1000;
+let millisecondsPerDay = 24 * 60 * 60 * 1000;
 
 //from https://stackoverflow.com/questions/7580824/how-to-convert-a-week-number-to-a-date-in-javascript
-function firstDayOfWeek(week, year) { 
-  var date       = firstWeekOfYear(year),
-      weekTime   = weeksToMilliseconds(week),
-      targetTime = date.getTime() + weekTime;
+function firstDayOfWeek(week, year) {
+  var date = firstWeekOfYear(year),
+    weekTime = weeksToMilliseconds(week),
+    targetTime = date.getTime() + weekTime;
 
   date.setTime(targetTime);
   date = date.toISOString();
   date = date.substring(0, date.indexOf('T'));
 
-  return date; 
+  return date;
 }
 
 function weeksToMilliseconds(weeks) {
-  return 1000 * 60 * 60 * 24 * 7 * (weeks - 1);
+  return millisecondsPerDay * 7 * (weeks - 1) + millisecondsPerDay;
 }
 
 function firstWeekOfYear(year) {
@@ -48,33 +48,33 @@ function firstWeekOfYear(year) {
 }
 
 /**
-* Sets the given date as the first day of week of the first week of year.
-*/
+ * Sets the given date as the first day of week of the first week of year.
+ */
 function firstWeekday(firstOfJanuaryDate) {
   // 0 correspond au dimanche et 6 correspond au samedi.
   var FIRST_DAY_OF_WEEK = 1; // Monday, according to iso8601
   var WEEK_LENGTH = 7; // 7 days per week
   var day = firstOfJanuaryDate.getDay();
   day = (day === 0) ? 7 : day; // make the days monday-sunday equals to 1-7 instead of 0-6
-  var dayOffset=-day+FIRST_DAY_OF_WEEK; // dayOffset will correct the date in order to get a Monday
-  if (WEEK_LENGTH-day+1<4) {
-      // the current week has not the minimum 4 days required by iso 8601 => add one week
-      dayOffset += WEEK_LENGTH;
+  var dayOffset = -day + FIRST_DAY_OF_WEEK; // dayOffset will correct the date in order to get a Monday
+  if (WEEK_LENGTH - day + 1 < 4) {
+    // the current week has not the minimum 4 days required by iso 8601 => add one week
+    dayOffset += WEEK_LENGTH;
   }
-  return new Date(firstOfJanuaryDate.getTime()+dayOffset * millisecondsPerDay);
+  return new Date(firstOfJanuaryDate.getTime() + dayOffset * millisecondsPerDay);
 }
 
 function currentOrLastWeek() {
   //define a date object variable that will take the current system date  
-  let todaydate = new Date();  
-  
+  let todaydate = new Date();
+
   //find the year of the current date  
-  var oneJan =  new Date(todaydate.getFullYear(), 0, 1);   
+  var oneJan = new Date(todaydate.getFullYear(), 0, 1);
   // calculating number of days in given year before a given date   
-  var numberOfDays =  Math.floor((todaydate - oneJan) / millisecondsPerDay);   
+  var numberOfDays = Math.floor((todaydate - oneJan) / millisecondsPerDay);
   // adding 1 since to current date and returns value starting from 0   
 
-  let currentWeek = Math.ceil(( todaydate.getDay() + 1 + numberOfDays) / 7) - 1;
+  let currentWeek = Math.ceil((todaydate.getDay() + 1 + numberOfDays) / 7) - 1;
 
   if (todaydate.getDay() != 0) {
     console.log("It's not sunday decreasing week by 1, week is currently before change " + currentWeek);
@@ -106,11 +106,8 @@ export default function () {
 
     for (let selectedWeek = thisWeekNbr; selectedWeek > 0; selectedWeek--) {
       let weekStr = selectedWeek.toString();
-      if (selectedWeek < 10) {
+      if (selectedWeek < 10)
         weekStr = 0 + weekStr;
-        console.log(weekStr);
-      }
-        
 
       config.url = 'https://utility.arcgis.com/usrsvcs/servers/63de09e702d142eb9ddd865838f80bd5/rest/services/FOHM_Covid_19_kommun_FME_20201228/FeatureServer/0/query?f=json&where=veckonr_txt%3D%27' + selectedYear + '-' + weekStr + '%27&returnGeometry=false&outFields=*&outSR=4326&cacheHint=true';
 
@@ -119,34 +116,34 @@ export default function () {
       let malmo_count = 0
       let goteborg_count = 0
       let stockholm_count = 0
-    
+
       axios(config)
         .then(async function (response) {
           for (var i = 0; i < response.data.features.length; i++) {
             let featureAttribute = response.data.features[i].attributes;
-    
+
             if (featureAttribute.KnNamn == "Upplands Väsby")
               featureAttribute.KnNamn = "Upplands-Väsby"; //# Fix naming difference between FHM and OxCOVID19 database
-    
+
             let data = await getAdmArea(featureAttribute.KnNamn, featureAttribute.stadsdel);
-    
+
             if (data == undefined) //Happens if authentication fails or the table doesn't exist
               continue;
-    
+
             data = data.rows[0];
-    
+
             let veckoNr = featureAttribute.veckonr;
-    
+
             if (data == undefined) {
               console.error("Data is null on: " + featureAttribute.KnNamn);
               continue;
             }
-            
+
             let area2_code = data.area2_code; //municipality
             let area3_code = data.area3_code;
             let gid = (area3_code != null) ? area3_code : area2_code;
             let cumulative_cases = featureAttribute.cumfreq;
-    
+
             //TODO use these counts for cities
             if (featureAttribute.KnNamn == "Malmö")
               // Add to the total for adm_area_2 = Malmö
@@ -158,8 +155,18 @@ export default function () {
               // Add to the total for adm_area_2 = Stockholm
               stockholm_count += cumulative_cases;
             }
-            
-            let epidemiology_data = { table: "epidemiology", source: "Folkhälsomyndigheten", date: firstDayOfWeek(veckoNr, selectedYear), country_code: "SWE", area1_code: data.area1_code, area2_code: area2_code, area3_code: area3_code, gid: gid, confirmed: cumulative_cases }
+
+            let epidemiology_data = {
+              table: "epidemiology",
+              source: "Folkhälsomyndigheten",
+              date: firstDayOfWeek(veckoNr, selectedYear),
+              country_code: "SWE",
+              area1_code: data.area1_code,
+              area2_code: area2_code,
+              area3_code: area3_code,
+              gid: gid,
+              confirmed: cumulative_cases
+            }
 
             await upsertTimeseries(epidemiology_data)
           }
