@@ -128,11 +128,38 @@
 
       <div class="container mr-2 mb-2">
        
-          <div class="dropdown" id="statistic1">
-            <a class="navbar-link" id="stats1">Confirmed cases</a>
-            <a class="navbar-link" id="startDate">Start Date</a>
-            <a class="navbar-link" id="endDate">End Date</a>
-            <div class="dropdown-trigger"></div>
+          <div class="dropdown" id="statisticEpidem">
+            <div class="navbar-item has-dropdown">
+            <a class="navbar-link" id="stats1">Epidemiology</a>
+   
+            <div class="dropdown-menu" id="dropdown-menuEpidem" role="menu">
+              <div class="dropdown-content dropEpidem">
+                <a class="dropdown-item" id ="deathsOption">Deaths</a>
+                <a class="dropdown-item" id ="confirmedOption">Confirmed Cases</a>
+              </div>
+            </div>
+          </div>
+          </div>
+          <div class="dropdown" id="dropStartDate">
+            <div class="navbar-item has-dropdown">
+              <a class="navbar-link" id="startDate">Start Date</a>
+   
+            <div class="dropdown-menu" id="dropdown-menuStartDate" role="menu">
+              <div class="dropdown-content dropContentStartDate">
+                
+              </div>
+            </div>
+          </div>
+          </div>
+          <div class="dropdown" id="statisticEpidem">
+            <div class="navbar-item has-dropdown">
+              <a class="navbar-link" id="endDate">End Date</a>   
+            <div class="dropdown-menu" id="dropdown-menuEndDate" role="menu">
+              <div class="dropdown-content dropEndDate">
+                
+              </div>
+            </div>
+          </div>
           </div>
 
         <div class="chartAreaWrapper" id='chartArea' style="width:100%; height:100%;">

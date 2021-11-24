@@ -124,6 +124,8 @@ async function comparePopulationSocioData(param) {
   comparedPopulationLabel = population;
   placeLabel = place;
 
+  //Använd av find metod på array för att kolla om population redan finns
+
   console.log(dateLabel);
 }
 

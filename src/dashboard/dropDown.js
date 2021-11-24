@@ -1,7 +1,7 @@
 'use strict';
 const dropdown1 = document.getElementById('level1');
-const buttonLevel1 = document.getElementById('level1Text');
-const buttonLevel2 = document.getElementById('level2Text');
+
+let state = {};
 
 dropdown1.addEventListener('click', function () {
   dropDownContent1.innerHTML = '';
@@ -34,8 +34,8 @@ const dropDownContent1 = document.querySelector('.dropContent1');
 const level1Text = document.getElementById('level1Text');
 const urlLevel1 = 'http://localhost:5000/api/v1/maps/countrynames';
 
-function fillDropDown1() {
-  fetch(urlLevel1)
+async function fillDropDown1() {
+  await fetch(urlLevel1)
     .then(function (response) {
       return response.json();
     })
@@ -71,6 +71,10 @@ const dropDownContent2 = document.querySelector('.dropContent2');
 const level2Text = document.getElementById('level2Text');
 const urlLevel2 = 'http://localhost:5000/api/v1/maps/admareas1?countryCode=SWE';
 
+const refreshMap = () => {
+  state.length - 1;
+};
+
 function fillDropDown2() {
   fetch(urlLevel2)
     .then(function (response) {
@@ -81,13 +85,14 @@ function fillDropDown2() {
       myJson.forEach(function (myJson) {
         const level2 = document.createElement('a');
         level2.addEventListener('click', function () {
-          level2Text.innerHTML = myJson.area1_name;
+          level2Text.innerHTML = myJson.area1_code;
+          state = myJson;
           setBoundingBox(
             [myJson.bounding_box[0], myJson.bounding_box[1]],
             [myJson.bounding_box[2], myJson.bounding_box[3]]
           );
-          deleteAndAddEpidemChart();
-          deleteAndAddSocioChart();
+          createEpidemChart();
+
           confirmedCasesChart('admareas1?area1Code=' + myJson.area1_code);
           populationSocioChart('population?area3Code=' + myJson.area1_code);
         });
@@ -113,15 +118,15 @@ function fillDropDown3() {
       myJson.forEach(function (myJson) {
         const level3 = document.createElement('a');
         level3.addEventListener('click', function () {
-          level3Text.innerHTML = myJson.area2_name;
+          level3Text.innerHTML = myJson.area2_code;
+          state = myJson;
           console.log(myJson);
           setBoundingBox(
             [myJson.bounding_box[0], myJson.bounding_box[1]],
             [myJson.bounding_box[2], myJson.bounding_box[3]]
           );
 
-          deleteAndAddEpidemChart();
-          deleteAndAddSocioChart();
+          createEpidemChart();
           compareWithDropContent.innerHTML = '';
           fillCompareWith('admareas2?area1Code=SWE.13_1');
           confirmedCasesChart('admareas2?area2Code=' + myJson.area2_code);
@@ -150,20 +155,23 @@ function fillDropDown4() {
       myJson.forEach(function (myJson) {
         const level4 = document.createElement('a');
         level4.addEventListener('click', function () {
-          level4Text.innerHTML = myJson.area3_name;
+          level4Text.innerHTML = myJson.area3_code;
+          state = myJson;
+          console.log(state);
           console.log(myJson);
           setBoundingBox(
             [myJson.bounding_box[0], myJson.bounding_box[1]],
             [myJson.bounding_box[2], myJson.bounding_box[3]]
           );
 
-          deleteAndAddEpidemChart();
-          deleteAndAddSocioChart();
-
+          // deleteAndAddEpidemChart();
+          // deleteAndAddSocioChart();
+          createEpidemChart();
           compareWithDropContent.innerHTML = '';
           fillCompareWith('admareas3?area2Code=SWE.13.19_1');
 
           confirmedCasesChart('admareas3?area3Code=' + myJson.area3_code);
+
           populationSocioChart('population?area3Code=' + myJson.area3_code);
         });
         level4.setAttribute('class', 'dropdown-item');
@@ -223,4 +231,40 @@ const compareWith = document.getElementById('compareWithDropdown');
 //FUNKAR INTE RIKTIGT -- behöver tweeka det lite
 compareWith.addEventListener('click', function () {
   compareWith.classList.toggle('is-active');
+});
+
+const epidemDataText = document.getElementById('stats1');
+const dropdownEpidem = document.getElementById('statisticEpidem');
+dropdownEpidem.addEventListener('click', function (event) {
+  //dropDownContent4.innerHTML = '';
+  dropdownEpidem.classList.toggle('is-active');
+});
+
+const deathsOption = document.getElementById('deathsOption');
+deathsOption.addEventListener('click', function () {
+  if (state.area1_code) {
+    deathsConfirmedChart('admareas1?area1Code=' + state.area1_code);
+  }
+  if (state.area2_code) {
+    deathsConfirmedChart('admareas2?area2Code=' + state.area2_code);
+  }
+  if (state.area3_code) {
+    deathsConfirmedChart('admareas3?area3Code=' + state.area3_code);
+  }
+  epidemDataText.innerHTML = 'Deaths';
+});
+
+const confirmedOption = document.getElementById('confirmedOption');
+confirmedOption.addEventListener('click', function () {
+  if (state.area1_code) {
+    confirmedCasesChart('admareas1?area1Code=' + state.area1_code);
+  }
+  if (state.area2_code) {
+    confirmedCasesChart('admareas2?area2Code=' + state.area2_code);
+  }
+  if (state.area3_code) {
+    confirmedCasesChart('admareas3?area3Code=' + state.area3_code);
+  }
+
+  epidemDataText.innerHTML = 'Confirmed cases';
 });
