@@ -304,7 +304,7 @@ const fillEndDates = () => {
       myJson.forEach(function (myJson) {
         const dateData = document.createElement('a');
         dateData.addEventListener('click', function () {
-          endDate = myJson.date + 1;
+          endDate = myJson.date;
           dropEndDateText.innerHTML = date;
           confirmedCasesChart(
             'admareas3?area3Code=' +
