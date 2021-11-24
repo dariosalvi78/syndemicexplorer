@@ -109,24 +109,6 @@ async function confirmedCasesData(param) {
   console.log(dateLabel);
   console.log(confirmedLabel);
 }
-async function compareDataConfirmedChart(param) {
-  await compareDataConfirmedData(param);
-
-  const newDataset = {
-    label: 'Confirmed cases ' + placeLabel,
-    backgroundColor: randomColor(),
-    borderColor: '#fff',
-    data: comparedConfirmedLabel,
-    fill: true,
-    radius: 3,
-    hitRadius: 10,
-    hoverRadius: 5,
-    tension: 0.3,
-  };
-  console.log(comparedConfirmedLabel);
-  chart.data.datasets.push(newDataset);
-  chart.update();
-}
 
 async function deathsConfirmedChart(param) {
   await deathsConfirmedData(param);
@@ -144,6 +126,7 @@ async function deathsConfirmedChart(param) {
   };
   console.log(comparedConfirmedLabel);
   chart.data.datasets.push(newDataset);
+  chart.data.labels = dateLabel;
   chart.update();
 }
 
@@ -165,6 +148,25 @@ async function deathsConfirmedData(param) {
   placeLabel = place;
   dateLabel = date;
   console.log(dateLabel);
+}
+async function compareDataConfirmedChart(param) {
+  await compareDataConfirmedData(param);
+
+  const newDataset = {
+    label: 'Confirmed cases ' + placeLabel,
+    backgroundColor: randomColor(),
+    borderColor: '#fff',
+    data: comparedConfirmedLabel,
+    fill: true,
+    radius: 3,
+    hitRadius: 10,
+    hoverRadius: 5,
+    tension: 0.3,
+  };
+  console.log(comparedConfirmedLabel);
+  chart.data.datasets.push(newDataset);
+  chart.data.labels = dateLabel;
+  chart.update();
 }
 
 async function compareDataConfirmedData(param) {

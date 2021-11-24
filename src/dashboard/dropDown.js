@@ -87,6 +87,7 @@ function fillDropDown2() {
         const level2 = document.createElement('a');
         level2.addEventListener('click', function () {
           level2Text.innerHTML = myJson.area1_code;
+          epidemDataText.innerHTML = 'Confirmed cases';
           state = myJson;
           setBoundingBox(
             [myJson.bounding_box[0], myJson.bounding_box[1]],
@@ -120,6 +121,7 @@ function fillDropDown3() {
         const level3 = document.createElement('a');
         level3.addEventListener('click', function () {
           level3Text.innerHTML = myJson.area2_code;
+          epidemDataText.innerHTML = 'Confirmed cases';
           state = myJson;
           console.log(myJson);
           setBoundingBox(
@@ -157,6 +159,7 @@ function fillDropDown4() {
         const level4 = document.createElement('a');
         level4.addEventListener('click', function () {
           level4Text.innerHTML = myJson.area3_code;
+          epidemDataText.innerHTML = 'Confirmed cases';
           state = myJson;
           console.log(state);
           console.log(myJson);
@@ -202,9 +205,21 @@ function fillCompareWith(param) {
             );
           }
           if (myJson.area3_code) {
-            compareDataConfirmedChart(
-              'admareas3?area3Code=' + myJson.area3_code
-            );
+            if (endDate) {
+              compareDataConfirmedChart(
+                'admareas3?area3Code=' +
+                  myJson.area3_code +
+                  '&startDate=' +
+                  startDate +
+                  '&endDate=' +
+                  endDate
+              );
+            } else {
+              compareDataConfirmedChart(
+                'admareas3?area3Code=' + myJson.area3_code
+              );
+            }
+
             comparePopulationSocioChart(
               'population?area3Code=' + myJson.area3_code
             );
@@ -270,10 +285,10 @@ confirmedOption.addEventListener('click', function () {
   epidemDataText.innerHTML = 'Confirmed cases';
 });
 
-const fillStartDates = () => {
+const fillStartDates = async () => {
   const apiUrl = `http://localhost:5000/api/v1/epidemiology/admareas3?area3Code=${state.area3_code}`;
   console.log(apiUrl);
-  fetch(apiUrl)
+  await fetch(apiUrl)
     .then(function (response) {
       return response.json();
     })
