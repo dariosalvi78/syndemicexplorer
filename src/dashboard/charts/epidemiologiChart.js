@@ -101,8 +101,12 @@ async function confirmedCasesData(param) {
   const confirmed = barChartData.map((x) => x.confirmed);
   console.log(confirmed);
   const date = barChartData.map((x) => x.date.slice(0, 10));
-  const place = barChartData[0].area3_name;
-
+  let place;
+  if (barChartData[0].area3_name) {
+    place = barChartData[0].area3_name;
+  } else if (barChartData[0].area2_code) {
+    place = barChartData[0].area2_name;
+  }
   confirmedLabel = confirmed;
   placeLabel = place;
   dateLabel = date;

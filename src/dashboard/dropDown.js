@@ -93,6 +93,7 @@ function fillDropDown2() {
             [myJson.bounding_box[0], myJson.bounding_box[1]],
             [myJson.bounding_box[2], myJson.bounding_box[3]]
           );
+          deleteAndAddEpidemChart();
           createEpidemChart();
 
           confirmedCasesChart('admareas1?area1Code=' + myJson.area1_code);
@@ -128,7 +129,8 @@ function fillDropDown3() {
             [myJson.bounding_box[0], myJson.bounding_box[1]],
             [myJson.bounding_box[2], myJson.bounding_box[3]]
           );
-
+          deleteAndAddEpidemChart();
+          deleteAndAddSocioChart();
           createEpidemChart();
           compareWithDropContent.innerHTML = '';
           fillCompareWith('admareas2?area1Code=SWE.13_1');
@@ -168,8 +170,8 @@ function fillDropDown4() {
             [myJson.bounding_box[2], myJson.bounding_box[3]]
           );
 
-          // deleteAndAddEpidemChart();
-          // deleteAndAddSocioChart();
+          deleteAndAddEpidemChart();
+          deleteAndAddSocioChart();
           createEpidemChart();
           compareWithDropContent.innerHTML = '';
           fillCompareWith('admareas3?area2Code=SWE.13.19_1');
@@ -205,7 +207,7 @@ function fillCompareWith(param) {
             );
           }
           if (myJson.area3_code) {
-            if (endDate) {
+            if (!Object.keys(endDate) === 0) {
               compareDataConfirmedChart(
                 'admareas3?area3Code=' +
                   myJson.area3_code +
@@ -214,11 +216,10 @@ function fillCompareWith(param) {
                   '&endDate=' +
                   endDate
               );
-            } else {
-              compareDataConfirmedChart(
-                'admareas3?area3Code=' + myJson.area3_code
-              );
             }
+            compareDataConfirmedChart(
+              'admareas3?area3Code=' + myJson.area3_code
+            );
 
             comparePopulationSocioChart(
               'population?area3Code=' + myJson.area3_code
