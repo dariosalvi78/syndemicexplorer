@@ -1,0 +1,6 @@
+.mapboxgl-popup {
+  max-width: 400px;
+  font: 12px/20px 'Abel';
+  color: #010203;
+  opacity: 85%;
+}
