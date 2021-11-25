@@ -117,7 +117,7 @@ export default function () {
             if (featureAttribute.KnNamn == "Upplands Väsby")
               featureAttribute.KnNamn = "Upplands-Väsby"; //# Fix naming difference between FHM and OxCOVID19 database
 
-            let data = await getAdmArea(featureAttribute.KnNamn, featureAttribute.stadsdel);
+            let data = await getAdmArea(featureAttribute.KnNamn, featureAttribute.Stadsdel);
 
             if (data == undefined) //Happens if authentication fails or the table doesn't exist
               continue;
@@ -169,6 +169,7 @@ async function getAdmArea(municipality, district) {
     let parameters = [kommunNamn];
 
     if (stadsdel != null && stadsdel != undefined) {
+      stadsdel = " " + stadsdel
       query += " AND area3_name = $2";
       parameters.push(stadsdel);
     }

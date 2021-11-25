@@ -4,4 +4,4 @@ let startFetchers = async function () {
   await fhm_kommun();
 };
 
-// export { startFetchers as startFetchers }
+export { startFetchers as startFetchers }
