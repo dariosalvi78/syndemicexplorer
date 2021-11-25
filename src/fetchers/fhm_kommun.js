@@ -76,10 +76,8 @@ function currentOrLastWeek() {
 
   let currentWeek = Math.ceil((todaydate.getDay() + 1 + numberOfDays) / 7) - 1;
 
-  if (todaydate.getDay() != 0) {
-    console.log("It's not sunday decreasing week by 1, week is currently before change " + currentWeek);
+  if (todaydate.getDay() != 0)
     currentWeek -= 1;
-  }
 
   return currentWeek;
 }
@@ -111,12 +109,6 @@ export default function () {
 
       config.url = 'https://utility.arcgis.com/usrsvcs/servers/63de09e702d142eb9ddd865838f80bd5/rest/services/FOHM_Covid_19_kommun_FME_20201228/FeatureServer/0/query?f=json&where=veckonr_txt%3D%27' + selectedYear + '-' + weekStr + '%27&returnGeometry=false&outFields=*&outSR=4326&cacheHint=true';
 
-      // Accumulate data for three kommuner (adm_area_2) since
-      // data only exists for stadsdelar (adm_area_3) within them
-      let malmo_count = 0
-      let goteborg_count = 0
-      let stockholm_count = 0
-
       axios(config)
         .then(async function (response) {
           for (var i = 0; i < response.data.features.length; i++) {
@@ -143,18 +135,6 @@ export default function () {
             let area3_code = data.area3_code;
             let gid = (area3_code != null) ? area3_code : area2_code;
             let cumulative_cases = featureAttribute.cumfreq;
-
-            //TODO use these counts for cities
-            if (featureAttribute.KnNamn == "Malmö")
-              // Add to the total for adm_area_2 = Malmö
-              malmo_count += cumulative_cases;
-            else if (featureAttribute.KnNamn == "Göteborg")
-              // Add to the total for adm_area_2 = Göteborg
-              goteborg_count += cumulative_cases;
-            else if (featureAttribute.KnNamn == "Stockholm") {
-              // Add to the total for adm_area_2 = Stockholm
-              stockholm_count += cumulative_cases;
-            }
 
             let epidemiology_data = {
               table: "epidemiology",
@@ -192,6 +172,7 @@ async function getAdmArea(municipality, district) {
       query += " AND area3_name = $2";
       parameters.push(stadsdel);
     }
+
     try {
       return await Pool.query(query, parameters);
     } catch (error) {
@@ -200,7 +181,7 @@ async function getAdmArea(municipality, district) {
   }
 }
 
-function ParsePBF(url) {
+async function ParsePBF(url) {
   var config = {
     method: 'get',
     url: url,
