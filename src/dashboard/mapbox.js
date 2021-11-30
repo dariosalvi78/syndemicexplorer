@@ -117,9 +117,9 @@ map.on('load', function () {
   /* add circle layer here */
 });
 map.getCanvas().style.cursor = 'pointer';
-map.on('click', 'confirmed-point', function (e) {
+map.on('mousemove', 'confirmed-point', function (e) {
   console.log('DET FUNKAR ATT KLICKA');
-  new mapboxgl.Popup()
+  popup
     .setLngLat(
       e.features[0].geometry.coordinates
     ) /* Find & set the coordinates for the pop-up. */
@@ -138,11 +138,11 @@ const setBoundingBox = (bound1, bound2) => {
   map.fitBounds(bounds);
 };
 
-// var popup = new mapboxgl.Popup({
-//   closeButton: false,
-// });
+var popup = new mapboxgl.Popup({
+  closeButton: false,
+});
 
-// map.on('mouseleave', 'confirmed-point', function () {
-//   map.getCanvas().style.cursor = '';
-//   popup.remove();
-// });
+map.on('mouseleave', 'confirmed-point', function () {
+  map.getCanvas().style.cursor = '';
+  popup.remove();
+});
