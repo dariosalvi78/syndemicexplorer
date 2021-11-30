@@ -19,8 +19,12 @@
 
 // we know that we have stads del (adm_area_3) statistics only for Malmö, Göteborg and Stockholm
 // for those, we can sum up all the cases for each stadsdel and also add the overall statistics for adm_area_2
-import axios from 'axios';
-import { Pool, upsertTimeseries } from '../db.js'
+import axios from 'axios'
+import {
+  Pool,
+  upsertTimeseries
+} from '../db.js'
+import csv from '../../csv files/read_csv_files.js'
 
 let millisecondsPerDay = 24 * 60 * 60 * 1000;
 
@@ -83,9 +87,7 @@ function currentOrLastWeek() {
 }
 
 export default function () {
-  let totalDataUrl = "https://utility.arcgis.com/usrsvcs/servers/f336ef7192324210a8708d991a137e01/rest/services/FOHM_Covid_19_region_FME_20201228/FeatureServer/0/query?f=pbf&cacheHint=true&resultOffset=0&resultRecordCount=300&where=veckonr_txt='2021-44'&orderByFields=Antal_fall_100000inv_vecka desc&outFields=*&resultType=standard&returnGeometry=false&spatialRel=esriSpatialRelIntersects"
-  // ParsePBF(totalDataUrl)
-
+  //https://sdb.socialstyrelsen.se/api/v1/sv/dodsorsaker/diagnos/text/Covid
 
   let currentYear = new Date().getFullYear();
   let startYear = 2020; //Grab data from 2020 til now
@@ -158,10 +160,7 @@ export default function () {
   }
 }
 
-async function getAdmArea(municipality, district) {
-  let kommunNamn = municipality;
-  let stadsdel = district;
-
+async function getAdmArea(kommunNamn, stadsdel) {
   if (!kommunNamn) {
     console.log("Missing kommunNamn!")
   } else {
@@ -182,21 +181,61 @@ async function getAdmArea(municipality, district) {
   }
 }
 
-async function ParsePBF(url) {
+function readCSVFileWithUrl(url) {
   var config = {
-    method: 'get',
-    url: url,
-    headers: {
-      'origin': 'https://fohm.maps.arcgis.com',
-      'referer': 'https://fohm.maps.arcgis.com/apps/opsdashboard/index.html'
-    },
-    responseType: 'arraybuffer'
+      method: 'get',
+      url: url
   }
 
-  const response = await axios(config)
-  const buffer = Buffer.from(response.data, "utf-8")
+  axios(config)
+      .then(async function (response) {
+          const data = response.data
+          const dataArray = csv(data);
 
-  var tinyosmpbf = require('tiny-osmpbf');
-  var osmData = tinyosmpbf(buffer);
-  console.log(osmData);
+          for (let i = 0; i < dataArray.length; i++) {
+            let KnNamn = dataArray[i][0].replace(/"/g, '')
+            let deaths = dataArray[i][1]
+
+            if (KnNamn !== "Upplands-Väsby" && KnNamn.includes("Upplands") && KnNamn.includes("Väsby"))
+              KnNamn = "Upplands-Väsby"; //# Fix naming difference between FHM and OxCOVID19 database
+
+            if (deaths == undefined || deaths.length == 1)
+              return;
+
+            deaths = Math.round(deaths); //Database takes integer not float
+
+            let adm_area = await getAdmArea(KnNamn);
+
+            if (adm_area == undefined) //Happens if authentication fails or the table doesn't exist
+              continue;
+
+            adm_area = adm_area.rows[0];
+
+            if (adm_area == undefined) {
+              console.error("Found no data with getAdmArea function in readCSVFileWithURL, input was: " + KnNamn);
+              continue;
+            }
+
+            let area2_code = adm_area.area2_code; //municipality
+            let area3_code = adm_area.area3_code;
+            let gid = (area3_code != null) ? area3_code : area2_code;
+
+            let epidemiology_data = {
+              table: "epidemiology",
+              source: "Folkhälsomyndigheten", //Maybe source is incorrect, not sure where it's from
+              date: firstDayOfWeek(currentOrLastWeek(), new Date().getFullYear()),
+              country_code: "SWE",
+              area1_code: adm_area.area1_code,
+              area2_code: area2_code,
+              area3_code: area3_code,
+              gid: gid,
+              dead: deaths
+            }
+
+            // console.log("Inserting deaths for " + KnNamn)
+            await upsertTimeseries(epidemiology_data)
+          }
+  })
 }
+
+readCSVFileWithUrl('https://datawrapper.dwcdn.net/liNlg/81/dataset.csv');

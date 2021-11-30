@@ -1,5 +1,6 @@
 import fs from 'fs';
 import readline from 'readline';
+import axios from 'axios'
 
 let csvFiles = -1;
 let result = new Array();
@@ -135,4 +136,24 @@ class DataObject {
     }
 }
 
-readCSVFiles(process.cwd() + "/csv files");
+function csvToArray(csv) {
+    const lines = csv.split('\n')
+    const res = []
+    const headers = lines[0].split(',')
+  
+    for (let i = 1; i < lines.length; i++) {        
+        if (!lines[i])
+            continue
+        const obj = []
+        const currentline = lines[i].split(',')
+  
+        for (let j = 0; j < headers.length; j++) {
+            obj.push(currentline[j])
+        }
+        res.push(obj)
+    }
+    return res
+}
+
+// readCSVFiles(process.cwd() + "/csv files"); //Used for generating insertion statements from the csv files in csv files folder
+export default csvToArray;
