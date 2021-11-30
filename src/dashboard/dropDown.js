@@ -50,6 +50,8 @@ async function fillDropDown1() {
         level1.addEventListener('click', function () {
           level1Text.innerHTML = myJson.country_name;
           console.log(myJson);
+          state = myJson.country_code;
+          console.log(state);
           deleteAndAddEpidemChart();
           deleteAndAddSocioChart();
           if (myJson.country_name === 'Sweden') {
@@ -70,14 +72,10 @@ async function fillDropDown1() {
 
 const dropDownContent2 = document.querySelector('.dropContent2');
 const level2Text = document.getElementById('level2Text');
-const urlLevel2 = 'http://localhost:5000/api/v1/maps/admareas1?countryCode=SWE';
-
-const refreshMap = () => {
-  state.length - 1;
-};
+const urlLevel2 = `http://localhost:5000/api/v1/maps/admareas1?countryCode=${state}`;
 
 function fillDropDown2() {
-  fetch(urlLevel2)
+  fetch(`http://localhost:5000/api/v1/maps/admareas1?countryCode=${state}`)
     .then(function (response) {
       return response.json();
     })
@@ -88,7 +86,8 @@ function fillDropDown2() {
         level2.addEventListener('click', function () {
           level2Text.innerHTML = myJson.area1_code;
           epidemDataText.innerHTML = 'Confirmed cases';
-          state = myJson;
+          state = myJson.area1_code;
+          console.log(state);
           setBoundingBox(
             [myJson.bounding_box[0], myJson.bounding_box[1]],
             [myJson.bounding_box[2], myJson.bounding_box[3]]
@@ -110,10 +109,9 @@ function fillDropDown2() {
 
 const dropDownContent3 = document.querySelector('.dropContent3');
 const level3Text = document.getElementById('level3Text');
-const urlLevel3 =
-  'http://localhost:5000/api/v1/maps/admareas2?area1Code=SWE.13_1';
+const urlLevel3 = `http://localhost:5000/api/v1/maps/admareas2?area1Code=${state}`;
 function fillDropDown3() {
-  fetch(urlLevel3)
+  fetch(`http://localhost:5000/api/v1/maps/admareas2?area1Code=${state}`)
     .then(function (response) {
       return response.json();
     })
@@ -123,7 +121,7 @@ function fillDropDown3() {
         level3.addEventListener('click', function () {
           level3Text.innerHTML = myJson.area2_code;
           epidemDataText.innerHTML = 'Confirmed cases';
-          state = myJson;
+          state = myJson.area2_code;
           console.log(myJson);
           setBoundingBox(
             [myJson.bounding_box[0], myJson.bounding_box[1]],
@@ -148,11 +146,10 @@ function fillDropDown3() {
 
 const dropDownContent4 = document.querySelector('.dropContent4');
 const level4Text = document.getElementById('level4Text');
-const urlLevel4 =
-  'http://localhost:5000/api/v1/maps/admareas3?area2Code=SWE.13.19_1';
+const urlLevel4 = `http://localhost:5000/api/v1/maps/admareas3?area2Code=SWE.13.19_1${state}`;
 
 function fillDropDown4() {
-  fetch(urlLevel4)
+  fetch(`http://localhost:5000/api/v1/maps/admareas3?area2Code=${state}`)
     .then(function (response) {
       return response.json();
     })
@@ -179,6 +176,9 @@ function fillDropDown4() {
           confirmedCasesChart('admareas3?area3Code=' + myJson.area3_code);
 
           populationSocioChart('population?area3Code=' + myJson.area3_code);
+          dropSocioYear.classList.remove('is-hidden');
+          dropStartDate.classList.remove('is-hidden');
+          dropEndDate.classList.remove('is-hidden');
         });
         level4.setAttribute('class', 'dropdown-item');
         const newLine = document.createElement('br');
@@ -321,6 +321,7 @@ const fillEndDates = () => {
         const dateData = document.createElement('a');
         dateData.addEventListener('click', function () {
           endDate = myJson.date;
+          console.log('slutdatum' + endDate);
           dropEndDateText.innerHTML = date;
           confirmedCasesChart(
             'admareas3?area3Code=' +
@@ -355,4 +356,26 @@ const dropEndDate = document.getElementById('dropEndDate');
 dropEndDate.addEventListener('click', function () {
   dropEndDate.classList.toggle('is-active');
   fillEndDates();
+});
+
+const dropSocioYearContent = document.querySelector('.dropSocioYearContent');
+const dropSocioYearText = document.getElementById('socioYearText');
+const dropSocioYear = document.getElementById('dropSocioYear');
+dropSocioYear.addEventListener('click', function () {
+  dropSocioYear.classList.toggle('is-active');
+});
+
+const optionYear2020 = document.getElementById('option2020');
+optionYear2020.addEventListener('click', function () {
+  populationSocioChart(
+    'population?area3Code=' + state.area3_code + '&year=2020'
+  );
+});
+const optionYear2021 = document.getElementById('option2021');
+optionYear2021.addEventListener('click', function () {
+  deleteAndAddSocioChart();
+  populationSocioChart(
+    'population?area3Code=' + state.area3_code + '&year=2021'
+  );
+  dropSocioYear.classList.toggle('is-visible');
 });

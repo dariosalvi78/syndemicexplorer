@@ -3,13 +3,134 @@ mapboxgl.accessToken =
 
 const map = new mapboxgl.Map({
   container: 'map',
-  style: 'mapbox://styles/joelsven/ckw29pxch04ls14p4lndhhfjf',
+  style: 'mapbox://styles/mapbox/streets-v11',
   center: [-5.0, 52.47],
   zoom: 1,
 });
+map.on('load', function () {
+  map.addSource('confirmedcases', {
+    type: 'geojson',
+    data: './heatmap.geojson',
+  });
+  map.addLayer(
+    {
+      id: 'confirmed-heat',
+      type: 'heatmap',
+      source: 'confirmedcases',
+      maxzoom: 21,
+      paint: {
+        // increase weight as diameter breast height increases
+        'heatmap-weight': {
+          property: 'confirmed',
+          type: 'exponential',
+          stops: [
+            [1, 0],
+            [62, 1],
+          ],
+        },
+        // increase intensity as zoom level increases
+        'heatmap-intensity': {
+          stops: [
+            [11, 1],
+            [15, 3],
+          ],
+        },
+        // assign color values be applied to points depending on their density
+        'heatmap-color': [
+          'interpolate',
+          ['linear'],
+          ['heatmap-density'],
+          0,
+          'rgba(236,222,239,0)',
+          0.2,
+          'rgb(208,209,230)',
+          0.4,
+          'rgb(166,189,219)',
+          0.6,
+          'rgb(103,169,207)',
+          0.8,
+          'rgb(28,144,153)',
+        ],
+        // increase radius as zoom increases
+        'heatmap-radius': {
+          stops: [
+            [11, 15],
+            [15, 20],
+          ],
+        },
+        // decrease opacity to transition into the circle layer
+        'heatmap-opacity': {
+          default: 1,
+          stops: [
+            [14, 1],
+            [15, 0],
+          ],
+        },
+      },
+    },
+    'waterway-label'
+  );
+  map.addLayer(
+    {
+      id: 'confirmed-point',
+      type: 'circle',
+      source: 'confirmedcases',
+      minzoom: 7,
+      paint: {
+        // increase the radius of the circle as the zoom level and dbh value increases
+        'circle-radius': {
+          property: 'confirmed',
+          type: 'exponential',
+          stops: [
+            [{ zoom: 15, value: 1 }, 5],
+            [{ zoom: 15, value: 62 }, 10],
+            [{ zoom: 22, value: 1 }, 20],
+            [{ zoom: 22, value: 62 }, 50],
+          ],
+        },
+        'circle-color': {
+          property: 'confirmed',
+          type: 'exponential',
+          stops: [
+            [0, 'rgba(236,222,239,0)'],
+            [10, 'rgb(236,222,239)'],
+            [20, 'rgb(208,209,230)'],
+            [30, 'rgb(166,189,219)'],
+            [40, 'rgb(103,169,207)'],
+            [50, 'rgb(28,144,153)'],
+            [60, 'rgb(1,108,89)'],
+          ],
+        },
+        'circle-stroke-color': 'white',
+        'circle-stroke-width': 1,
+        'circle-opacity': {
+          stops: [
+            [14, 0],
+            [15, 1],
+          ],
+        },
+      },
+    },
+    'waterway-label'
+  );
+  /* add heatmap layer here */
+  /* add circle layer here */
+});
+map.getCanvas().style.cursor = 'pointer';
+map.on('click', 'confirmed-point', function (e) {
+  console.log('DET FUNKAR ATT KLICKA');
+  new mapboxgl.Popup()
+    .setLngLat(
+      e.features[0].geometry.coordinates
+    ) /* Find & set the coordinates for the pop-up. */
+    .setHTML(
+      '<b>Confirmed cases:</b> ' + e.features[0].properties.confirmed
+    ) /* Set and add the HTML to the pop-up. */
+    .addTo(map); /* Add layer to the map. */
+});
 
-const nav = new mapboxgl.NavigationControl();
-map.addControl(nav);
+// const nav = new mapboxgl.NavigationControl();
+// map.addControl(nav);
 const setBoundingBox = (bound1, bound2) => {
   let bounds = new mapboxgl.LngLatBounds(bound1, bound2);
 
@@ -17,33 +138,11 @@ const setBoundingBox = (bound1, bound2) => {
   map.fitBounds(bounds);
 };
 
-var popup = new mapboxgl.Popup({
-  closeButton: false,
-});
-map.on('load', function () {
-  // Add the source to query. In this example we're using
-  // county polygons uploaded as vector tiles
-  map.addSource('heatmap', {
-    type: 'vector',
-    url: 'joelsven.ckw12tb6k0wmv24qalr4bd9d0-5dzee',
-  });
+// var popup = new mapboxgl.Popup({
+//   closeButton: false,
+// });
 
-  map.on('mousemove', 'heatmap', function (e) {
-    // Change the cursor style as a UI indicator.
-    map.getCanvas().style.cursor = 'pointer';
-
-    // Single out the first found feature.
-    var feature = e.features[0];
-
-    // Display a popup with the name of the county
-    popup
-      .setLngLat(e.lngLat)
-      .setText('Confirmed cases: ' + feature.properties.confirmed)
-      .addTo(map);
-  });
-
-  map.on('mouseleave', 'heatmap', function () {
-    map.getCanvas().style.cursor = '';
-    popup.remove();
-  });
-});
+// map.on('mouseleave', 'confirmed-point', function () {
+//   map.getCanvas().style.cursor = '';
+//   popup.remove();
+// });

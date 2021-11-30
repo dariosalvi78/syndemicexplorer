@@ -67,7 +67,7 @@ async function confirmedCasesChart(param) {
   console.log('KALLAS DENNA?');
 
   const newDataset = {
-    label: 'Confirmed cases ' + placeLabel,
+    label: placeLabel,
     backgroundColor: randomColor(),
     borderColor: '#fff',
     data: confirmedLabel,
@@ -157,7 +157,7 @@ async function compareDataConfirmedChart(param) {
   await compareDataConfirmedData(param);
 
   const newDataset = {
-    label: 'Confirmed cases ' + placeLabel,
+    label: placeLabel,
     backgroundColor: randomColor(),
     borderColor: '#fff',
     data: comparedConfirmedLabel,
@@ -185,6 +185,14 @@ async function compareDataConfirmedData(param) {
 
   const confirmed2 = barChartData.map((x) => x.confirmed);
   console.log(confirmed2);
+  let place;
+  if (barChartData[0].area3_name) {
+    place = barChartData[0].area3_name;
+  } else if (barChartData[0].area2_code) {
+    place = barChartData[0].area2_name;
+  }
+
+  placeLabel = place;
 
   comparedConfirmedLabel = confirmed2;
 }
