@@ -33,7 +33,7 @@ dropdown4.addEventListener('click', function (event) {
 
 const dropDownContent1 = document.querySelector('.dropContent1');
 const level1Text = document.getElementById('level1Text');
-const urlLevel1 = 'http://localhost:3000/api/v1/maps/countrynames';
+const urlLevel1 = 'http://localhost:5000/api/v1/maps/countrynames';
 
 async function fillDropDown1() {
   await fetch(urlLevel1)
@@ -72,10 +72,10 @@ async function fillDropDown1() {
 
 const dropDownContent2 = document.querySelector('.dropContent2');
 const level2Text = document.getElementById('level2Text');
-const urlLevel2 = `http://localhost:3000/api/v1/maps/admareas1?countryCode=${state}`;
+const urlLevel2 = `http://localhost:5000/api/v1/maps/admareas1?countryCode=${state}`;
 
 function fillDropDown2() {
-  fetch(`http://localhost:3000/api/v1/maps/admareas1?countryCode=${state}`)
+  fetch(`http://localhost:5000/api/v1/maps/admareas1?countryCode=${state}`)
     .then(function (response) {
       return response.json();
     })
@@ -84,7 +84,7 @@ function fillDropDown2() {
       myJson.forEach(function (myJson) {
         const level2 = document.createElement('a');
         level2.addEventListener('click', function () {
-          level2Text.innerHTML = myJson.area1_code;
+          level2Text.innerHTML = myJson.area1_name;
           epidemDataText.innerHTML = 'Confirmed cases';
           state = myJson.area1_code;
           console.log(state);
@@ -109,9 +109,9 @@ function fillDropDown2() {
 
 const dropDownContent3 = document.querySelector('.dropContent3');
 const level3Text = document.getElementById('level3Text');
-const urlLevel3 = `http://localhost:3000/api/v1/maps/admareas2?area1Code=${state}`;
+const urlLevel3 = `http://localhost:5000/api/v1/maps/admareas2?area1Code=${state}`;
 function fillDropDown3() {
-  fetch(`http://localhost:3000/api/v1/maps/admareas2?area1Code=${state}`)
+  fetch(`http://localhost:5000/api/v1/maps/admareas2?area1Code=${state}`)
     .then(function (response) {
       return response.json();
     })
@@ -119,9 +119,9 @@ function fillDropDown3() {
       myJson.forEach(function (myJson) {
         const level3 = document.createElement('a');
         level3.addEventListener('click', function () {
-          level3Text.innerHTML = myJson.area2_code;
+          level3Text.innerHTML = myJson.area2_name;
           epidemDataText.innerHTML = 'Confirmed cases';
-          state = myJson.area2_code;
+          state = myJson;
           console.log(myJson);
           setBoundingBox(
             [myJson.bounding_box[0], myJson.bounding_box[1]],
@@ -146,10 +146,12 @@ function fillDropDown3() {
 
 const dropDownContent4 = document.querySelector('.dropContent4');
 const level4Text = document.getElementById('level4Text');
-const urlLevel4 = `http://localhost:3000/api/v1/maps/admareas3?area2Code=SWE.13.19_1${state}`;
+const urlLevel4 = `http://localhost:5000/api/v1/maps/admareas3?area2Code=SWE.13.19_1${state}`;
 
 function fillDropDown4() {
-  fetch(`http://localhost:3000/api/v1/maps/admareas3?area2Code=${state}`)
+  fetch(
+    `http://localhost:5000/api/v1/maps/admareas3?area2Code=${state.area2_code}`
+  )
     .then(function (response) {
       return response.json();
     })
@@ -157,7 +159,7 @@ function fillDropDown4() {
       myJson.forEach(function (myJson) {
         const level4 = document.createElement('a');
         level4.addEventListener('click', function () {
-          level4Text.innerHTML = myJson.area3_code;
+          level4Text.innerHTML = myJson.area3_name;
           epidemDataText.innerHTML = 'Confirmed cases';
           state = myJson;
           console.log(state);
@@ -191,7 +193,7 @@ function fillDropDown4() {
 }
 
 function fillCompareWith(param) {
-  const compareUrl = `http://localhost:3000/api/v1/maps/${param}`;
+  const compareUrl = `http://localhost:5000/api/v1/maps/${param}`;
   console.log(compareUrl);
   fetch(compareUrl)
     .then(function (response) {
@@ -288,7 +290,7 @@ confirmedOption.addEventListener('click', function () {
 });
 
 const fillStartDates = async () => {
-  const apiUrl = `http://localhost:3000/api/v1/epidemiology/admareas3?area3Code=${state.area3_code}`;
+  const apiUrl = `http://localhost:5000/api/v1/epidemiology/admareas3?area3Code=${state.area3_code}`;
   console.log(apiUrl);
   await fetch(apiUrl)
     .then(function (response) {
@@ -311,7 +313,7 @@ const fillStartDates = async () => {
     });
 };
 const fillEndDates = () => {
-  const apiUrl = `http://localhost:3000/api/v1/epidemiology/admareas3?area3Code=${state.area3_code}`;
+  const apiUrl = `http://localhost:5000/api/v1/epidemiology/admareas3?area3Code=${state.area3_code}`;
   console.log(apiUrl);
   fetch(apiUrl)
     .then(function (response) {
@@ -384,16 +386,27 @@ optionYear2021.addEventListener('click', function () {
 const dateButton = document.getElementById('dateButton');
 dateButton.addEventListener('click', function () {
   console.log('CLICKED');
+  console.log(state);
   getValuesFromDates();
-
-  confirmedCasesChart(
-    'admareas3?area3Code=' +
-      state.area3_code +
-      '&startDate=' +
-      startDate +
-      '&endDate=' +
-      endDate
-  );
+  if (state.area3_code) {
+    confirmedCasesChart(
+      'admareas3?area3Code=' +
+        state.area3_code +
+        '&startDate=' +
+        startDate +
+        '&endDate=' +
+        endDate
+    );
+  } else if (state.area2_code) {
+    confirmedCasesChart(
+      'admareas2?area2Code=' +
+        state.area2_code +
+        '&startDate=' +
+        startDate +
+        '&endDate=' +
+        endDate
+    );
+  }
 
   console.log(startDate);
   console.log(endDate);
