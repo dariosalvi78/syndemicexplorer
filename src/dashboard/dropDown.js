@@ -342,22 +342,22 @@ const fillEndDates = () => {
       });
     });
 };
-const dropDownContentStartDate = document.querySelector(
-  '.dropContentStartDate'
-);
-const dropStartDateText = document.getElementById('startDateText');
-const dropStartDate = document.getElementById('dropStartDate');
-dropStartDate.addEventListener('click', function () {
-  dropStartDate.classList.toggle('is-active');
-  fillStartDates();
-});
-const dropDownContentEndDate = document.querySelector('.dropContentEndDate');
-const dropEndDateText = document.getElementById('endDateText');
-const dropEndDate = document.getElementById('dropEndDate');
-dropEndDate.addEventListener('click', function () {
-  dropEndDate.classList.toggle('is-active');
-  fillEndDates();
-});
+// const dropDownContentStartDate = document.querySelector(
+//   '.dropContentStartDate'
+// );
+// const dropStartDateText = document.getElementById('startDateText');
+// const dropStartDate = document.getElementById('dropStartDate');
+// dropStartDate.addEventListener('click', function () {
+//   dropStartDate.classList.toggle('is-active');
+//   fillStartDates();
+// });
+// const dropDownContentEndDate = document.querySelector('.dropContentEndDate');
+// const dropEndDateText = document.getElementById('endDateText');
+// const dropEndDate = document.getElementById('dropEndDate');
+// dropEndDate.addEventListener('click', function () {
+//   dropEndDate.classList.toggle('is-active');
+//   fillEndDates();
+// });
 
 const dropSocioYearContent = document.querySelector('.dropSocioYearContent');
 const dropSocioYearText = document.getElementById('socioYearText');
@@ -380,3 +380,26 @@ optionYear2021.addEventListener('click', function () {
   );
   dropSocioYear.classList.toggle('is-visible');
 });
+
+const dateButton = document.getElementById('dateButton');
+dateButton.addEventListener('click', function () {
+  console.log('CLICKED');
+  getValuesFromDates();
+
+  confirmedCasesChart(
+    'admareas3?area3Code=' +
+      state.area3_code +
+      '&startDate=' +
+      startDate +
+      '&endDate=' +
+      endDate
+  );
+
+  console.log(startDate);
+  console.log(endDate);
+});
+
+const getValuesFromDates = () => {
+  startDate = document.getElementById('startDate').value;
+  endDate = document.getElementById('endDate').value;
+};
