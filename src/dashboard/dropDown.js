@@ -86,9 +86,17 @@ async function fillDropDown2() {
       myJson.forEach(function (myJson) {
         const level2 = document.createElement('a');
         level2.addEventListener('click', function () {
-          console.log('tjena' + mapContainer);
-          mapContainer.style.width = '100%';
-          console.log('halloj' + mapContainer);
+          // mapContainer.remove();
+          // const newMap = document.createElement('div');
+          // newMap.setAttribute('class', 'container containerMiddle');
+          // newMap.setAttribute('id', 'map');
+          // newMap.setAttribute('width', '100%');
+          // newMap.setAttribute('height', '500px');
+
+          // console.log(newMap);
+          // mapColumn.append(newMap);
+
+          // console.log(mapColumn);
           level2Text.innerHTML = myJson.area1_name;
           epidemDataText.innerHTML = 'Confirmed cases';
           // mapContainer.remove();
@@ -138,7 +146,6 @@ function fillDropDown3() {
             [myJson.bounding_box[2], myJson.bounding_box[3]]
           );
 
-          map.fitBounds(boundingBox);
           startDateLabel.classList.remove('is-hidden');
           endDateLabel.classList.remove('is-hidden');
           startDateInput.classList.remove('is-hidden');
@@ -371,3 +378,4 @@ const endDateInput = document.getElementById('endDate');
 const socioEconomDrop = document.getElementById('socioEconomDrop');
 
 const mapContainer = document.getElementById('map');
+const mapColumn = document.getElementById('mapColumn');
