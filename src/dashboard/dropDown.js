@@ -74,8 +74,10 @@ const dropDownContent2 = document.querySelector('.dropContent2');
 const level2Text = document.getElementById('level2Text');
 const urlLevel2 = `http://localhost:5000/api/v1/maps/admareas1?countryCode=${state}`;
 
-function fillDropDown2() {
-  fetch(`http://localhost:5000/api/v1/maps/admareas1?countryCode=${state}`)
+async function fillDropDown2() {
+  await fetch(
+    `http://localhost:5000/api/v1/maps/admareas1?countryCode=${state}`
+  )
     .then(function (response) {
       return response.json();
     })
@@ -84,14 +86,22 @@ function fillDropDown2() {
       myJson.forEach(function (myJson) {
         const level2 = document.createElement('a');
         level2.addEventListener('click', function () {
+          console.log('tjena' + mapContainer);
+          mapContainer.style.width = '100%';
+          console.log('halloj' + mapContainer);
           level2Text.innerHTML = myJson.area1_name;
           epidemDataText.innerHTML = 'Confirmed cases';
+          // mapContainer.remove();
+          // document.getElementById('mapColumn').appendChild(mapContainer);
+
           state = myJson.area1_code;
           console.log(state);
           setBoundingBox(
             [myJson.bounding_box[0], myJson.bounding_box[1]],
             [myJson.bounding_box[2], myJson.bounding_box[3]]
           );
+
+          dropdownEpidem.classList.remove('is-hidden');
           deleteAndAddEpidemChart();
           createEpidemChart();
 
@@ -127,6 +137,14 @@ function fillDropDown3() {
             [myJson.bounding_box[0], myJson.bounding_box[1]],
             [myJson.bounding_box[2], myJson.bounding_box[3]]
           );
+
+          map.fitBounds(boundingBox);
+          startDateLabel.classList.remove('is-hidden');
+          endDateLabel.classList.remove('is-hidden');
+          startDateInput.classList.remove('is-hidden');
+          endDateInput.classList.remove('is-hidden');
+          dateButton.classList.remove('is-hidden');
+          dropCompareWith.classList.remove('is-hidden');
           deleteAndAddEpidemChart();
           deleteAndAddSocioChart();
           createEpidemChart();
@@ -178,10 +196,9 @@ function fillDropDown4() {
           confirmedCasesChart('admareas3?area3Code=' + myJson.area3_code);
 
           populationSocioChart('population?area3Code=' + myJson.area3_code);
-          dropSocioYear.classList.remove('is-hidden');
-          dropStartDate.classList.remove('is-hidden');
-          dropEndDate.classList.remove('is-hidden');
           dropCompareWith.classList.remove('is-hidden');
+          dropSocioYear.classList.remove('is-hidden');
+          socioEconomDrop.classList.remove('is-hidden');
         });
         level4.setAttribute('class', 'dropdown-item');
         const newLine = document.createElement('br');
@@ -210,6 +227,7 @@ function fillCompareWith(param) {
             );
           }
           if (myJson.area3_code) {
+            // Check so we actually go in to this IF statement.
             if (!Object.keys(endDate) === 0) {
               compareDataConfirmedChart(
                 'admareas3?area3Code=' +
@@ -289,78 +307,6 @@ confirmedOption.addEventListener('click', function () {
   epidemDataText.innerHTML = 'Confirmed cases';
 });
 
-const fillStartDates = async () => {
-  const apiUrl = `http://localhost:5000/api/v1/epidemiology/admareas3?area3Code=${state.area3_code}`;
-  console.log(apiUrl);
-  await fetch(apiUrl)
-    .then(function (response) {
-      return response.json();
-    })
-    .then(function (myJson) {
-      myJson.forEach(function (myJson) {
-        const dateData = document.createElement('a');
-        dateData.addEventListener('click', function () {
-          startDate = myJson.date;
-          dropStartDateText.innerHTML = date;
-        });
-        dateData.setAttribute('class', 'dropdown-item');
-        const newLine = document.createElement('br');
-        const date = myJson.date.slice(0, 10);
-        dateData.innerHTML = date;
-        dropDownContentStartDate.appendChild(dateData);
-        dropDownContentStartDate.appendChild(newLine);
-      });
-    });
-};
-const fillEndDates = () => {
-  const apiUrl = `http://localhost:5000/api/v1/epidemiology/admareas3?area3Code=${state.area3_code}`;
-  console.log(apiUrl);
-  fetch(apiUrl)
-    .then(function (response) {
-      return response.json();
-    })
-    .then(function (myJson) {
-      myJson.forEach(function (myJson) {
-        const dateData = document.createElement('a');
-        dateData.addEventListener('click', function () {
-          endDate = myJson.date;
-          console.log('slutdatum' + endDate);
-          dropEndDateText.innerHTML = date;
-          confirmedCasesChart(
-            'admareas3?area3Code=' +
-              state.area3_code +
-              '&startDate=' +
-              startDate +
-              '&endDate=' +
-              endDate
-          );
-        });
-        dateData.setAttribute('class', 'dropdown-item');
-        const newLine = document.createElement('br');
-        const date = myJson.date.slice(0, 10);
-        dateData.innerHTML = date;
-        dropDownContentEndDate.appendChild(dateData);
-        dropDownContentEndDate.appendChild(newLine);
-      });
-    });
-};
-// const dropDownContentStartDate = document.querySelector(
-//   '.dropContentStartDate'
-// );
-// const dropStartDateText = document.getElementById('startDateText');
-// const dropStartDate = document.getElementById('dropStartDate');
-// dropStartDate.addEventListener('click', function () {
-//   dropStartDate.classList.toggle('is-active');
-//   fillStartDates();
-// });
-// const dropDownContentEndDate = document.querySelector('.dropContentEndDate');
-// const dropEndDateText = document.getElementById('endDateText');
-// const dropEndDate = document.getElementById('dropEndDate');
-// dropEndDate.addEventListener('click', function () {
-//   dropEndDate.classList.toggle('is-active');
-//   fillEndDates();
-// });
-
 const dropSocioYearContent = document.querySelector('.dropSocioYearContent');
 const dropSocioYearText = document.getElementById('socioYearText');
 const dropSocioYear = document.getElementById('dropSocioYear');
@@ -416,3 +362,12 @@ const getValuesFromDates = () => {
   startDate = document.getElementById('startDate').value;
   endDate = document.getElementById('endDate').value;
 };
+
+const startDateLabel = document.getElementById('startDateLabel');
+const endDateLabel = document.getElementById('endDateLabel');
+const startDateInput = document.getElementById('startDate');
+const endDateInput = document.getElementById('endDate');
+
+const socioEconomDrop = document.getElementById('socioEconomDrop');
+
+const mapContainer = document.getElementById('map');

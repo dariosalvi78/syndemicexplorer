@@ -215,10 +215,10 @@ const modalBgSoc = document.querySelector('.modal-background2');
 const modalEpi = document.querySelector('.modalEpidem');
 const modalSoc = document.querySelector('.modalSocio');
 
-modalBgEpi.addEventListener('click', () => {
-  modalEpi.classList.remove('is-active');
-});
+// modalBgEpi.addEventListener('click', () => {
+//   modalEpi.classList.remove('is-active');
+// });
 
-modalBgSoc.addEventListener('click', () => {
-  modalSoc.classList.remove('is-active');
-});
+// modalBgSoc.addEventListener('click', () => {
+//   modalSoc.classList.remove('is-active');
+// });
