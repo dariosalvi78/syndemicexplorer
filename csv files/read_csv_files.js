@@ -1,6 +1,5 @@
 import fs from 'fs';
 import readline from 'readline';
-import axios from 'axios'
 
 let csvFiles = -1;
 let result = new Array();

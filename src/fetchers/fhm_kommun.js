@@ -26,28 +26,27 @@ import {
 } from '../db.js'
 import csv from '../../csv files/read_csv_files.js'
 
-let millisecondsPerDay = 24 * 60 * 60 * 1000;
+let millisecondsPerDay = 24 * 60 * 60 * 1000
 
-//from https://stackoverflow.com/questions/7580824/how-to-convert-a-week-number-to-a-date-in-javascript
 function firstDayOfWeek(week, year) {
   var date = firstWeekOfYear(year),
     weekTime = weeksToMilliseconds(week),
-    targetTime = date.getTime() + weekTime;
+    targetTime = date.getTime() + weekTime
 
   date.setTime(targetTime);
-  date = date.toISOString();
-  date = date.substring(0, date.indexOf('T'));
+  date = date.toISOString()
+  date = date.substring(0, date.indexOf('T'))
 
   return date;
 }
 
 function weeksToMilliseconds(weeks) {
-  return millisecondsPerDay * 7 * (weeks - 1) + millisecondsPerDay;
+  return millisecondsPerDay * 7 * (weeks - 1) + millisecondsPerDay
 }
 
 function firstWeekOfYear(year) {
-  var date = new Date(year, 0, 1, 0, 0, 0, 0); //First week of the year
-  date = firstWeekday(date);
+  var date = new Date(year, 0, 1, 0, 0, 0, 0) //First week of the year
+  date = firstWeekday(date)
   return date;
 }
 
@@ -56,41 +55,39 @@ function firstWeekOfYear(year) {
  */
 function firstWeekday(firstOfJanuaryDate) {
   // 0 correspond au dimanche et 6 correspond au samedi.
-  var FIRST_DAY_OF_WEEK = 1; // Monday, according to iso8601
-  var WEEK_LENGTH = 7; // 7 days per week
-  var day = firstOfJanuaryDate.getDay();
+  var FIRST_DAY_OF_WEEK = 1 // Monday, according to iso8601
+  var WEEK_LENGTH = 7 // 7 days per week
+  var day = firstOfJanuaryDate.getDay()
   day = (day === 0) ? 7 : day; // make the days monday-sunday equals to 1-7 instead of 0-6
-  var dayOffset = -day + FIRST_DAY_OF_WEEK; // dayOffset will correct the date in order to get a Monday
+  var dayOffset = -day + FIRST_DAY_OF_WEEK // dayOffset will correct the date in order to get a Monday
   if (WEEK_LENGTH - day + 1 < 4) {
     // the current week has not the minimum 4 days required by iso 8601 => add one week
-    dayOffset += WEEK_LENGTH;
+    dayOffset += WEEK_LENGTH
   }
-  return new Date(firstOfJanuaryDate.getTime() + dayOffset * millisecondsPerDay);
+  return new Date(firstOfJanuaryDate.getTime() + dayOffset * millisecondsPerDay)
 }
 
 function currentOrLastWeek() {
   //define a date object variable that will take the current system date  
-  let todaydate = new Date();
+  let todaydate = new Date()
 
   //find the year of the current date  
-  var oneJan = new Date(todaydate.getFullYear(), 0, 1);
+  var oneJan = new Date(todaydate.getFullYear(), 0, 1)
   // calculating number of days in given year before a given date   
-  var numberOfDays = Math.floor((todaydate - oneJan) / millisecondsPerDay);
+  var numberOfDays = Math.floor((todaydate - oneJan) / millisecondsPerDay)
   // adding 1 since to current date and returns value starting from 0   
 
-  let currentWeek = Math.ceil((todaydate.getDay() + 1 + numberOfDays) / 7) - 1;
+  let currentWeek = Math.ceil((todaydate.getDay() + 1 + numberOfDays) / 7) - 1
 
   if (todaydate.getDay() != 0)
-    currentWeek -= 1;
+    currentWeek -= 1
 
   return currentWeek;
 }
 
 export default function () {
-  //https://sdb.socialstyrelsen.se/api/v1/sv/dodsorsaker/diagnos/text/Covid
-
-  let currentYear = new Date().getFullYear();
-  let startYear = 2020; //Grab data from 2020 til now
+  let currentYear = new Date().getFullYear()
+  let startYear = 2020 //Grab data from 2020 til now
 
   var config = {
     method: 'get',
@@ -102,61 +99,49 @@ export default function () {
   }
 
   for (let selectedYear = startYear; selectedYear <= currentYear; selectedYear++) {
-    let thisWeekNbr = (selectedYear == currentYear) ? currentOrLastWeek() : 52;
+    let thisWeekNbr = (selectedYear == currentYear) ? currentOrLastWeek() : 52
 
     for (let selectedWeek = thisWeekNbr; selectedWeek > 0; selectedWeek--) {
       let weekStr = selectedWeek.toString();
       if (selectedWeek < 10)
-        weekStr = 0 + weekStr;
+        weekStr = 0 + weekStr
 
       config.url = 'https://utility.arcgis.com/usrsvcs/servers/63de09e702d142eb9ddd865838f80bd5/rest/services/FOHM_Covid_19_kommun_FME_20201228/FeatureServer/0/query?f=json&where=veckonr_txt%3D%27' + selectedYear + '-' + weekStr + '%27&returnGeometry=false&outFields=*&outSR=4326&cacheHint=true';
 
       axios(config)
         .then(async function (response) {
           for (var i = 0; i < response.data.features.length; i++) {
-            let featureAttribute = response.data.features[i].attributes;
+            let featureAttribute = response.data.features[i].attributes
 
-            if (featureAttribute.KnNamn == "Upplands Väsby")
-              featureAttribute.KnNamn = "Upplands-Väsby"; //# Fix naming difference between FHM and OxCOVID19 database
-
-            let data = await getAdmArea(featureAttribute.KnNamn, featureAttribute.Stadsdel);
-
-            if (data == undefined) //Happens if authentication fails or the table doesn't exist
+            let KnNamn = fixNamingDiffKommun(featureAttribute.KnNamn)
+            let adm_area = await GetAdmArea(KnNamn, featureAttribute.Stadsdel)
+            if (adm_area == null)
               continue;
 
-            data = data.rows[0];
-
-            let veckoNr = featureAttribute.veckonr;
-
-            if (data == undefined) {
-              console.error("Data is null on: " + featureAttribute.KnNamn);
-              continue;
-            }
-
-            let area2_code = data.area2_code; //municipality
-            let area3_code = data.area3_code;
-            let gid = (area3_code != null) ? area3_code : area2_code;
-            let cumulative_cases = featureAttribute.cumfreq;
-
-            let epidemiology_data = {
-              table: "epidemiology",
-              source: "Folkhälsomyndigheten",
-              date: firstDayOfWeek(veckoNr, selectedYear),
-              country_code: "SWE",
-              area1_code: data.area1_code,
-              area2_code: area2_code,
-              area3_code: area3_code,
-              gid: gid,
-              confirmed: cumulative_cases
-            }
+            var epidemiology_data = getEpidemiologyTable(featureAttribute.veckonr, selectedYear, adm_area)
+            epidemiology_data = Object.assign({"confirmed": featureAttribute.cumfreq}, epidemiology_data)
 
             await upsertTimeseries(epidemiology_data)
           }
         })
         .catch(function (error) {
-          console.log(error);
+          console.log(error)
         });
     }
+  }
+}
+
+function getEpidemiologyTable(week, year, adm_area) {
+  //source, country_code, area1_code and area2_code are hardcoded for now
+  return {
+    table: "epidemiology",
+    source: "SCB",
+    date: firstDayOfWeek(week, year),
+    country_code: "SWE",
+    area1_code: adm_area.area1_code,
+    area2_code: adm_area.area2_code,
+    area3_code: adm_area.area3_code,
+    gid: (adm_area.area3_code != null) ? adm_area.area3_code : adm_area.area2_code
   }
 }
 
@@ -165,16 +150,16 @@ async function getAdmArea(kommunNamn, stadsdel) {
     console.log("Missing kommunNamn!")
   } else {
     let query = "SELECT area1_code, area2_code, area3_code FROM admin_areas WHERE country_code = 'SWE' AND area2_name = $1"
-    let parameters = [kommunNamn];
+    let parameters = [kommunNamn]
 
     if (stadsdel != null && stadsdel != undefined) {
       stadsdel = " " + stadsdel
       query += " AND area3_name = $2";
-      parameters.push(stadsdel);
+      parameters.push(stadsdel)
     }
 
     try {
-      return await Pool.query(query, parameters);
+      return await Pool.query(query, parameters)
     } catch (error) {
       console.log(error)
     }
@@ -183,59 +168,67 @@ async function getAdmArea(kommunNamn, stadsdel) {
 
 function readCSVFileWithUrl(url) {
   var config = {
-      method: 'get',
-      url: url
+    method: 'get',
+    url: url
   }
 
   axios(config)
-      .then(async function (response) {
-          const data = response.data
-          const dataArray = csv(data);
+    .then(async function (response) {
+      const data = response.data
+      const dataArray = csv(data)
 
-          for (let i = 0; i < dataArray.length; i++) {
-            let KnNamn = dataArray[i][0].replace(/"/g, '')
-            let deaths = dataArray[i][1]
+      for (let i = 0; i < dataArray.length; i++) {
+        let KnNamn = dataArray[i][0].replace(/"/g, '')
+        let deaths = dataArray[i][1]
 
-            if (KnNamn !== "Upplands-Väsby" && KnNamn.includes("Upplands") && KnNamn.includes("Väsby"))
-              KnNamn = "Upplands-Väsby"; //# Fix naming difference between FHM and OxCOVID19 database
+        KnNamn = fixNamingDiffKommun(KnNamn)
 
-            if (deaths == undefined || deaths.length == 1)
-              return;
+        if (deaths == undefined || deaths.length == 1)
+          return
 
-            deaths = Math.round(deaths); //Database takes integer not float
+        deaths = Math.round(deaths); //Database takes integer not float
 
-            let adm_area = await getAdmArea(KnNamn);
+        let adm_area = await GetAdmArea(KnNamn)
+        if (adm_area == null)
+          continue
 
-            if (adm_area == undefined) //Happens if authentication fails or the table doesn't exist
-              continue;
+        var epidemiology_data = getEpidemiologyTable(currentOrLastWeek(), new Date().getFullYear(), adm_area)
+        epidemiology_data = Object.assign({"dead": deaths}, epidemiology_data)
 
-            adm_area = adm_area.rows[0];
+        // console.log("Inserting deaths for " + KnNamn)
+        await upsertTimeseries(epidemiology_data)
+      }
+    })
+}
 
-            if (adm_area == undefined) {
-              console.error("Found no data with getAdmArea function in readCSVFileWithURL, input was: " + KnNamn);
-              continue;
-            }
+//TODO merge this with getAdmArea
+async function GetAdmArea(KnNamn, stadsdel) {
+  let adm_area
 
-            let area2_code = adm_area.area2_code; //municipality
-            let area3_code = adm_area.area3_code;
-            let gid = (area3_code != null) ? area3_code : area2_code;
+  if (stadsdel != null && stadsdel != undefined)
+    adm_area = await getAdmArea(KnNamn, stadsdel)
+  else
+    adm_area = await getAdmArea(KnNamn)
 
-            let epidemiology_data = {
-              table: "epidemiology",
-              source: "Folkhälsomyndigheten", //Maybe source is incorrect, not sure where it's from
-              date: firstDayOfWeek(currentOrLastWeek(), new Date().getFullYear()),
-              country_code: "SWE",
-              area1_code: adm_area.area1_code,
-              area2_code: area2_code,
-              area3_code: area3_code,
-              gid: gid,
-              dead: deaths
-            }
+  if (adm_area == undefined) {
+    console.error("Authentication to database failed or table doesn't exist!")
+    return null;
+  }
 
-            // console.log("Inserting deaths for " + KnNamn)
-            await upsertTimeseries(epidemiology_data)
-          }
-  })
+  adm_area = adm_area.rows[0]
+
+  if (adm_area == undefined) {
+    console.error("Found no data with getAdmArea function in CheckAndAssignAdmArea, input was: " + KnNamn)
+    return null
+  }
+
+  return adm_area
+}
+
+function fixNamingDiffKommun(KnNamn) {
+  if (KnNamn !== "Upplands-Väsby" && KnNamn.includes("Upplands") && KnNamn.includes("Väsby"))
+    KnNamn = "Upplands-Väsby" //# Fix naming difference between FHM and OxCOVID19 database
+  return KnNamn
 }
 
 readCSVFileWithUrl('https://datawrapper.dwcdn.net/liNlg/81/dataset.csv');
