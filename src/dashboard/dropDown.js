@@ -179,6 +179,7 @@ function fillDropDown4() {
           dropSocioYear.classList.remove('is-hidden');
           dropStartDate.classList.remove('is-hidden');
           dropEndDate.classList.remove('is-hidden');
+          dropCompareWith.classList.remove('is-hidden');
         });
         level4.setAttribute('class', 'dropdown-item');
         const newLine = document.createElement('br');
@@ -243,11 +244,11 @@ function fillCompareWith(param) {
 const compareWithDropContent = document.querySelector(
   '.compareWithDropContent'
 );
-const compareWithText = document.getElementById('compareWithText');
-const compareWith = document.getElementById('compareWithDropdown');
+const dropCompareWithText = document.getElementById('dropCompareWithText');
+const dropCompareWith = document.getElementById('compareWithDropdown');
 //FUNKAR INTE RIKTIGT -- behöver tweeka det lite
-compareWith.addEventListener('click', function () {
-  compareWith.classList.toggle('is-active');
+dropCompareWith.addEventListener('click', function () {
+  dropCompareWith.classList.toggle('is-active');
 });
 
 const epidemDataText = document.getElementById('stats1');

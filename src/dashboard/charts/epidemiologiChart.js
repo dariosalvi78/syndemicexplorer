@@ -106,6 +106,8 @@ async function confirmedCasesData(param) {
     place = barChartData[0].area3_name;
   } else if (barChartData[0].area2_code) {
     place = barChartData[0].area2_name;
+  } else if (barChartData[0].area1_code) {
+    place = barChartData[0].area1_name;
   }
   confirmedLabel = confirmed;
   placeLabel = place;
@@ -190,6 +192,8 @@ async function compareDataConfirmedData(param) {
     place = barChartData[0].area3_name;
   } else if (barChartData[0].area2_code) {
     place = barChartData[0].area2_name;
+  } else if (barChartData[0].area1_code) {
+    place = barChartData[0].area1_code;
   }
 
   placeLabel = place;
