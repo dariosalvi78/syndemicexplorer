@@ -89,7 +89,7 @@ async function confirmedCasesChart(param) {
 
 //Fetches the data of area2Code depending on which dropdown menu value
 async function confirmedCasesData(param) {
-  const apiUrl = `http://localhost:5000/api/v1/epidemiology/${param}`;
+  const apiUrl = `http://localhost:3000/api/v1/epidemiology/${param}`;
   console.log('urlen ' + apiUrl);
   const response = await fetch(apiUrl);
   const barChartData = await response.json();
@@ -137,7 +137,7 @@ async function deathsConfirmedChart(param) {
 }
 
 async function deathsConfirmedData(param) {
-  const apiUrl = `http://localhost:5000/api/v1/epidemiology/${param}`;
+  const apiUrl = `http://localhost:3000/api/v1/epidemiology/${param}`;
   const response = await fetch(apiUrl);
   const barChartData = await response.json();
   // if (barChartData.length == 0) {
@@ -176,7 +176,7 @@ async function compareDataConfirmedChart(param) {
 }
 
 async function compareDataConfirmedData(param) {
-  const apiUrl = `http://localhost:5000/api/v1/epidemiology/${param}`;
+  const apiUrl = `http://localhost:3000/api/v1/epidemiology/${param}`;
   console.log(apiUrl);
   const response = await fetch(apiUrl);
   const barChartData = await response.json();

@@ -86,7 +86,7 @@ async function populationSocioChart(param) {
 }
 
 async function populationSocioData(param) {
-  const apiUrl = `http://localhost:5000/api/v1/socio_economics/${param}`;
+  const apiUrl = `http://localhost:3000/api/v1/socio_economics/${param}`;
   console.log(apiUrl);
   const response = await fetch(apiUrl);
   const barChartData = await response.json();
@@ -108,7 +108,7 @@ async function populationSocioData(param) {
   console.log(dateLabel);
 }
 async function comparePopulationSocioData(param) {
-  const apiUrl = `http://localhost:5000/api/v1/socio_economics/${param}`;
+  const apiUrl = `http://localhost:3000/api/v1/socio_economics/${param}`;
   console.log(apiUrl);
   const response = await fetch(apiUrl);
   const barChartData = await response.json();
