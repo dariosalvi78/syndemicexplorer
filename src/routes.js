@@ -32,17 +32,17 @@ router.get('/epidemiology', epidemiologyCtrl.getEpidemiologyIndicators);
 // endpoint for confirmed cases of a municipality
 // area2Code has to be specified as query parameter
 // startDate and endDate can be specified as optional query parameters
-router.get('/epidemiology/admareas2', epidemiologyCtrl.getAdmArea2ConfirmedCases);
+router.get('/epidemiology/admareas2', epidemiologyCtrl.getAdmArea2Indicator);
 
 // endpoint for confirmed cases of a region
 // area1Code has to be specified as query parameter
 // startDate and endDate can be specified as optional query parameters
-router.get('/epidemiology/admareas1', epidemiologyCtrl.getAdmArea1ConfirmedCases);
+router.get('/epidemiology/admareas1', epidemiologyCtrl.getAdmArea1Indicator);
 
 // enpoint for confirmed cases of a district
 // area3Code has to be specified as query parameter
 // startDate and endDate can be specified as optional query parameters
-router.get('/epidemiology/admareas3', epidemiologyCtrl.getAdmArea3ConfirmedCases);
+router.get('/epidemiology/admareas3', epidemiologyCtrl.getAdmArea3Indicator);
 
 // endpoint for the population of a district (amount of inhabitants)
 // area3Code has to be specified as query parameter
