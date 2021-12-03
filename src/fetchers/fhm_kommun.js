@@ -184,13 +184,15 @@ function readCSVFileWithUrl(url) {
         KnNamn = fixNamingDiffKommun(KnNamn)
 
         if (deaths == undefined || deaths.length == 1)
-          return
+          deaths = 0;
 
         deaths = Math.round(deaths); //Database takes integer not float
 
         let adm_area = await GetAdmArea(KnNamn)
-        if (adm_area == null)
+        if (adm_area == null) {
+          console.log("No admin area found for " + KnNamn)
           continue
+        }
 
         var epidemiology_data = getEpidemiologyTable(currentOrLastWeek(), new Date().getFullYear(), adm_area)
         epidemiology_data = Object.assign({"dead": deaths}, epidemiology_data)
@@ -228,6 +230,8 @@ async function GetAdmArea(KnNamn, stadsdel) {
 function fixNamingDiffKommun(KnNamn) {
   if (KnNamn !== "Upplands-Väsby" && KnNamn.includes("Upplands") && KnNamn.includes("Väsby"))
     KnNamn = "Upplands-Väsby" //# Fix naming difference between FHM and OxCOVID19 database
+  else if (KnNamn !== "Malung" && KnNamn.includes("Malung") && KnNamn.includes("Sälen"))
+    KnNamn = "Malung"
   return KnNamn
 }
 
