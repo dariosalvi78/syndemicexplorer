@@ -102,7 +102,7 @@ function getQuery(level, indicator = 'confirmed', filter = ' ') {
   indicator = (level < 3) ? `SUM(${indicator}) AS ${indicator}` : `${indicator}`;
   let groupBy = (level < 3) ? `GROUP BY epidemiology.area${level}_code, admin_areas.area${level}_name, date` : ' '
   return (
-    `SELECT date, epidemiology.area${level}_code, admin_areas.area${level}_name, ${indicator} 
+    `SELECT to_char(date, 'YYYY-MM-DD') AS date, epidemiology.area${level}_code, admin_areas.area${level}_name, ${indicator} 
     FROM epidemiology
     JOIN admin_areas 
     ON epidemiology.gid = admin_areas.gid
