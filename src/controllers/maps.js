@@ -1,11 +1,5 @@
 import { Pool } from '../db.js';
 
-function queryStringToArray(item) {
-  item = item.replace('(', '')
-  item = item.replace(')', '')
-  return item.split(',').map(Number)
-}
-
 // get query for area, names and geometry
 function getQuery(text) {
   return (
@@ -13,8 +7,7 @@ function getQuery(text) {
     text +
     `_name, ` +
     text +
-    `_code, (st_xmin(st_envelope(geometry)), st_ymin(st_envelope(geometry)), 
-    st_xmax(st_envelope(geometry)), st_ymax(st_envelope(geometry))) as bounding_box, 
+    `_code, ST_AsGeoJSON(ST_Envelope(geometry)) as bounding_box, 
     ST_AsGeoJSON(geometry) as geometry from admin_areas\n    `
   )
 }
@@ -59,11 +52,6 @@ export default {
         getQuery('area1') + `where country_code = $1 and area2_code is null and area3_code is null`;
       try {
         let data = await Pool.query(query, [countryCode]);
-        for (let i in data.rows) {
-          data.rows[i]['bounding_box'] = queryStringToArray(
-            data.rows[i]['bounding_box']
-          );
-        }
         res.send(data.rows);
       } catch (error) {
         console.log(error.message);
@@ -82,11 +70,6 @@ export default {
         getQuery('area2') + `where area1_code = $1 and area2_code is not null and area3_code is null`;
       try {
         let data = await Pool.query(query, [area1Code]);
-        for (let i in data.rows) {
-          data.rows[i]['bounding_box'] = queryStringToArray(
-            data.rows[i]['bounding_box']
-          );
-        }
         res.send(data.rows);
       } catch (error) {
         console.log(error.message);
@@ -106,11 +89,6 @@ export default {
         `where area2_code = $1 and area3_code is not null`;
       try {
         let data = await Pool.query(query, [area2Code]);
-        for (let i in data.rows) {
-          data.rows[i]['bounding_box'] = queryStringToArray(
-            data.rows[i]['bounding_box']
-          );
-        }
         res.send(data.rows);
       } catch (error) {
         console.log(error.message);
