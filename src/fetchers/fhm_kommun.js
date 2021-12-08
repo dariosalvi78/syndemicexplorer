@@ -90,7 +90,8 @@ export default function () {
 
   let currentYear = new Date().getFullYear();
   let startYear = 2020; //Grab data from 2020 til now
-
+  let area1TotalCases = new Map();
+  let area2TotalCases = new Map();
   var config = {
     method: 'get',
     url: '',
@@ -144,17 +145,53 @@ export default function () {
               continue;
             }
 
+            let area1_code = data.area1_code //region
             let area2_code = data.area2_code; //municipality
-            let area3_code = data.area3_code;
+            let area3_code = data.area3_code; //district
             let gid = area3_code != null ? area3_code : area2_code;
             let cumulative_cases = featureAttribute.cumfreq;
+            let date = firstDayOfWeek(veckoNr, selectedYear);
+
+            //sum the total cases for the area1_codes for each date period
+            if(area1TotalCases.has(area1_code)) {
+              let cases = area1TotalCases.get(area1_code);
+              cases[0] += cumulative_cases;
+              let dateExists = cases[1].find(x => x.date === date);
+              if(dateExists) {
+                dateExists.cases += cumulative_cases;
+                cases[1].find(x => x.date === date) == dateExists;
+              } else {
+                cases[1].push({date: date, cases: cumulative_cases});
+                area1TotalCases.set(area1_code, cases) 
+              }
+            } else {
+              area1TotalCases.set(area1_code, [cumulative_cases, [{date: date, cases: cumulative_cases}]]);
+            }
+
+            //sum the total cases for the area2_codes for each date period
+            if(area3_code != null) {
+              if(area2TotalCases.has(area2_code)) {
+                let cases = area2TotalCases.get(area2_code);
+                let dateExists = cases.find(x => x.date === date);
+                if(dateExists) {
+                  dateExists.cases += cumulative_cases;
+                  cases[1].find(x => x.date === date) == dateExists;
+                } else {
+                  cases[0] = area1_code;
+                  cases[1].push({date: date, cases: cumulative_cases});
+                  area2TotalCases.set(area2_code, cases)
+                }
+              } else {
+                area2TotalCases.set(area2_code, [area1_code, [{date: date, cases: cumulative_cases}]])
+              }
+            }
 
             let epidemiology_data = {
               table: 'epidemiology',
               source: 'Folkhälsomyndigheten',
-              date: firstDayOfWeek(veckoNr, selectedYear),
+              date: date,
               country_code: 'SWE',
-              area1_code: data.area1_code,
+              area1_code: area1_code,
               area2_code: area2_code,
               area3_code: area3_code,
               gid: gid,
@@ -163,10 +200,54 @@ export default function () {
 
             await upsertTimeseries(epidemiology_data);
           }
+
+          await insertArea1TotalConfirmed(area1TotalCases);
+          await insertArea2TotalConfirmed(area2TotalCases);
         })
         .catch(function (error) {
           console.log(error);
         });
+    }
+  }
+}
+
+
+
+async function insertArea1TotalConfirmed(data) {
+
+  for (let [key, value] of data) {
+    for(let i in value[1]) {
+      let epidemData = {
+      table: 'epidemiology',
+      source: 'Folkhälsomyndigheten',
+      date: value[1][i].date,
+      country_code: 'SWE',
+      area1_code: key,
+      gid: key,
+      confirmed: value[1][i].cases
+      }
+
+      await upsertTimeseries(epidemData);
+    }
+  }
+}
+
+async function insertArea2TotalConfirmed(data) {
+  for (let [key, value] of data) {
+    let area1Code = value[0];
+    for(let i in value[1]) {
+      let epidemData = {
+      table: 'epidemiology',
+      source: 'Folkhälsomyndigheten',
+      date: value[1][i].date,
+      country_code: 'SWE',
+      area1_code: area1Code,
+      area2_code: key,
+      gid: key,
+      confirmed: value[1][i].cases
+      }
+
+      await upsertTimeseries(epidemData);
     }
   }
 }
