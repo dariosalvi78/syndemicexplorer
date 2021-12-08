@@ -7,11 +7,38 @@ const map = new mapboxgl.Map({
   center: [-5.0, 52.47],
   zoom: 1,
 });
+map.on('load', () => {
+  map.addSource('custom', {
+    type: 'geojson',
+    data: {
+      type: 'Feature',
+      geometry: {
+        type: 'Polygon',
+        coordinates: [[]],
+      },
+    },
+  });
+
+  // map.addLayer({
+  //   id: 'outline',
+  //   type: 'line',
+  //   source: 'custom',
+  //   layout: {},
+  //   paint: {
+  //     'line-color': '#FFC0CB',
+  //     'line-width': 3,
+  //   },
+  // });
+});
+
 map.on('load', function () {
   map.addSource('confirmedcases', {
     type: 'geojson',
     data: 'http://localhost:5000/api/v1/heatmapdata',
   });
+
+  //Add a layer with boundary polygons
+
   map.addLayer(
     {
       id: 'confirmed-heat',
@@ -113,9 +140,23 @@ map.on('load', function () {
     },
     'waterway-label'
   );
+
   /* add heatmap layer here */
   /* add circle layer here */
 });
+
+const showData = (param) => {
+  let data = {};
+
+  data = `http://localhost:5000/api/v1/heatmapdata?countryCode=SWE&indicator=confirmed&${param}`;
+
+  console.log(data);
+
+  map.getSource('confirmedcases').setData(data);
+  //return 'http://localhost:5000/api/v1/heatmapdata';
+};
+map.on('draw.update', showData);
+
 map.getCanvas().style.cursor = 'pointer';
 map.on('mousemove', 'confirmed-point', function (e) {
   console.log('DET FUNKAR ATT KLICKA');
@@ -134,7 +175,6 @@ map.on('mousemove', 'confirmed-point', function (e) {
 const setBoundingBox = (bound1, bound2) => {
   let bounds = new mapboxgl.LngLatBounds(bound1, bound2);
 
-  console.log('hej' + bounds);
   map.fitBounds(bounds);
 };
 

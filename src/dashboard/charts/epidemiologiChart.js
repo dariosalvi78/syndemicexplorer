@@ -56,7 +56,7 @@ function createEpidemChart() {
     // Configuration options go here
     options: options,
   });
-  console.log(dateLabel);
+
   chart.update('active');
 }
 
@@ -64,25 +64,24 @@ function createEpidemChart() {
 async function confirmedCasesChart(param) {
   await confirmedCasesData(param);
   chart.data.datasets = [];
-  console.log('KALLAS DENNA?');
 
   const newDataset = {
     label: placeLabel,
-    backgroundColor: randomColor(),
-    borderColor: '#fff',
+    backgroundColor: color,
+    borderColor: color,
     data: confirmedLabel,
-    fill: true,
-    radius: 3,
-    hitRadius: 10,
-    hoverRadius: 5,
+    fill: false,
+    radius: 1,
+    hitRadius: 5,
+    hoverRadius: 3,
     tension: 0.3,
     opacity: 0.5,
   };
-  console.log(newDataset);
+
   //console.log(comparedConfirmedLabel);
   chart.data.datasets.push(newDataset);
   chart.data.labels = dateLabel;
-  console.log(chart.data.datasets.length);
+
   chart.update();
   // Configuration options go here
 }
@@ -90,13 +89,12 @@ async function confirmedCasesChart(param) {
 //Fetches the data of area2Code depending on which dropdown menu value
 async function confirmedCasesData(param) {
   const apiUrl = `http://localhost:5000/api/v1/epidemiology/${param}`;
-  console.log('urlen ' + apiUrl);
+
   const response = await fetch(apiUrl);
   const barChartData = await response.json();
   // if (barChartData.length == 0) {
   //   modal.classList.add('is-active');
   // }
-  console.log(barChartData);
 
   const confirmed = barChartData.map((x) => x.confirmed);
   console.log(confirmed);
@@ -112,8 +110,6 @@ async function confirmedCasesData(param) {
   confirmedLabel = confirmed;
   placeLabel = place;
   dateLabel = date;
-  console.log(dateLabel);
-  console.log(confirmedLabel);
 }
 
 async function deathsConfirmedChart(param) {
@@ -124,13 +120,13 @@ async function deathsConfirmedChart(param) {
     backgroundColor: randomColor(),
     borderColor: '#fff',
     data: deathsLabel,
-    fill: true,
+    fill: false,
     radius: 3,
     hitRadius: 10,
     hoverRadius: 5,
     tension: 0.3,
   };
-  console.log(comparedConfirmedLabel);
+
   chart.data.datasets.push(newDataset);
   chart.data.labels = dateLabel;
   chart.update();
@@ -143,33 +139,31 @@ async function deathsConfirmedData(param) {
   // if (barChartData.length == 0) {
   //   modal.classList.add('is-active');
   // }
-  console.log(barChartData);
 
   const deaths = barChartData.map((x) => x.confirmed);
-  console.log(deaths);
+
   const date = barChartData.map((x) => x.date.slice(0, 10));
   const place = barChartData[0].area3_name;
 
   deathsLabel = deaths;
   placeLabel = place;
   dateLabel = date;
-  console.log(dateLabel);
 }
 async function compareDataConfirmedChart(param) {
   await compareDataConfirmedData(param);
 
   const newDataset = {
     label: placeLabel,
-    backgroundColor: randomColor(),
+    backgroundColor: color,
     borderColor: '#fff',
     data: comparedConfirmedLabel,
-    fill: true,
+    fill: false,
     radius: 3,
     hitRadius: 10,
     hoverRadius: 5,
     tension: 0.3,
   };
-  console.log(comparedConfirmedLabel);
+
   chart.data.datasets.push(newDataset);
   chart.data.labels = dateLabel;
   chart.update();
@@ -183,10 +177,9 @@ async function compareDataConfirmedData(param) {
   // if (barChartData.length == 0) {
   //   modal.classList.add('is-active');
   // }
-  console.log(barChartData);
 
   const confirmed2 = barChartData.map((x) => x.confirmed);
-  console.log(confirmed2);
+
   let place;
   if (barChartData[0].area3_name) {
     place = barChartData[0].area3_name;

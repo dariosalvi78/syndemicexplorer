@@ -1,3 +1,5 @@
+let xAxisLabel = {};
+let color = {};
 let chartSocio;
 let optionsSocio = {
   scales: {},
@@ -47,15 +49,9 @@ function deleteAndAddSocioChart() {
   document.getElementById('chartArea2').append(canvas);
 }
 
-async function populationSocioChart(param) {
-  console.log('DENNA FUNKAR');
-  // deleteAndAddSocioChart();
-  await populationSocioData(param);
+async function createSocioChart() {
   const ctx = document.getElementById('chart2').getContext('2d');
   //Fill gradient
-  let gradient = ctx.createLinearGradient(0, 0, 0, 400);
-  gradient.addColorStop(0, 'rgba(58,123, 213, 1');
-  gradient.addColorStop(1, 'rgba(0,210, 255, 0.1)');
 
   chartSocio = new Chart(ctx, {
     // The type of chart we want to create
@@ -64,25 +60,35 @@ async function populationSocioChart(param) {
     // The data for our dataset
     data: {
       labels: dateLabel,
-      datasets: [
-        {
-          label: 'Population ' + placeLabel,
-          backgroundColor: gradient,
-          borderColor: '#fff',
-          pointBackgroundColor: 'rgb(189,195,199)',
-          data: populationLabel,
-          fill: true,
-          radius: 3,
-          hitRadius: 10,
-          hoverRadius: 5,
-          tension: 0.3,
-        },
-      ],
+      datasets: [],
     },
-
-    // Configuration options go here
     options: optionsSocio,
   });
+  chartSocio.update('active');
+}
+
+async function populationSocioChart(param) {
+  console.log('DENNA FUNKAR');
+  // deleteAndAddSocioChart();
+  await populationSocioData(param);
+
+  const newDataSet = {
+    label: 'Population ' + placeLabel,
+    backgroundColor: color,
+    borderColor: '#fff',
+    pointBackgroundColor: 'rgb(189,195,199)',
+    data: populationLabel,
+    fill: true,
+    radius: 3,
+    hitRadius: 10,
+    hoverRadius: 5,
+    tension: 0.3,
+    opacity: 0.5,
+  };
+
+  chartSocio.data.datasets.push(newDataSet);
+  chartSocio.data.labels = xAxisLabel;
+  chartSocio.update();
 }
 
 async function populationSocioData(param) {
@@ -98,14 +104,14 @@ async function populationSocioData(param) {
   const population = barChartData.map((x) => x.value);
   console.log(population);
   const place = barChartData[0].gid;
-  const date = barChartData.map((x) =>
+  const ageGroup = barChartData.map((x) =>
     x.indicator.slice(17, 28).replace('_', ' ')
   );
 
   populationLabel = population;
-  dateLabel = date;
+  xAxisLabel = ageGroup;
   placeLabel = place;
-  console.log(dateLabel);
+  console.log(xAxisLabel);
 }
 async function comparePopulationSocioData(param) {
   const apiUrl = `http://localhost:5000/api/v1/socio_economics/${param}`;
@@ -134,7 +140,7 @@ async function comparePopulationSocioChart(param) {
 
   const newDataset = {
     label: 'Population ' + placeLabel,
-    backgroundColor: randomColor(),
+    backgroundColor: color,
     borderColor: '#fff',
     data: comparedPopulationLabel,
   };
@@ -145,6 +151,6 @@ async function comparePopulationSocioChart(param) {
 
 function randomColor() {
   var r = () => (Math.random() * 256) >> 0;
-  var color = `rgb(${r()}, ${r()}, ${r()})`;
+  color = `rgba(${r()}, ${r()}, ${r()}, 0.5)`;
   return color;
 }

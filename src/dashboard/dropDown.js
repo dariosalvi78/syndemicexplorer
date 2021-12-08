@@ -4,6 +4,11 @@ const dropdown1 = document.getElementById('level1');
 let state = {};
 let startDate = {};
 let endDate = {};
+let borderSelectedRegion = [];
+let borderSelectedMunicipality = [];
+let borderSelectedDistrict = [];
+
+let borderArray = [];
 dropdown1.addEventListener('click', function () {
   dropDownContent1.innerHTML = '';
   fillDropDown1();
@@ -49,9 +54,9 @@ async function fillDropDown1() {
         dropDownContent1.appendChild(level1);
         level1.addEventListener('click', function () {
           level1Text.innerHTML = myJson.country_name;
-          console.log(myJson);
+
           state = myJson.country_code;
-          console.log(state);
+
           deleteAndAddEpidemChart();
           deleteAndAddSocioChart();
           if (myJson.country_name === 'Sweden') {
@@ -72,7 +77,6 @@ async function fillDropDown1() {
 
 const dropDownContent2 = document.querySelector('.dropContent2');
 const level2Text = document.getElementById('level2Text');
-const urlLevel2 = `http://localhost:5000/api/v1/maps/admareas1?countryCode=${state}`;
 
 async function fillDropDown2() {
   await fetch(
@@ -86,28 +90,42 @@ async function fillDropDown2() {
       myJson.forEach(function (myJson) {
         const level2 = document.createElement('a');
         level2.addEventListener('click', function () {
-          // mapContainer.remove();
-          // const newMap = document.createElement('div');
-          // newMap.setAttribute('class', 'container containerMiddle');
-          // newMap.setAttribute('id', 'map');
-          // newMap.setAttribute('width', '100%');
-          // newMap.setAttribute('height', '500px');
-
-          // console.log(newMap);
-          // mapColumn.append(newMap);
-
-          // console.log(mapColumn);
+          map.removeLayer('inline');
+          borderArray = [];
+          borderSelectedDistrict = [];
+          borderSelectedMunicipality = [];
+          randomColor();
+          // myJson.coordinates.forEach((coordinate) => {
+          //   geoJsonRegion.push(coordinate);
+          // });
+          borderSelectedRegion = myJson.coordinates;
+          console.log(myJson);
           level2Text.innerHTML = myJson.area1_name;
           epidemDataText.innerHTML = 'Confirmed cases';
           // mapContainer.remove();
           // document.getElementById('mapColumn').appendChild(mapContainer);
+          //geoJsonRegion = geoJsonRegion.map((x) => x.slice(0, 32));
+
+          borderSelectedRegion.forEach((i) => {
+            i.forEach((j) => {
+              j.forEach((k, index) => {
+                if (index % 4 == 0) {
+                  borderArray.push(k);
+                }
+              });
+            });
+          });
+
+          borderAroundSelectedArea();
 
           state = myJson.area1_code;
-          console.log(state);
+
           setBoundingBox(
             [myJson.bounding_box[0], myJson.bounding_box[1]],
             [myJson.bounding_box[2], myJson.bounding_box[3]]
           );
+
+          showData('area1Code=' + myJson.area1_code + '&level=2');
 
           dropdownEpidem.classList.remove('is-hidden');
           deleteAndAddEpidemChart();
@@ -125,6 +143,8 @@ async function fillDropDown2() {
     });
 }
 
+// usage example:
+
 const dropDownContent3 = document.querySelector('.dropContent3');
 const level3Text = document.getElementById('level3Text');
 const urlLevel3 = `http://localhost:5000/api/v1/maps/admareas2?area1Code=${state}`;
@@ -137,14 +157,29 @@ function fillDropDown3() {
       myJson.forEach(function (myJson) {
         const level3 = document.createElement('a');
         level3.addEventListener('click', function () {
+          map.removeLayer('inline');
+          randomColor();
+          borderArray = [];
+          borderSelectedRegion = [];
           level3Text.innerHTML = myJson.area2_name;
           epidemDataText.innerHTML = 'Confirmed cases';
+          borderSelectedMunicipality = myJson.coordinates;
           state = myJson;
           console.log(myJson);
           setBoundingBox(
             [myJson.bounding_box[0], myJson.bounding_box[1]],
             [myJson.bounding_box[2], myJson.bounding_box[3]]
           );
+
+          borderSelectedMunicipality.forEach((i) => {
+            i.forEach((j) => {
+              j.forEach((k, index) => {
+                borderArray.push(k);
+              });
+            });
+          });
+
+          borderAroundSelectedArea();
 
           startDateLabel.classList.remove('is-hidden');
           endDateLabel.classList.remove('is-hidden');
@@ -168,6 +203,27 @@ function fillDropDown3() {
       });
     });
 }
+const borderAroundSelectedArea = () => {
+  map.getSource('custom').setData({
+    type: 'Feature',
+    geometry: {
+      type: 'Polygon',
+      coordinates: [borderArray],
+    },
+  });
+  map.addLayer(
+    {
+      id: 'inline',
+      type: 'fill',
+      source: 'custom',
+      paint: {
+        'fill-outline-color': color,
+        'fill-color': color,
+      },
+    },
+    'settlement-label'
+  );
+};
 
 const dropDownContent4 = document.querySelector('.dropContent4');
 const level4Text = document.getElementById('level4Text');
@@ -184,6 +240,10 @@ function fillDropDown4() {
       myJson.forEach(function (myJson) {
         const level4 = document.createElement('a');
         level4.addEventListener('click', function () {
+          map.removeLayer('inline');
+          borderSelectedMunicipality = [];
+          borderArray = [];
+          borderSelectedDistrict = myJson.coordinates;
           level4Text.innerHTML = myJson.area3_name;
           epidemDataText.innerHTML = 'Confirmed cases';
           state = myJson;
@@ -193,10 +253,24 @@ function fillDropDown4() {
             [myJson.bounding_box[0], myJson.bounding_box[1]],
             [myJson.bounding_box[2], myJson.bounding_box[3]]
           );
+          // showData();
+          randomColor();
+
+          console.log(borderSelectedDistrict);
+
+          borderSelectedDistrict.forEach((i) => {
+            i.forEach((j) => {
+              borderArray.push(j);
+            });
+          });
+          console.log(borderArray);
+
+          borderAroundSelectedArea();
 
           deleteAndAddEpidemChart();
           deleteAndAddSocioChart();
           createEpidemChart();
+          createSocioChart();
           compareWithDropContent.innerHTML = '';
           fillCompareWith('admareas3?area2Code=SWE.13.19_1');
 
@@ -227,6 +301,7 @@ function fillCompareWith(param) {
       myJson.forEach(function (myJson) {
         const compareData = document.createElement('a');
         compareData.addEventListener('click', function () {
+          randomColor();
           console.log(myJson);
           if (myJson.area2_code) {
             compareDataConfirmedChart(
