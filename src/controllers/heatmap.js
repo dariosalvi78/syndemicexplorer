@@ -17,7 +17,7 @@ import { Pool } from '../db.js';
         res.sendStatus(400)
       } else {
         query = 
-        `SELECT $1 AS cases, ST_AsGeoJSON(ST_Centroid(geometry)) as geometry
+        `SELECT ${indicator}, ST_AsGeoJSON(ST_Centroid(geometry)) as geometry
          FROM epidemiology
          JOIN admin_areas `
 
@@ -44,20 +44,20 @@ import { Pool } from '../db.js';
         }
 
         query += 
-        `WHERE epidemiology.country_code = $2
-        AND date = $3 `
+        `WHERE epidemiology.country_code = $1
+        AND date = $2 `
 
         if(areaCode1) {
-          query += `AND epidemiology.area1_code = $4 AND admin_areas.level = $5`
+          query += `AND epidemiology.area1_code = $3 AND admin_areas.level = $4`
           data = await Pool.query(query, [indicator, countryCode, date, areaCode1, level]);
         } else if(areaCode2) {
-          query += `AND epidemiology.area2_code = $4 AND admin_areas.level = $5`
+          query += `AND epidemiology.area2_code = $3 AND admin_areas.level = $4`
           data = await Pool.query(query, [indicator, countryCode, date, areaCode2, level]);
         } else if(areaCode3) {
-          query += `AND epidemiology.area3_code = $4 AND admin_areas.level = $5`
+          query += `AND epidemiology.area3_code = $3 AND admin_areas.level = $4`
           data = await Pool.query(query, [indicator, countryCode, date, areaCode3, level]);
         } else {
-          data = await Pool.query(query, [indicator, countryCode, date]);
+          data = await Pool.query(query, [countryCode, date]);
         }
       }
 
@@ -67,7 +67,7 @@ import { Pool } from '../db.js';
           features[i] = {
               "type": "Feature",
               "properties" : {
-                  indiactor: data.rows[i].cases
+                  [indicator]: data.rows[i][indicator]
               },
               "geometry": {
                   "type": "Point",
