@@ -125,7 +125,10 @@ async function fillDropDown2() {
             [myJson.bounding_box[2], myJson.bounding_box[3]]
           );
 
-          showData('area1Code=' + myJson.area1_code + '&level=2');
+          showData(
+            'level=2&countryCode=SWE&date=2021-11-22&indicator=confirmed&area1Code=' +
+              myJson.area1_code
+          );
 
           dropdownEpidem.classList.remove('is-hidden');
           deleteAndAddEpidemChart();
@@ -180,6 +183,10 @@ function fillDropDown3() {
           });
 
           borderAroundSelectedArea();
+          showData(
+            'level=3&countryCode=SWE&date=2021-11-22&indicator=confirmed&area2Code=' +
+              myJson.area2_code
+          );
 
           startDateLabel.classList.remove('is-hidden');
           endDateLabel.classList.remove('is-hidden');
@@ -253,10 +260,8 @@ function fillDropDown4() {
             [myJson.bounding_box[0], myJson.bounding_box[1]],
             [myJson.bounding_box[2], myJson.bounding_box[3]]
           );
-          // showData();
-          randomColor();
 
-          console.log(borderSelectedDistrict);
+          randomColor();
 
           borderSelectedDistrict.forEach((i) => {
             i.forEach((j) => {

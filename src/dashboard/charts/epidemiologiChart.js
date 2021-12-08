@@ -117,8 +117,8 @@ async function deathsConfirmedChart(param) {
   chart.data.datasets = [];
   const newDataset = {
     label: 'Confirmed casesss ' + placeLabel,
-    backgroundColor: randomColor(),
-    borderColor: '#fff',
+    backgroundColor: color,
+    borderColor: color,
     data: deathsLabel,
     fill: false,
     radius: 3,

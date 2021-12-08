@@ -34,7 +34,7 @@ map.on('load', () => {
 map.on('load', function () {
   map.addSource('confirmedcases', {
     type: 'geojson',
-    data: 'http://localhost:5000/api/v1/heatmapdata',
+    data: 'http://localhost:5000/api/v1/heatmapdata?level=1&countryCode=SWE&date=2021-11-22&indicator=confirmed',
   });
 
   //Add a layer with boundary polygons
@@ -148,7 +148,7 @@ map.on('load', function () {
 const showData = (param) => {
   let data = {};
 
-  data = `http://localhost:5000/api/v1/heatmapdata?countryCode=SWE&indicator=confirmed&${param}`;
+  data = `http://localhost:5000/api/v1/heatmapdata?${param}`;
 
   console.log(data);
 
