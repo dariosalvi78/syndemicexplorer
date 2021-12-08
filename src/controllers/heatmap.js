@@ -49,13 +49,13 @@ import { Pool } from '../db.js';
 
         if(areaCode1) {
           query += `AND epidemiology.area1_code = $3 AND admin_areas.level = $4`
-          data = await Pool.query(query, [indicator, countryCode, date, areaCode1, level]);
+          data = await Pool.query(query, [countryCode, date, areaCode1, level]);
         } else if(areaCode2) {
           query += `AND epidemiology.area2_code = $3 AND admin_areas.level = $4`
-          data = await Pool.query(query, [indicator, countryCode, date, areaCode2, level]);
+          data = await Pool.query(query, [countryCode, date, areaCode2, level]);
         } else if(areaCode3) {
           query += `AND epidemiology.area3_code = $3 AND admin_areas.level = $4`
-          data = await Pool.query(query, [indicator, countryCode, date, areaCode3, level]);
+          data = await Pool.query(query, [countryCode, date, areaCode3, level]);
         } else {
           data = await Pool.query(query, [countryCode, date]);
         }
