@@ -25,6 +25,7 @@ import {
   upsertTimeseries
 } from '../db.js'
 import csv from '../../csv files/read_csv_files.js'
+import xlsx from 'xlsx'
 
 let millisecondsPerDay = 24 * 60 * 60 * 1000
 
@@ -119,7 +120,9 @@ export default function () {
               continue;
 
             var epidemiology_data = getEpidemiologyTable(featureAttribute.veckonr, selectedYear, adm_area)
-            epidemiology_data = Object.assign({"confirmed": featureAttribute.cumfreq}, epidemiology_data)
+            epidemiology_data = Object.assign({
+              "confirmed": featureAttribute.cumfreq
+            }, epidemiology_data)
 
             await upsertTimeseries(epidemiology_data)
           }
@@ -149,24 +152,31 @@ async function getAdmArea(kommunNamn, stadsdel) {
   if (!kommunNamn) {
     console.log("Missing kommunNamn!")
   } else {
-    let query = "SELECT area1_code, area2_code, area3_code FROM admin_areas WHERE country_code = 'SWE' AND area2_name = $1"
+    let sqlQuery = "SELECT area1_code, area2_code, area3_code FROM admin_areas WHERE country_code = 'SWE' AND area2_name = $1"
     let parameters = [kommunNamn]
 
     if (stadsdel != null && stadsdel != undefined) {
       stadsdel = " " + stadsdel
-      query += " AND area3_name = $2";
+      sqlQuery += " AND area3_name = $2";
       parameters.push(stadsdel)
     }
 
+    // console.log("Query is: " + query)
+
+    if (Pool == undefined) {
+      console.log("[ERROR] Pool is undefined")
+      return
+    }
+
     try {
-      return await Pool.query(query, parameters)
+      return await Pool.query(sqlQuery, parameters)
     } catch (error) {
       console.log(error)
     }
   }
 }
 
-function readCSVFileWithUrl(url) {
+function InsertFromCSV(url) {
   var config = {
     method: 'get',
     url: url
@@ -188,6 +198,7 @@ function readCSVFileWithUrl(url) {
 
         deaths = Math.round(deaths); //Database takes integer not float
 
+        console.log(KnNamn)
         let adm_area = await GetAdmArea(KnNamn)
         if (adm_area == null) {
           console.log("No admin area found for " + KnNamn)
@@ -195,12 +206,57 @@ function readCSVFileWithUrl(url) {
         }
 
         var epidemiology_data = getEpidemiologyTable(currentOrLastWeek(), new Date().getFullYear(), adm_area)
-        epidemiology_data = Object.assign({"dead": deaths}, epidemiology_data)
+        epidemiology_data = Object.assign({
+          "dead": deaths
+        }, epidemiology_data)
 
         // console.log("Inserting deaths for " + KnNamn)
         await upsertTimeseries(epidemiology_data)
       }
     })
+}
+
+async function InsertFromXLSXFile(url) {
+  var config = {
+    method: 'get',
+    url: url,
+    responseType: 'arraybuffer'
+  }
+
+  const response = await axios(config)
+  const buffer = Buffer.from(response.data, "utf-8")
+
+  const workbook = xlsx.read(buffer, {
+    type: "buffer"
+  })
+  const sheetNames = workbook.SheetNames;
+
+  const data = xlsx.utils.sheet_to_json(workbook.Sheets[sheetNames[0]])
+
+  data.map(async region => {
+    let KnNamn = region.Sjukhusort
+
+    if (KnNamn == "TOTALT" || KnNamn.includes("Siffror"))
+      return
+
+    let hospitalized = region.Vårdavdelning
+    let icu = region.Intensivvårdsavdelning
+    icu = (icu == undefined) ? 0 : icu;
+
+    let adm_area = await GetAdmArea(KnNamn)
+    if (adm_area == null) {
+      console.log("No admin area found for " + KnNamn)
+      return
+    }
+
+    var epidemiology_data = getEpidemiologyTable(currentOrLastWeek(), new Date().getFullYear(), adm_area)
+    epidemiology_data = Object.assign({
+      "hospitalized": hospitalized,
+      "hospitalized_icu": icu
+    }, epidemiology_data)
+
+    await upsertTimeseries(epidemiology_data)
+  })
 }
 
 //TODO merge this with getAdmArea
@@ -235,4 +291,5 @@ function fixNamingDiffKommun(KnNamn) {
   return KnNamn
 }
 
-readCSVFileWithUrl('https://datawrapper.dwcdn.net/liNlg/81/dataset.csv');
+InsertFromCSV('https://datawrapper.dwcdn.net/liNlg/81/dataset.csv');
+InsertFromXLSXFile('https://www.skane.se/siteassets/lagesbild-covid-19-i-skane/inlagda-per-sjukhus.xlsx')
