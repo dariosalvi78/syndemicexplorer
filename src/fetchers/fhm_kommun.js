@@ -25,7 +25,6 @@ import {
   upsertTimeseries
 } from '../db.js'
 import csv from '../../csv files/read_csv_files.js'
-import xlsx from 'xlsx'
 
 let millisecondsPerDay = 24 * 60 * 60 * 1000
 
@@ -216,49 +215,6 @@ function InsertFromCSV(url) {
     })
 }
 
-async function InsertFromXLSXFile(url) {
-  var config = {
-    method: 'get',
-    url: url,
-    responseType: 'arraybuffer'
-  }
-
-  const response = await axios(config)
-  const buffer = Buffer.from(response.data, "utf-8")
-
-  const workbook = xlsx.read(buffer, {
-    type: "buffer"
-  })
-  const sheetNames = workbook.SheetNames;
-
-  const data = xlsx.utils.sheet_to_json(workbook.Sheets[sheetNames[0]])
-
-  data.map(async region => {
-    let KnNamn = region.Sjukhusort
-
-    if (KnNamn == "TOTALT" || KnNamn.includes("Siffror"))
-      return
-
-    let hospitalized = region.Vårdavdelning
-    let icu = region.Intensivvårdsavdelning
-    icu = (icu == undefined) ? 0 : icu;
-
-    let adm_area = await GetAdmArea(KnNamn)
-    if (adm_area == null) {
-      console.log("No admin area found for " + KnNamn)
-      return
-    }
-
-    var epidemiology_data = getEpidemiologyTable(currentOrLastWeek(), new Date().getFullYear(), adm_area)
-    epidemiology_data = Object.assign({
-      "hospitalized": hospitalized,
-      "hospitalized_icu": icu
-    }, epidemiology_data)
-
-    await upsertTimeseries(epidemiology_data)
-  })
-}
-
 //TODO merge this with getAdmArea
 async function GetAdmArea(KnNamn, stadsdel) {
   let adm_area
@@ -292,4 +248,3 @@ function fixNamingDiffKommun(KnNamn) {
 }
 
 InsertFromCSV('https://datawrapper.dwcdn.net/liNlg/81/dataset.csv');
-InsertFromXLSXFile('https://www.skane.se/siteassets/lagesbild-covid-19-i-skane/inlagda-per-sjukhus.xlsx')
