@@ -60,4 +60,14 @@ router.get('/socio_economics/socioeconomics', socioEconomicsCtrl.getSocioEconomi
 
 router.get('/heatmapdata', heatmapCtrl)
 
+// endpoint for the disposable income of a district
+// area3Code has to be specified as query parameter
+// year can be specified as an optional query parameter. If not specified, returns the latest year available (2019)
+router.get('/socio_economics/disposableincome', socioEconomicsCtrl.getDisposableIncome)
+
+// endpoint for the educational level of a district
+// area3Code has to be specified as query parameter
+// year can be specified as an optional query parameter. If not specified, returns the latest year available (2019)
+router.get('/socio_economics/educationallevel', socioEconomicsCtrl.getEducationalLevel)
+
 export default router;
