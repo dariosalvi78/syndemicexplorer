@@ -83,7 +83,6 @@ async function confirmedCasesChart(param) {
   chart.data.labels = dateLabel;
 
   chart.update();
-  // Configuration options go here
 }
 
 //Fetches the data of area2Code depending on which dropdown menu value

@@ -18,17 +18,6 @@ map.on('load', () => {
       },
     },
   });
-
-  // map.addLayer({
-  //   id: 'outline',
-  //   type: 'line',
-  //   source: 'custom',
-  //   layout: {},
-  //   paint: {
-  //     'line-color': '#FFC0CB',
-  //     'line-width': 3,
-  //   },
-  // });
 });
 
 map.on('load', function () {
@@ -36,8 +25,6 @@ map.on('load', function () {
     type: 'geojson',
     data: 'http://localhost:5000/api/v1/heatmapdata?level=1&countryCode=SWE&date=2021-11-22&indicator=confirmed',
   });
-
-  //Add a layer with boundary polygons
 
   map.addLayer(
     {
@@ -104,7 +91,6 @@ map.on('load', function () {
       source: 'confirmedcases',
       minzoom: 7,
       paint: {
-        // increase the radius of the circle as the zoom level and dbh value increases
         'circle-radius': {
           property: 'confirmed',
           type: 'exponential',
@@ -140,12 +126,9 @@ map.on('load', function () {
     },
     'waterway-label'
   );
-
-  /* add heatmap layer here */
-  /* add circle layer here */
 });
 
-const showData = (param) => {
+const showHeatMapForSelectedLevel = (param) => {
   let data = {};
 
   data = `http://localhost:5000/api/v1/heatmapdata?${param}`;
@@ -153,29 +136,46 @@ const showData = (param) => {
   console.log(data);
 
   map.getSource('confirmedcases').setData(data);
-  //return 'http://localhost:5000/api/v1/heatmapdata';
 };
-map.on('draw.update', showData);
+map.on('draw.update', showHeatMapForSelectedLevel);
 
 map.getCanvas().style.cursor = 'pointer';
 map.on('mousemove', 'confirmed-point', function (e) {
   console.log('DET FUNKAR ATT KLICKA');
   popup
-    .setLngLat(
-      e.features[0].geometry.coordinates
-    ) /* Find & set the coordinates for the pop-up. */
-    .setHTML(
-      '<b>Confirmed cases:</b> ' + e.features[0].properties.confirmed
-    ) /* Set and add the HTML to the pop-up. */
+    .setLngLat(e.features[0].geometry.coordinates)
+    .setHTML('<b>Confirmed cases:</b> ' + e.features[0].properties.confirmed)
     .addTo(map); /* Add layer to the map. */
 });
 
-// const nav = new mapboxgl.NavigationControl();
-// map.addControl(nav);
+//fits the map around the selected area
 const setBoundingBox = (bound1, bound2) => {
   let bounds = new mapboxgl.LngLatBounds(bound1, bound2);
 
   map.fitBounds(bounds);
+};
+
+//sets a colored border around the selected area
+const borderAroundSelectedArea = () => {
+  map.getSource('custom').setData({
+    type: 'Feature',
+    geometry: {
+      type: 'Polygon',
+      coordinates: [borderArray],
+    },
+  });
+  map.addLayer(
+    {
+      id: 'inline',
+      type: 'fill',
+      source: 'custom',
+      paint: {
+        'fill-outline-color': color,
+        'fill-color': color,
+      },
+    },
+    'settlement-label'
+  );
 };
 
 var popup = new mapboxgl.Popup({

@@ -7,8 +7,8 @@ let endDate = {};
 let borderSelectedRegion = [];
 let borderSelectedMunicipality = [];
 let borderSelectedDistrict = [];
-
 let borderArray = [];
+
 dropdown1.addEventListener('click', function () {
   dropDownContent1.innerHTML = '';
   fillDropDown1();
@@ -125,7 +125,7 @@ async function fillDropDown2() {
             [myJson.bounding_box[2], myJson.bounding_box[3]]
           );
 
-          showData(
+          showHeatMapForSelectedLevel(
             'level=2&countryCode=SWE&date=2021-11-22&indicator=confirmed&area1Code=' +
               myJson.area1_code
           );
@@ -145,8 +145,6 @@ async function fillDropDown2() {
       });
     });
 }
-
-// usage example:
 
 const dropDownContent3 = document.querySelector('.dropContent3');
 const level3Text = document.getElementById('level3Text');
@@ -183,7 +181,7 @@ function fillDropDown3() {
           });
 
           borderAroundSelectedArea();
-          showData(
+          showHeatMapForSelectedLevel(
             'level=3&countryCode=SWE&date=2021-11-22&indicator=confirmed&area2Code=' +
               myJson.area2_code
           );
@@ -210,34 +208,13 @@ function fillDropDown3() {
       });
     });
 }
-const borderAroundSelectedArea = () => {
-  map.getSource('custom').setData({
-    type: 'Feature',
-    geometry: {
-      type: 'Polygon',
-      coordinates: [borderArray],
-    },
-  });
-  map.addLayer(
-    {
-      id: 'inline',
-      type: 'fill',
-      source: 'custom',
-      paint: {
-        'fill-outline-color': color,
-        'fill-color': color,
-      },
-    },
-    'settlement-label'
-  );
-};
 
 const dropDownContent4 = document.querySelector('.dropContent4');
 const level4Text = document.getElementById('level4Text');
 const urlLevel4 = `http://localhost:5000/api/v1/maps/admareas3?area2Code=SWE.13.19_1${state}`;
 
-function fillDropDown4() {
-  fetch(
+async function fillDropDown4() {
+  await fetch(
     `http://localhost:5000/api/v1/maps/admareas3?area2Code=${state.area2_code}`
   )
     .then(function (response) {
@@ -295,10 +272,10 @@ function fillDropDown4() {
     });
 }
 
-function fillCompareWith(param) {
+async function fillCompareWith(param) {
   const compareUrl = `http://localhost:5000/api/v1/maps/${param}`;
   console.log(compareUrl);
-  fetch(compareUrl)
+  await fetch(compareUrl)
     .then(function (response) {
       return response.json();
     })
@@ -353,7 +330,7 @@ const compareWithDropContent = document.querySelector(
 );
 const dropCompareWithText = document.getElementById('dropCompareWithText');
 const dropCompareWith = document.getElementById('compareWithDropdown');
-//FUNKAR INTE RIKTIGT -- behöver tweeka det lite
+
 dropCompareWith.addEventListener('click', function () {
   dropCompareWith.classList.toggle('is-active');
 });
@@ -361,7 +338,6 @@ dropCompareWith.addEventListener('click', function () {
 const epidemDataText = document.getElementById('stats1');
 const dropdownEpidem = document.getElementById('statisticEpidem');
 dropdownEpidem.addEventListener('click', function (event) {
-  //dropDownContent4.innerHTML = '';
   dropdownEpidem.classList.toggle('is-active');
 });
 
