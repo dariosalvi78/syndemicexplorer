@@ -114,7 +114,7 @@ export default function () {
             let featureAttribute = response.data.features[i].attributes
 
             let KnNamn = fixNamingDiffKommun(featureAttribute.KnNamn)
-            let adm_area = await GetAdmArea(KnNamn, featureAttribute.Stadsdel)
+            let adm_area = await getAdmArea(KnNamn, featureAttribute.Stadsdel)
             if (adm_area == null)
               continue;
 
@@ -168,14 +168,28 @@ async function getAdmArea(kommunNamn, stadsdel) {
     }
 
     try {
-      return await Pool.query(sqlQuery, parameters)
+      let adm_area = await Pool.query(sqlQuery, parameters)
+
+      if (adm_area == undefined) {
+        console.error("Authentication to database failed or table doesn't exist!")
+        return null;
+      }
+    
+      adm_area = adm_area.rows[0]
+    
+      if (adm_area == undefined) {
+        console.error("Found no data with getAdmArea function in CheckAndAssignAdmArea, input was: " + kommunNamn)
+        return null
+      }
+
+      return adm_area
     } catch (error) {
       console.log(error)
     }
   }
 }
 
-function InsertFromCSV(url) {
+function insertFromCSV(url) {
   var config = {
     method: 'get',
     url: url
@@ -186,7 +200,7 @@ function InsertFromCSV(url) {
       const data = response.data
       const dataArray = csv(data)
 
-      for (let i = 0; i < dataArray.length; i++) {
+      for (let i = 0; i < dataArray.length - 1; i++) {
         let KnNamn = dataArray[i][0].replace(/"/g, '')
         let deaths = dataArray[i][1]
 
@@ -197,8 +211,7 @@ function InsertFromCSV(url) {
 
         deaths = Math.round(deaths); //Database takes integer not float
 
-        console.log(KnNamn)
-        let adm_area = await GetAdmArea(KnNamn)
+        let adm_area = await getAdmArea(KnNamn)
         if (adm_area == null) {
           console.log("No admin area found for " + KnNamn)
           continue
@@ -215,30 +228,6 @@ function InsertFromCSV(url) {
     })
 }
 
-//TODO merge this with getAdmArea
-async function GetAdmArea(KnNamn, stadsdel) {
-  let adm_area
-
-  if (stadsdel != null && stadsdel != undefined)
-    adm_area = await getAdmArea(KnNamn, stadsdel)
-  else
-    adm_area = await getAdmArea(KnNamn)
-
-  if (adm_area == undefined) {
-    console.error("Authentication to database failed or table doesn't exist!")
-    return null;
-  }
-
-  adm_area = adm_area.rows[0]
-
-  if (adm_area == undefined) {
-    console.error("Found no data with getAdmArea function in CheckAndAssignAdmArea, input was: " + KnNamn)
-    return null
-  }
-
-  return adm_area
-}
-
 function fixNamingDiffKommun(KnNamn) {
   if (KnNamn !== "Upplands-Väsby" && KnNamn.includes("Upplands") && KnNamn.includes("Väsby"))
     KnNamn = "Upplands-Väsby" //# Fix naming difference between FHM and OxCOVID19 database
@@ -247,4 +236,4 @@ function fixNamingDiffKommun(KnNamn) {
   return KnNamn
 }
 
-InsertFromCSV('https://datawrapper.dwcdn.net/liNlg/81/dataset.csv');
+insertFromCSV('https://datawrapper.dwcdn.net/liNlg/81/dataset.csv');
