@@ -111,7 +111,8 @@
         <!-- Information about the map and size, rounded corners -->
 
         <div class="container containerMiddle" id='map' style='width: 100%; height: 500px;'></div>
-
+        <label>Select Date for heatmap:</label>
+        <input type="date" name="data-target" value ='2021-12-17' id="heatmapDate" min="2020-01-01" max="2021-12-30">
       </div>
       <!-- Button and statistic for the country -->
 
@@ -134,11 +135,11 @@
 
           <div>
             <label class="is-hidden" id='startDateLabel'>From:</label>
-            <input class="is-hidden" type="date" name="data-target" id="startDate" min="2017-04-01" max="2021-04-30">
+            <input class="is-hidden" type="date" name="data-target" value = '2020-03-17' id="startDate" min="2020-01-01" max="2021-12-01">
             <label class="is-hidden" id='endDateLabel'>To:</label>
-            <input class="is-hidden" type="date" name="data-target" id="endDate" min="2017-04-01" max="2021-11-30">
+            <input class="is-hidden" type="date" name="data-target" value = '2021-12-13'id="endDate" min="2020-01-02" max="2021-12-30">
 
-            <button class="button is-primary is-hidden" id="dateButton">Add</button>
+            <button class="button is-light is-hidden button-17" id="dateButton">Change date</button>
             <div class="dropdown is-hidden" id="compareWithDropdown">
               <a class="navbar-link" id="compareWithText">Compare with</a>
               <div class="dropdown-menu" id="dropdown-compareMenu" role="menu">
@@ -181,9 +182,24 @@
           </div>
           <div class="chartAreaWrapper2" id='chartArea2' style="width:100%"></div>
           <canvas id="chart2"></canvas>
-          < <button class="button is-primary is-hidden" id="extraSocioGraphBtn" style='width:fit-content;'>Add another
+           <button class="button is-light is-hidden button-17" id="extraSocioGraphBtn" style='width:fit-content;'>Add another
             socioeconomic
             graph</button>
+
+
+            <div class="dropdown is-hidden" id="socioEconomDrop2">
+              <a class="navbar-link" id="socioText2">Socioeconomic</a>
+              <div class="dropdown-menu" id="dropdown-menuSocio2" role="menu">
+                <div class="dropdown-content dropContentSocio2">
+                  <a class="dropdown-item" id="populationOption2">Population</a>
+                  <a class="dropdown-item" id="foreignOption2">Foreign Background</a>
+                  <a class="dropdown-item" id="educationalOption2">Educational Level</a>
+                  <a class="dropdown-item" id="incomeOption2">Disposable Income</a>
+                </div>
+              </div>
+            </div>
+            <div class="chartAreaWrapper3" id='chartSocioArea2' style="width:100%"></div>
+          <canvas id="chartSocio2"></canvas>
         </div>
       </div>
     </div>
@@ -222,5 +238,6 @@
 <script src="dropDown.js"></script>
 <script src="./charts/epidemiology/epidemiologiChart.js"></script>
 <script src="./charts/socioEconomic/socioeconomicChart.js"></script>
+<script src="./charts/secondSocioChart/secondSocioChart.js"></script>
 
 </html>

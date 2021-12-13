@@ -154,7 +154,7 @@ async function compareDataConfirmedChart(param) {
   const newDataset = {
     label: placeLabel,
     backgroundColor: compareColor,
-    borderColor: '#fff',
+    borderColor: compareColor,
     data: comparedConfirmedLabel,
     fill: false,
     radius: 1,

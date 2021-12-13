@@ -4,13 +4,13 @@ const dropdown1 = document.getElementById('level1');
 let state = {};
 let startDate = {};
 let endDate = {};
+let heatmapDate = {};
 let borderSelectedRegion = [];
 let borderSelectedMunicipality = [];
 let borderSelectedDistrict = [];
 let borderSecondSelectedDistrict = [];
 let borderArray = [];
 let secondBorderArray = [];
-let coordinatesPrimaryPlace = [];
 
 dropdown1.addEventListener('click', function () {
   dropDownContent1.innerHTML = '';
@@ -60,6 +60,7 @@ async function fillDropDown1() {
 
           state = myJson.country_code;
 
+          console.log(heatmapDate);
           deleteAndAddEpidemChart();
           deleteAndAddSocioChart();
           if (myJson.country_name === 'Sweden') {
@@ -220,6 +221,7 @@ async function fillDropDown4() {
       myJson.forEach(function (myJson) {
         const level4 = document.createElement('a');
         level4.addEventListener('click', function () {
+          map.removeLayer('secondFill');
           map.removeLayer('inline');
           borderSelectedMunicipality = [];
           borderArray = [];
@@ -231,10 +233,6 @@ async function fillDropDown4() {
           console.log(state);
           console.log(myJson);
 
-          coordinatesPrimaryPlace = [
-            myJson.bounding_box[2],
-            myJson.bounding_box[3],
-          ];
           setBoundingBox(
             [myJson.bounding_box[0], myJson.bounding_box[1]],
             [myJson.bounding_box[2], myJson.bounding_box[3]]
@@ -286,7 +284,6 @@ async function fillCompareWith(param) {
       myJson.forEach(function (myJson) {
         const compareData = document.createElement('a');
         compareData.addEventListener('click', function () {
-          map.removeLayer('secondFill');
           compareRandomColor();
           console.log(myJson);
 
@@ -297,14 +294,21 @@ async function fillCompareWith(param) {
             chartSocio.data.datasets.pop();
           }
 
+          if (myJson.bounding_box[0] > state.bounding_box[0]) {
+            setBoundingBox(
+              [myJson.bounding_box[2], myJson.bounding_box[3]],
+              [state.bounding_box[0], state.bounding_box[1]]
+            );
+          }
+          if (myJson.bounding_box[0] < state.bounding_box[0]) {
+            setBoundingBox(
+              [myJson.bounding_box[0], myJson.bounding_box[1]],
+              [state.bounding_box[2], state.bounding_box[3]]
+            );
+          }
+
           borderSecondSelectedDistrict = myJson.coordinates;
-          console.log(borderSecondSelectedDistrict);
-          console.log(myJson);
-          console.log(coordinatesPrimaryPlace);
-          setBoundingBox(coordinatesPrimaryPlace, [
-            myJson.bounding_box[0],
-            myJson.bounding_box[1],
-          ]);
+
           secondBorderArray = [];
           borderSecondSelectedDistrict.forEach((i) => {
             i.forEach((j) => {
@@ -499,11 +503,26 @@ dateButton.addEventListener('click', function () {
   console.log(startDate);
   console.log(endDate);
 });
+const heatmapDatePicker = document.getElementById('heatmapDate');
+heatmapDatePicker.addEventListener('change', () => {
+  changeHeatmapWithDate();
+  console.log(heatmapDate);
+
+  showHeatMapForSelectedLevel(
+    `level=2&countryCode=SWE&date=${heatmapDate}&indicator=confirmed&area1Code=` +
+      state
+  );
+});
 
 const getValuesFromDates = () => {
   startDate = document.getElementById('startDate').value;
   endDate = document.getElementById('endDate').value;
 };
+
+const changeHeatmapWithDate = () => {
+  heatmapDate = document.getElementById('heatmapDate').value;
+};
+heatmapDate = document.getElementById('heatmapDate').value;
 
 const startDateLabel = document.getElementById('startDateLabel');
 const endDateLabel = document.getElementById('endDateLabel');
@@ -514,5 +533,61 @@ const socioEconomDrop = document.getElementById('socioEconomDrop');
 
 const mapContainer = document.getElementById('map');
 const mapColumn = document.getElementById('mapColumn');
+const socioDropText2 = document.getElementById('socioText2');
 
 const extraSocioEconomicGraph = document.getElementById('extraSocioGraphBtn');
+extraSocioEconomicGraph.addEventListener('click', function () {
+  deleteAndAddSecondSocioChart();
+  createSecondSocioChart();
+
+  extraSocioEconomicGraph.classList.add('is-hidden');
+  dropSocioEconom2.classList.remove('is-hidden');
+});
+const dropSocioEconom2 = document.getElementById('socioEconomDrop2');
+dropSocioEconom2.addEventListener('click', function (event) {
+  dropSocioEconom2.classList.toggle('is-active');
+});
+
+const populationOption2 = document.getElementById('populationOption2');
+populationOption2.addEventListener('click', function () {
+  populationSocioChart2('population?area3Code=' + state.area3_code);
+
+  socioDropText2.innerHTML = 'Population';
+});
+
+const foreignBackgroundOption2 = document.getElementById('foreignOption2');
+foreignBackgroundOption2.addEventListener('click', function () {
+  foreignBackgroundSocioChart2(
+    'foreignbackground?area3Code=' + state.area3_code
+  );
+  socioDropText2.innerHTML = 'Foreign Background';
+});
+
+const educationalOption2 = document.getElementById('educationalOption2');
+educationalOption2.addEventListener('click', function () {
+  educationalLevelSocioChart2('educationallevel?area3Code=' + state.area3_code);
+
+  socioDropText2.innerHTML = 'Educational Level';
+});
+
+const incomeOption2 = document.getElementById('incomeOption2');
+incomeOption2.addEventListener('click', function () {
+  socioDropText2.innerHTML = 'Disposable Income';
+  disposableIncomeSocioChart2('disposableincome?area3Code=' + state.area3_code);
+});
+
+// $(function () {
+//   $('#slider-range').slider({
+//     min: new Date('2010.01.01').getTime() / 1000,
+//     max: new Date('2014.01.01').getTime() / 1000,
+//     step: 86400,
+//     values: new Date('2013.02.01').getTime() / 1000,
+
+//     slide: function (event, ui) {
+//       $('#amount').val(new Date(ui.values[0] * 1000).toDateString());
+//     },
+//   });
+//   $('#amount').val(
+//     new Date($('#slider-range').slider('values', 0) * 1000).toDateString()
+//   );
+// });

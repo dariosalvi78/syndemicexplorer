@@ -1,30 +1,16 @@
-let xAxisLabel = {};
-let color = {};
-let compareColor = {};
-let chartSocio;
-
-let comparedPopulationLabel = [],
-  comparedForeignBackgroundLabel = [],
-  populationLabel = [],
-  foreignBackgroundLabel = [],
-  educationalLevelLabel = [],
-  disposableIncomeLabel = [],
-  comparedDisposableIncomeLabel = [],
-  comparedEducationalLevelLabel = [];
-
-function deleteAndAddSocioChart() {
-  let element = document.getElementById('chart2');
+let chartSocio2;
+function deleteAndAddSecondSocioChart() {
+  let element = document.getElementById('chartSocio2');
   element.parentNode.removeChild(element);
-  const canvas = document.createElement('canvas');
-  canvas.setAttribute('id', 'chart2');
-  document.getElementById('chartArea2').append(canvas);
+  const canvas1 = document.createElement('canvas');
+  canvas1.setAttribute('id', 'chartSocio2');
+  document.getElementById('chartSocioArea2').append(canvas1);
 }
-
-async function createSocioChart() {
-  const ctx = document.getElementById('chart2').getContext('2d');
+async function createSecondSocioChart() {
+  const ctx = document.getElementById('chartSocio2').getContext('2d');
   //Fill gradient
 
-  chartSocio = new Chart(ctx, {
+  chartSocio2 = new Chart(ctx, {
     // The type of chart we want to create
     type: 'bar',
 
@@ -35,11 +21,11 @@ async function createSocioChart() {
     },
     options: options,
   });
-  chartSocio.update('active');
+  chartSocio2.update('active');
 }
 
-async function compareDisposableIncomeChart(param) {
-  await compareDisposableIncomeData(param);
+async function compareDisposableIncomeChart2(param) {
+  await compareDisposableIncomeData2(param);
 
   const newDataset = {
     label: placeLabel,
@@ -48,11 +34,11 @@ async function compareDisposableIncomeChart(param) {
     data: comparedEducationalLevelLabel,
   };
 
-  chartSocio.data.datasets.push(newDataset);
-  chartSocio.update();
+  chartSocio2.data.datasets.push(newDataset);
+  chartSocio2.update();
 }
 
-async function compareDisposableIncomeData(param) {
+async function compareDisposableIncomeData2(param) {
   const apiUrl = `http://localhost:5000/api/v1/socio_economics/${param}`;
   console.log(apiUrl);
   const response = await fetch(apiUrl);
@@ -70,7 +56,7 @@ async function compareDisposableIncomeData(param) {
   placeLabel = place;
 }
 
-async function disposableIncomeSocioData(param) {
+async function disposableIncomeSocioData2(param) {
   const apiUrl = `http://localhost:5000/api/v1/socio_economics/${param}`;
   console.log(apiUrl);
   const response = await fetch(apiUrl);
@@ -92,9 +78,9 @@ async function disposableIncomeSocioData(param) {
   placeLabel = place;
   console.log(xAxisLabel);
 }
-async function disposableIncomeSocioChart(param) {
-  chartSocio.data.datasets = [];
-  await disposableIncomeSocioData(param);
+async function disposableIncomeSocioChart2(param) {
+  chartSocio2.data.datasets = [];
+  await disposableIncomeSocioData2(param);
   const newDataSet = {
     label: placeLabel,
     backgroundColor: color,
@@ -108,14 +94,14 @@ async function disposableIncomeSocioChart(param) {
     tension: 0.3,
     opacity: 0.5,
   };
-  chartSocio.data.datasets.push(newDataSet);
-  chartSocio.data.labels = xAxisLabel;
-  chartSocio.update();
+  chartSocio2.data.datasets.push(newDataSet);
+  chartSocio2.data.labels = xAxisLabel;
+  chartSocio2.update();
 }
 
-async function educationalLevelSocioChart(param) {
-  chartSocio.data.datasets = [];
-  await educationalLevelSocioData(param);
+async function educationalLevelSocioChart2(param) {
+  chartSocio2.data.datasets = [];
+  await educationalLevelSocioData2(param);
   const newDataSet = {
     label: placeLabel,
     backgroundColor: color,
@@ -129,11 +115,11 @@ async function educationalLevelSocioChart(param) {
     tension: 0.3,
     opacity: 0.5,
   };
-  chartSocio.data.datasets.push(newDataSet);
-  chartSocio.data.labels = xAxisLabel;
-  chartSocio.update();
+  chartSocio2.data.datasets.push(newDataSet);
+  chartSocio2.data.labels = xAxisLabel;
+  chartSocio2.update();
 }
-async function educationalLevelSocioData(param) {
+async function educationalLevelSocioData2(param) {
   const apiUrl = `http://localhost:5000/api/v1/socio_economics/${param}`;
   console.log(apiUrl);
   const response = await fetch(apiUrl);
@@ -155,8 +141,8 @@ async function educationalLevelSocioData(param) {
   placeLabel = place;
   console.log(xAxisLabel);
 }
-async function compareEducationalLevelChart(param) {
-  await compareEducationalLevelData(param);
+async function compareEducationalLevelChart2(param) {
+  await compareEducationalLevelData2(param);
 
   const newDataset = {
     label: placeLabel,
@@ -165,10 +151,10 @@ async function compareEducationalLevelChart(param) {
     data: comparedEducationalLevelLabel,
   };
 
-  chartSocio.data.datasets.push(newDataset);
-  chartSocio.update();
+  chartSocio2.data.datasets.push(newDataset);
+  chartSocio2.update();
 }
-async function compareEducationalLevelData(param) {
+async function compareEducationalLevelData2(param) {
   const apiUrl = `http://localhost:5000/api/v1/socio_economics/${param}`;
   console.log(apiUrl);
   const response = await fetch(apiUrl);
@@ -185,9 +171,9 @@ async function compareEducationalLevelData(param) {
   comparedEducationalLevelLabel = educationalLevel;
   placeLabel = place;
 }
-async function foreignBackgroundSocioChart(param) {
-  chartSocio.data.datasets = [];
-  await foreignBackgroundSocioData(param);
+async function foreignBackgroundSocioChart2(param) {
+  chartSocio2.data.datasets = [];
+  await foreignBackgroundSocioData2(param);
   const newDataSet = {
     label: placeLabel,
     backgroundColor: color,
@@ -201,11 +187,11 @@ async function foreignBackgroundSocioChart(param) {
     tension: 0.3,
     opacity: 0.5,
   };
-  chartSocio.data.datasets.push(newDataSet);
-  chartSocio.data.labels = xAxisLabel;
-  chartSocio.update();
+  chartSocio2.data.datasets.push(newDataSet);
+  chartSocio2.data.labels = xAxisLabel;
+  chartSocio2.update();
 }
-async function foreignBackgroundSocioData(param) {
+async function foreignBackgroundSocioData2(param) {
   const apiUrl = `http://localhost:5000/api/v1/socio_economics/${param}`;
   console.log(apiUrl);
   const response = await fetch(apiUrl);
@@ -228,10 +214,10 @@ async function foreignBackgroundSocioData(param) {
   console.log(xAxisLabel);
 }
 
-async function populationSocioChart(param) {
+async function populationSocioChart2(param) {
   console.log('DENNA FUNKAR');
   // deleteAndAddSocioChart();
-  await populationSocioData(param);
+  await populationSocioData2(param);
 
   const newDataSet = {
     label: placeLabel,
@@ -246,16 +232,16 @@ async function populationSocioChart(param) {
     tension: 0.3,
     opacity: 0.5,
   };
-  if (chartSocio.data.datasets != []) {
-    chartSocio.data.datasets = [];
+  if (chartSocio2.data.datasets != []) {
+    chartSocio2.data.datasets = [];
   }
 
-  chartSocio.data.datasets.push(newDataSet);
-  chartSocio.data.labels = xAxisLabel;
-  chartSocio.update();
+  chartSocio2.data.datasets.push(newDataSet);
+  chartSocio2.data.labels = xAxisLabel;
+  chartSocio2.update();
 }
 
-async function populationSocioData(param) {
+async function populationSocioData2(param) {
   const apiUrl = `http://localhost:5000/api/v1/socio_economics/${param}`;
   console.log(apiUrl);
   const response = await fetch(apiUrl);
@@ -277,7 +263,7 @@ async function populationSocioData(param) {
   placeLabel = place;
   console.log(xAxisLabel);
 }
-async function compareForeignBackgroundData(param) {
+async function compareForeignBackgroundData2(param) {
   const apiUrl = `http://localhost:5000/api/v1/socio_economics/${param}`;
   console.log(apiUrl);
   const response = await fetch(apiUrl);
@@ -294,8 +280,8 @@ async function compareForeignBackgroundData(param) {
   comparedForeignBackgroundLabel = foreignBackground;
   placeLabel = place;
 }
-async function compareForeignBackgroundChart(param) {
-  await compareForeignBackgroundData(param);
+async function compareForeignBackgroundChart2(param) {
+  await compareForeignBackgroundData2(param);
 
   const newDataset = {
     label: placeLabel,
@@ -304,10 +290,10 @@ async function compareForeignBackgroundChart(param) {
     data: comparedForeignBackgroundLabel,
   };
   console.log(comparedForeignBackgroundLabel);
-  chartSocio.data.datasets.push(newDataset);
-  chartSocio.update();
+  chartSocio2.data.datasets.push(newDataset);
+  chartSocio2.update();
 }
-async function comparePopulationSocioData(param) {
+async function comparePopulationSocioData2(param) {
   const apiUrl = `http://localhost:5000/api/v1/socio_economics/${param}`;
   console.log(apiUrl);
   const response = await fetch(apiUrl);
@@ -329,8 +315,8 @@ async function comparePopulationSocioData(param) {
   console.log(dateLabel);
 }
 
-async function comparePopulationSocioChart(param) {
-  await comparePopulationSocioData(param);
+async function comparePopulationSocioChart2(param) {
+  await comparePopulationSocioData2(param);
 
   const newDataset = {
     label: 'Population ' + placeLabel,
@@ -339,24 +325,6 @@ async function comparePopulationSocioChart(param) {
     data: comparedPopulationLabel,
   };
   console.log(comparedPopulationLabel);
-  chartSocio.data.datasets.push(newDataset);
-  chartSocio.update();
+  chartSocio2.data.datasets.push(newDataset);
+  chartSocio2.update();
 }
-
-function randomColor() {
-  color = colorArray[Math.floor(Math.random() * colorArray.length)];
-  return color;
-}
-
-function compareRandomColor() {
-  // var r = () => (Math.random() * 256) >> 0;
-  compareColor = colorArray[Math.floor(Math.random() * colorArray.length)];
-  return compareColor;
-}
-
-var colorArray = [
-  'rgba(4, 70, 192, 0.33)',
-  'rgba(209, 35, 26, 0.33)',
-  'rgba(0, 141, 56, 0.33)',
-  'rgba(141, 108, 0, 0.33)',
-];
