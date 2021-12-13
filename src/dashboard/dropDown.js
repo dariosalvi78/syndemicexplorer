@@ -262,6 +262,7 @@ async function fillDropDown4() {
           dropCompareWith.classList.remove('is-hidden');
           dropSocioYear.classList.remove('is-hidden');
           socioEconomDrop.classList.remove('is-hidden');
+          extraSocioEconomicGraph.classList.remove('is-hidden');
         });
         level4.setAttribute('class', 'dropdown-item');
         const newLine = document.createElement('br');
@@ -435,3 +436,5 @@ const socioEconomDrop = document.getElementById('socioEconomDrop');
 
 const mapContainer = document.getElementById('map');
 const mapColumn = document.getElementById('mapColumn');
+
+const extraSocioEconomicGraph = document.getElementById('extraSocioGraphBtn');

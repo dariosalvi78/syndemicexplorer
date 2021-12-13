@@ -75,7 +75,7 @@ async function confirmedCasesChart(param) {
     hitRadius: 5,
     hoverRadius: 3,
     tension: 0.3,
-    opacity: 0.5,
+    opacity: 1.0,
   };
 
   //console.log(comparedConfirmedLabel);
@@ -120,10 +120,11 @@ async function deathsConfirmedChart(param) {
     borderColor: color,
     data: deathsLabel,
     fill: false,
-    radius: 3,
-    hitRadius: 10,
-    hoverRadius: 5,
+    radius: 1,
+    hitRadius: 5,
+    hoverRadius: 3,
     tension: 0.3,
+    opacity: 1.0,
   };
 
   chart.data.datasets.push(newDataset);
@@ -154,13 +155,14 @@ async function compareDataConfirmedChart(param) {
   const newDataset = {
     label: placeLabel,
     backgroundColor: color,
-    borderColor: '#fff',
+    borderColor: color,
     data: comparedConfirmedLabel,
     fill: false,
-    radius: 3,
-    hitRadius: 10,
-    hoverRadius: 5,
+    radius: 1,
+    hitRadius: 5,
+    hoverRadius: 3,
     tension: 0.3,
+    opacity: 1.0,
   };
 
   chart.data.datasets.push(newDataset);
