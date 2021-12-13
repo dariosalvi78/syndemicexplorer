@@ -7,7 +7,10 @@ let endDate = {};
 let borderSelectedRegion = [];
 let borderSelectedMunicipality = [];
 let borderSelectedDistrict = [];
+let borderSecondSelectedDistrict = [];
 let borderArray = [];
+let secondBorderArray = [];
+let coordinatesPrimaryPlace = [];
 
 dropdown1.addEventListener('click', function () {
   dropDownContent1.innerHTML = '';
@@ -90,21 +93,15 @@ async function fillDropDown2() {
       myJson.forEach(function (myJson) {
         const level2 = document.createElement('a');
         level2.addEventListener('click', function () {
-          map.removeLayer('inline');
           borderArray = [];
           borderSelectedDistrict = [];
           borderSelectedMunicipality = [];
           randomColor();
-          // myJson.coordinates.forEach((coordinate) => {
-          //   geoJsonRegion.push(coordinate);
-          // });
+
           borderSelectedRegion = myJson.coordinates;
           console.log(myJson);
           level2Text.innerHTML = myJson.area1_name;
           epidemDataText.innerHTML = 'Confirmed cases';
-          // mapContainer.remove();
-          // document.getElementById('mapColumn').appendChild(mapContainer);
-          //geoJsonRegion = geoJsonRegion.map((x) => x.slice(0, 32));
 
           borderSelectedRegion.forEach((i) => {
             i.forEach((j) => {
@@ -135,7 +132,6 @@ async function fillDropDown2() {
           createEpidemChart();
 
           confirmedCasesChart('admareas1?area1Code=' + myJson.area1_code);
-          populationSocioChart('population?area3Code=' + myJson.area1_code);
         });
         const newLine = document.createElement('br');
         level2.innerHTML = myJson.area1_name;
@@ -230,9 +226,15 @@ async function fillDropDown4() {
           borderSelectedDistrict = myJson.coordinates;
           level4Text.innerHTML = myJson.area3_name;
           epidemDataText.innerHTML = 'Confirmed cases';
+          socioDropText.innerHTML = 'Population';
           state = myJson;
           console.log(state);
           console.log(myJson);
+
+          coordinatesPrimaryPlace = [
+            myJson.bounding_box[2],
+            myJson.bounding_box[3],
+          ];
           setBoundingBox(
             [myJson.bounding_box[0], myJson.bounding_box[1]],
             [myJson.bounding_box[2], myJson.bounding_box[3]]
@@ -283,8 +285,34 @@ async function fillCompareWith(param) {
       myJson.forEach(function (myJson) {
         const compareData = document.createElement('a');
         compareData.addEventListener('click', function () {
-          randomColor();
+          map.removeLayer('secondFill');
+          compareRandomColor();
           console.log(myJson);
+
+          if (chart.data.datasets.length === 2) {
+            chart.data.datasets.pop();
+          }
+          if (chartSocio.data.datasets.length === 2) {
+            chartSocio.data.datasets.pop();
+          }
+
+          borderSecondSelectedDistrict = myJson.coordinates;
+          console.log(borderSecondSelectedDistrict);
+          console.log(myJson);
+          console.log(coordinatesPrimaryPlace);
+          setBoundingBox(coordinatesPrimaryPlace, [
+            myJson.bounding_box[0],
+            myJson.bounding_box[1],
+          ]);
+          secondBorderArray = [];
+          borderSecondSelectedDistrict.forEach((i) => {
+            i.forEach((j) => {
+              secondBorderArray.push(j);
+            });
+          });
+
+          borderAroundSecondArea();
+
           if (myJson.area2_code) {
             compareDataConfirmedChart(
               'admareas2?area2Code=' + myJson.area2_code
@@ -305,10 +333,26 @@ async function fillCompareWith(param) {
             compareDataConfirmedChart(
               'admareas3?area3Code=' + myJson.area3_code
             );
-
-            comparePopulationSocioChart(
-              'population?area3Code=' + myJson.area3_code
-            );
+            if (socioDropText.innerHTML == 'Foreign Background') {
+              compareForeignBackgroundChart(
+                'foreignbackground?area3Code=' + myJson.area3_code
+              );
+            }
+            if (socioDropText.innerHTML == 'Population') {
+              comparePopulationSocioChart(
+                'population?area3Code=' + myJson.area3_code
+              );
+            }
+            if (socioDropText.innerText == 'Educational Level') {
+              compareEducationalLevelChart(
+                'educationallevel?area3Code=' + myJson.area3_code
+              );
+            }
+            if (socioDropText.innerText == 'Disposable Income') {
+              compareDisposableIncomeChart(
+                'disposableincome?area3Code=' + myJson.area3_code
+              );
+            }
           }
         });
         compareData.setAttribute('class', 'dropdown-item');
@@ -339,6 +383,40 @@ const epidemDataText = document.getElementById('stats1');
 const dropdownEpidem = document.getElementById('statisticEpidem');
 dropdownEpidem.addEventListener('click', function (event) {
   dropdownEpidem.classList.toggle('is-active');
+});
+
+const socioDropText = document.getElementById('socioText');
+const dropDownSocio = document.getElementById('socioEconomDrop');
+dropDownSocio.addEventListener('click', function (event) {
+  dropDownSocio.classList.toggle('is-active');
+});
+
+const populationOption = document.getElementById('populationOption');
+populationOption.addEventListener('click', function () {
+  populationSocioChart('population?area3Code=' + state.area3_code);
+
+  socioDropText.innerHTML = 'Population';
+});
+
+const foreignBackgroundOption = document.getElementById('foreignOptions');
+foreignBackgroundOption.addEventListener('click', function () {
+  foreignBackgroundSocioChart(
+    'foreignbackground?area3Code=' + state.area3_code
+  );
+  socioDropText.innerHTML = 'Foreign Background';
+});
+
+const educationalOption = document.getElementById('educationalOption');
+educationalOption.addEventListener('click', function () {
+  educationalLevelSocioChart('educationallevel?area3Code=' + state.area3_code);
+
+  socioDropText.innerHTML = 'Educational Level';
+});
+
+const incomeOption = document.getElementById('incomeOptions');
+incomeOption.addEventListener('click', function () {
+  socioDropText.innerHTML = 'Disposable Income';
+  disposableIncomeSocioChart('disposableincome?area3Code=' + state.area3_code);
 });
 
 const deathsOption = document.getElementById('deathsOption');

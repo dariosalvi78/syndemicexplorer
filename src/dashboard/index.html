@@ -163,8 +163,14 @@
         
         <div class="container mr-2 mb-10">
           <div class="dropdown is-hidden" id="socioEconomDrop">
-            <a class="navbar-link" id="level1Text">Socioeconomic</a>
-            <div class="dropdown-trigger">
+            <a class="navbar-link" id="socioText">Socioeconomic</a>
+            <div class="dropdown-menu" id="dropdown-menuSocio" role="menu">
+              <div class="dropdown-content dropContentSocio">
+                <a class="dropdown-item" id ="populationOption">Population</a>
+                <a class="dropdown-item" id ="foreignOptions">Foreign Background</a>
+                <a class="dropdown-item" id ="educationalOption">Educational Level</a>
+                <a class="dropdown-item" id ="incomeOptions">Disposable Income</a>
+              </div>
             </div>
           </div>
           <div class="chartAreaWrapper2" id='chartArea2' style="width:100%"></div>
@@ -214,7 +220,7 @@
 </body>
 <script src="mapbox.js"></script>
 <script src="dropDown.js"></script>
-<script src="./charts/epidemiologiChart.js"></script>
-<script src="./charts/socioeconomicChart.js"></script>
+<script src="./charts/epidemiology/epidemiologiChart.js"></script>
+<script src="./charts/socioEconomic/socioeconomicChart.js"></script>
 
 </html>

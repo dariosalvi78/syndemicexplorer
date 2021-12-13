@@ -20,6 +20,19 @@ map.on('load', () => {
   });
 });
 
+map.on('load', () => {
+  map.addSource('secondArea', {
+    type: 'geojson',
+    data: {
+      type: 'Feature',
+      geometry: {
+        type: 'Polygon',
+        coordinates: [[]],
+      },
+    },
+  });
+});
+
 map.on('load', function () {
   map.addSource('confirmedcases', {
     type: 'geojson',
@@ -156,6 +169,29 @@ const setBoundingBox = (bound1, bound2) => {
 };
 
 //sets a colored border around the selected area
+
+const borderAroundSecondArea = () => {
+  map.getSource('secondArea').setData({
+    type: 'Feature',
+    geometry: {
+      type: 'Polygon',
+      coordinates: [secondBorderArray],
+    },
+  });
+  map.addLayer(
+    {
+      id: 'secondFill',
+      type: 'fill',
+      source: 'secondArea',
+      paint: {
+        'fill-outline-color': compareColor,
+        'fill-color': compareColor,
+      },
+    },
+    'settlement-label'
+  );
+};
+
 const borderAroundSelectedArea = () => {
   map.getSource('custom').setData({
     type: 'Feature',

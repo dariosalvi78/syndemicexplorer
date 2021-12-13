@@ -1,7 +1,6 @@
 let dateLabel = [],
   confirmedLabel = [],
   comparedConfirmedLabel = [],
-  comparedPopulationLabel = [],
   placeLabel = [],
   deathsLabel = [];
 
@@ -153,7 +152,7 @@ async function compareDataConfirmedChart(param) {
 
   const newDataset = {
     label: placeLabel,
-    backgroundColor: color,
+    backgroundColor: compareColor,
     borderColor: '#fff',
     data: comparedConfirmedLabel,
     fill: false,
@@ -164,6 +163,7 @@ async function compareDataConfirmedChart(param) {
   };
 
   chart.data.datasets.push(newDataset);
+  console.log(chart.data.datasets.length);
   chart.data.labels = dateLabel;
   chart.update();
 }
