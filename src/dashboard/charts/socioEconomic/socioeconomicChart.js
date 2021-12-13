@@ -383,13 +383,19 @@ async function comparePopulationSocioChart(param) {
 }
 
 function randomColor() {
-  var r = () => (Math.random() * 256) >> 0;
-  color = `rgba(${r()}, ${r()}, ${r()}, 0.5)`;
+  color = colorArray[Math.floor(Math.random() * colorArray.length)];
   return color;
 }
 
 function compareRandomColor() {
-  var r = () => (Math.random() * 256) >> 0;
-  compareColor = `rgba(${r()}, ${r()}, ${r()}, 0.5)`;
+  // var r = () => (Math.random() * 256) >> 0;
+  compareColor = colorArray[Math.floor(Math.random() * colorArray.length)];
   return compareColor;
 }
+
+var colorArray = [
+  'rgba(4, 70, 192, 0.33)',
+  'rgba(209, 35, 26, 0.33)',
+  'rgba(0, 141, 56, 0.33)',
+  'rgba(141, 108, 0, 0.33)',
+];
