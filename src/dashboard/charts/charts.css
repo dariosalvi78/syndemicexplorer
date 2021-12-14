@@ -4,3 +4,8 @@
   height: 300px !important;
   width: 100% !important;
 }
+.modalSocio p {
+  text-align: center;
+  font: 35px 'Abel';
+  color: #010203;
+}
