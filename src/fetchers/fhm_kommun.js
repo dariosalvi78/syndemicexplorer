@@ -26,6 +26,10 @@ import {
 } from '../db.js'
 import csv from '../../csv files/read_csv_files.js'
 
+// Prepare actor input
+const input = {};
+
+//#region TimeRelatedFunctions
 let millisecondsPerDay = 24 * 60 * 60 * 1000
 
 function firstDayOfWeek(week, year) {
@@ -84,6 +88,31 @@ function currentOrLastWeek() {
 
   return currentWeek;
 }
+//#endregion
+
+//#region ApifyClient
+import { ApifyClient } from 'apify-client';
+
+let apifyClient;
+
+function setApifyClient() {
+  if (process.env.APIFY_TOKEN == undefined) {
+    setTimeout(function(){
+      var apiKey = process.env.APIFY_TOKEN;
+
+      if (apiKey == undefined)
+        console.log("Failed to set APIFY_TOKEN maybe you haven't defined it in .env file!")
+      else {
+        apifyClient = new ApifyClient({
+          token: apiKey,
+        });
+        getDataFromApify();
+      }
+  }, 1);
+  }
+}
+//#endregion
+
 
 export default function () {
   let currentYear = new Date().getFullYear()
@@ -160,13 +189,6 @@ async function getAdmArea(kommunNamn, stadsdel) {
       parameters.push(stadsdel)
     }
 
-    // console.log("Query is: " + query)
-
-    if (Pool == undefined) {
-      console.log("[ERROR] Pool is undefined")
-      return
-    }
-
     try {
       let adm_area = await Pool.query(sqlQuery, parameters)
 
@@ -174,9 +196,9 @@ async function getAdmArea(kommunNamn, stadsdel) {
         console.error("Authentication to database failed or table doesn't exist!")
         return null;
       }
-    
+
       adm_area = adm_area.rows[0]
-    
+
       if (adm_area == undefined) {
         console.error("Found no data with getAdmArea function in CheckAndAssignAdmArea, input was: " + kommunNamn)
         return null
@@ -186,6 +208,19 @@ async function getAdmArea(kommunNamn, stadsdel) {
     } catch (error) {
       console.log(error)
     }
+  }
+}
+
+async function getPoolQuery(sqlQuery, parameters) {
+  if (Pool == undefined) {
+    console.log("[ERROR] Pool is undefined")
+    return
+  }
+
+  try {
+    return await Pool.query(sqlQuery, parameters)
+  } catch (error) {
+    console.log(error)
   }
 }
 
@@ -222,10 +257,38 @@ function insertFromCSV(url) {
           "dead": deaths
         }, epidemiology_data)
 
-        // console.log("Inserting deaths for " + KnNamn)
         await upsertTimeseries(epidemiology_data)
       }
     })
+}
+
+function getDataFromApify() {
+  (async () => {
+    // Run the actor and wait for it to finish
+    const run = await apifyClient.actor("tugkan/covid-se").call(input)
+
+    // Fetch and print actor results from the run's dataset (if any)
+    const { items } = await apifyClient.dataset(run.defaultDatasetId).listItems()
+
+    let resultArray = items[0].infectedByRegion
+
+    //Insert deaths and icu into table
+    for (let i = 0; i < resultArray.length; i++) {
+      let item = resultArray[i]
+
+      let adm_area = await getPoolQuery("SELECT area1_code, gid FROM admin_areas WHERE country_code = 'SWE' AND area1_name = $1", [item.region])[0]
+      if (adm_area == null)
+        continue;
+
+      var epidemiology_data = getEpidemiologyTable(currentOrLastWeek(), new Date().getFullYear(), adm_area)
+      epidemiology_data = Object.assign({
+        "dead": item.deathCount,
+        "hospitalized_icu": item.intensiveCareCount
+      }, epidemiology_data)
+      
+      await upsertTimeseries(epidemiology_data)
+    }
+})();
 }
 
 function fixNamingDiffKommun(KnNamn) {
@@ -236,4 +299,5 @@ function fixNamingDiffKommun(KnNamn) {
   return KnNamn
 }
 
+setApifyClient(); //Also gets the data if successfull
 insertFromCSV('https://datawrapper.dwcdn.net/liNlg/81/dataset.csv');
