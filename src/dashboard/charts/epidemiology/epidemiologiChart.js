@@ -195,12 +195,21 @@ async function compareDataConfirmedData(param) {
   comparedConfirmedLabel = confirmed2;
 }
 
-function deleteAndAddEpidemChart() {
+function addAndDeleteEpidemChart() {
   let element = document.getElementById('myChart');
-  element.parentNode.removeChild(element);
+  if (element) {
+    element.parentNode.removeChild(element);
+  }
   const canvas = document.createElement('canvas');
   canvas.setAttribute('id', 'myChart');
   document.getElementById('chartArea').append(canvas);
+}
+
+function deleteEpidemChart() {
+  let element = document.getElementById('myChart');
+  if (element) {
+    element.parentNode.removeChild(element);
+  }
 }
 
 //modal

@@ -1,6 +1,9 @@
 'use strict';
 const dropdown1 = document.getElementById('level1');
 
+const chart1 = document.getElementById('myChart');
+const chartColumn = document.getElementById('chartColumn');
+
 let state = {};
 let startDate = {};
 let endDate = {};
@@ -61,8 +64,8 @@ async function fillDropDown1() {
           state = myJson.country_code;
 
           console.log(heatmapDate);
-          deleteAndAddEpidemChart();
-          deleteAndAddSocioChart();
+          deleteEpidemChart();
+          deleteSocioChart();
           if (myJson.country_name === 'Sweden') {
             level2Text.innerHTML = 'Region';
             level3Text.innerHTML = 'Municipality';
@@ -98,6 +101,7 @@ async function fillDropDown2() {
           borderSelectedDistrict = [];
           borderSelectedMunicipality = [];
           randomColor();
+          chartColumn.classList.remove('is-hidden');
 
           borderSelectedRegion = myJson.coordinates;
           console.log(myJson);
@@ -129,7 +133,9 @@ async function fillDropDown2() {
           );
 
           dropdownEpidem.classList.remove('is-hidden');
-          deleteAndAddEpidemChart();
+          addAndDeleteEpidemChart();
+          chart1.classList.remove('is-hidden');
+
           createEpidemChart();
 
           confirmedCasesChart('admareas1?area1Code=' + myJson.area1_code);
@@ -191,8 +197,8 @@ function fillDropDown3() {
           endDateInput.classList.remove('is-hidden');
           dateButton.classList.remove('is-hidden');
           dropCompareWith.classList.remove('is-hidden');
-          deleteAndAddEpidemChart();
-          deleteAndAddSocioChart();
+          addAndDeleteEpidemChart();
+
           createEpidemChart();
           compareWithDropContent.innerHTML = '';
           fillCompareWith('admareas2?area1Code=SWE.13_1');
@@ -251,8 +257,8 @@ async function fillDropDown4() {
 
           borderAroundSelectedArea();
 
-          deleteAndAddEpidemChart();
-          deleteAndAddSocioChart();
+          addAndDeleteEpidemChart();
+          addSocioChart();
           createEpidemChart();
           createSocioChart();
           compareWithDropContent.innerHTML = '';
@@ -294,6 +300,9 @@ async function fillCompareWith(param) {
           }
           if (chartSocio.data.datasets.length === 2) {
             chartSocio.data.datasets.pop();
+          }
+          if (chartSocio2.data.datasets.length === 2) {
+            chartSocio2.data.datasets.pop();
           }
 
           if (myJson.bounding_box[0] > state.bounding_box[0]) {
@@ -493,7 +502,7 @@ optionYear2020.addEventListener('click', function () {
 });
 const optionYear2021 = document.getElementById('option2021');
 optionYear2021.addEventListener('click', function () {
-  deleteAndAddSocioChart();
+  addSocioChart();
   populationSocioChart(
     'population?area3Code=' + state.area3_code + '&year=2021'
   );

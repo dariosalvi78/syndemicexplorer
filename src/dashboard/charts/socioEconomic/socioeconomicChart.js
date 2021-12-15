@@ -9,15 +9,22 @@ let comparedPopulationLabel = [],
   foreignBackgroundLabel = [],
   educationalLevelLabel = [],
   disposableIncomeLabel = [],
+  overcrowdednessLabel = [],
+  comparedOvercrowdednessLabel = [],
   comparedDisposableIncomeLabel = [],
   comparedEducationalLevelLabel = [];
 
-function deleteAndAddSocioChart() {
-  let element = document.getElementById('chart2');
-  element.parentNode.removeChild(element);
+function addSocioChart() {
   const canvas = document.createElement('canvas');
   canvas.setAttribute('id', 'chart2');
   document.getElementById('chartArea2').append(canvas);
+}
+
+function deleteSocioChart() {
+  let element = document.getElementById('chart2');
+  if (element) {
+    element.parentNode.removeChild(element);
+  }
 }
 
 async function createSocioChart() {
@@ -36,6 +43,20 @@ async function createSocioChart() {
     options: options,
   });
   chartSocio.update('active');
+}
+
+async function overcrowdednessData(param) {}
+async function overcrowdednessChart(param) {
+  await overcrowdednessData(param);
+  const newDataset = {
+    label: placeLabel,
+    backgroundColor: color,
+    borderColor: color,
+    data: overcrowdednessLabel,
+  };
+
+  chartSocio.data.datasets.push(newDataset);
+  chartSocio.update();
 }
 
 async function compareDisposableIncomeChart(param) {
@@ -359,6 +380,7 @@ var colorArray = [
   'rgba(209, 35, 26, 0.33)',
   'rgba(0, 141, 56, 0.33)',
   'rgba(141, 108, 0, 0.33)',
-  'rgba(51, 45, 48, 0.33)',
-  'rgba(242, 255, 0, 0.33)',
+  'rgba(41, 24, 109, 0.5)',
+  'rgba(254, 108, 67, 0.5)',
+  'rgba(13, 186, 85, 0.5)',
 ];
