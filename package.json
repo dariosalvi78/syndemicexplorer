@@ -22,11 +22,12 @@
   },
   "homepage": "https://github.com/dariosalvi78/syndemicexplorer#readme",
   "dependencies": {
+    "apify-client": "^2.0.3",
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
-    "pg": "^8.7.1"
-    
-
+    "pg": "^8.7.1",
+    "tslib": "^2.3.1",
+    "xlsx": "^0.17.4"
   }
 }
