@@ -11,7 +11,34 @@ export default {
       console.log(e);
       res.sendStatus(500);
     }
-  },
+    },
+
+    async getOvercrowdednessData(req, res) {
+        let area3Code = req.query.area3Code;
+        let year = req.query.year;
+        let query = `SELECT year, gid, indicator, value FROM socio_economic 
+        WHERE indicator LIKE 'overcrowdedness_%' AND area3_code = $1 AND year = `;
+
+        if (!area3Code) {
+            res.sendStatus(400);
+        }
+
+        try {
+            let data
+            if (year) {
+                query += `$2`
+                data = await Pool.query(query, [area3Code, year])
+            } else {
+                query += `2020`
+                data = await Pool.query(query, [area3Code])
+            }
+            res.send(data.rows)
+        } catch (e) {
+            console.log(e)
+            res.sendStatus(500)
+        }
+    },
+
   //Jag ändrade lite här för att få med alla indicators för den area coden ------  where indicator = 'demographics_age_total_all' and
   async getPopulation(req, res) {
     let area3Code = req.query.area3Code;
