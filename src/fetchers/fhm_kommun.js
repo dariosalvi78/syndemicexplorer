@@ -91,24 +91,26 @@ function currentOrLastWeek() {
 //#endregion
 
 //#region ApifyClient
-import { ApifyClient } from 'apify-client';
+import {
+  ApifyClient
+} from 'apify-client';
 
 let apifyClient;
 
 function setApifyClient() {
   if (process.env.APIFY_TOKEN == undefined) {
-    setTimeout(function(){
+    setTimeout(function () {
       var apiKey = process.env.APIFY_TOKEN;
 
       if (apiKey == undefined)
         console.log("Failed to set APIFY_TOKEN maybe you haven't defined it in .env file!")
       else {
         apifyClient = new ApifyClient({
-          token: apiKey,
+          token: apiKey
         });
         getDataFromApify();
       }
-  }, 1);
+    }, 1);
   }
 }
 //#endregion
@@ -164,6 +166,16 @@ export default function () {
 
 function getEpidemiologyTable(week, year, adm_area) {
   //source, country_code, area1_code and area2_code are hardcoded for now
+  if (adm_area.area1_code == null) {
+    console.error("adm_area in getEpidemiologyTable is missing an area1 code!")
+    return;
+  }
+
+  let gid = adm_area.gid;
+
+  if (gid == undefined)
+    gid = (adm_area.area3_code != null) ? adm_area.area3_code : adm_area.area2_code
+
   return {
     table: "epidemiology",
     source: "SCB",
@@ -172,7 +184,7 @@ function getEpidemiologyTable(week, year, adm_area) {
     area1_code: adm_area.area1_code,
     area2_code: adm_area.area2_code,
     area3_code: adm_area.area3_code,
-    gid: (adm_area.area3_code != null) ? adm_area.area3_code : adm_area.area2_code
+    gid: gid
   }
 }
 
@@ -253,6 +265,10 @@ function insertFromCSV(url) {
         }
 
         var epidemiology_data = getEpidemiologyTable(currentOrLastWeek(), new Date().getFullYear(), adm_area)
+
+        if (epidemiology_data == undefined)
+          return;
+
         epidemiology_data = Object.assign({
           "dead": deaths
         }, epidemiology_data)
@@ -265,30 +281,45 @@ function insertFromCSV(url) {
 function getDataFromApify() {
   (async () => {
     // Run the actor and wait for it to finish
+    // console.log("Beginning connection to tugkan/covid-se!")
     const run = await apifyClient.actor("tugkan/covid-se").call(input)
 
     // Fetch and print actor results from the run's dataset (if any)
-    const { items } = await apifyClient.dataset(run.defaultDatasetId).listItems()
+    const {
+      items
+    } = await apifyClient.dataset(run.defaultDatasetId).listItems()
 
     let resultArray = items[0].infectedByRegion
+    // console.log("Beginning inserting deaths! Resultarray is: " + resultArray)
 
     //Insert deaths and icu into table
     for (let i = 0; i < resultArray.length; i++) {
       let item = resultArray[i]
+      let region = item.region;
 
-      let adm_area = await getPoolQuery("SELECT area1_code, gid FROM admin_areas WHERE country_code = 'SWE' AND area1_name = $1", [item.region])[0]
-      if (adm_area == null)
+      let adm_area = await getPoolQuery("SELECT area1_code, gid FROM admin_areas WHERE country_code = 'SWE' AND level = '2' AND area1_name = $1 AND area2_name IS NULL", [region])
+      adm_area = adm_area.rows[0];
+      if (adm_area == null) {
+        console.log("No admin area found for " + region)
         continue;
+      }
 
       var epidemiology_data = getEpidemiologyTable(currentOrLastWeek(), new Date().getFullYear(), adm_area)
+
+      if (epidemiology_data == undefined) {
+        console.log("epidemiology_data for " + region + " is undefined!")
+        continue;
+      }
+
       epidemiology_data = Object.assign({
         "dead": item.deathCount,
         "hospitalized_icu": item.intensiveCareCount
       }, epidemiology_data)
-      
+
       await upsertTimeseries(epidemiology_data)
     }
-})();
+    // console.log("Finished inserting new data!")
+  })();
 }
 
 function fixNamingDiffKommun(KnNamn) {
