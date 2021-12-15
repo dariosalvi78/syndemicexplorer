@@ -116,7 +116,7 @@ async function fillDropDown2() {
 
           borderAroundSelectedArea();
 
-          state = myJson.area1_code;
+          state = myJson;
 
           setBoundingBox(
             [myJson.bounding_box[0], myJson.bounding_box[1]],
@@ -145,9 +145,11 @@ async function fillDropDown2() {
 
 const dropDownContent3 = document.querySelector('.dropContent3');
 const level3Text = document.getElementById('level3Text');
-const urlLevel3 = `http://localhost:5000/api/v1/maps/admareas2?area1Code=${state}`;
+
 function fillDropDown3() {
-  fetch(`http://localhost:5000/api/v1/maps/admareas2?area1Code=${state}`)
+  fetch(
+    `http://localhost:5000/api/v1/maps/admareas2?area1Code=${state.area1_code}`
+  )
     .then(function (response) {
       return response.json();
     })
@@ -284,7 +286,7 @@ async function fillCompareWith(param) {
       myJson.forEach(function (myJson) {
         const compareData = document.createElement('a');
         compareData.addEventListener('click', function () {
-          compareRandomColor();
+          map.removeLayer('secondFill');
           console.log(myJson);
 
           if (chart.data.datasets.length === 2) {
@@ -315,7 +317,7 @@ async function fillCompareWith(param) {
               secondBorderArray.push(j);
             });
           });
-
+          compareRandomColor();
           borderAroundSecondArea();
 
           if (myJson.area2_code) {
@@ -508,10 +510,31 @@ heatmapDatePicker.addEventListener('change', () => {
   changeHeatmapWithDate();
   console.log(heatmapDate);
 
-  showHeatMapForSelectedLevel(
-    `level=2&countryCode=SWE&date=${heatmapDate}&indicator=confirmed&area1Code=` +
-      state
-  );
+  if (state.area2_code) {
+    showHeatMapForSelectedLevel(
+      `level=3&countryCode=SWE&date=${heatmapDate}&indicator=confirmed&area2Code=` +
+        state.area2_code
+    );
+  }
+
+  if (state.area3_code) {
+    showHeatMapForSelectedLevel(
+      `level=3&countryCode=SWE&date=${heatmapDate}&indicator=confirmed&area3Code=` +
+        state.area3_code
+    );
+  }
+
+  if (state.area1_code) {
+    showHeatMapForSelectedLevel(
+      `level=2&countryCode=SWE&date=${heatmapDate}&indicator=confirmed&area1Code=` +
+        state.area1_code
+    );
+  }
+  if (state.country_name) {
+    showHeatMapForSelectedLevel(
+      'level=2&countryCode=SWE&date=2021-11-22&indicator=confirmed'
+    );
+  }
 });
 
 const getValuesFromDates = () => {
@@ -575,19 +598,3 @@ incomeOption2.addEventListener('click', function () {
   socioDropText2.innerHTML = 'Disposable Income';
   disposableIncomeSocioChart2('disposableincome?area3Code=' + state.area3_code);
 });
-
-// $(function () {
-//   $('#slider-range').slider({
-//     min: new Date('2010.01.01').getTime() / 1000,
-//     max: new Date('2014.01.01').getTime() / 1000,
-//     step: 86400,
-//     values: new Date('2013.02.01').getTime() / 1000,
-
-//     slide: function (event, ui) {
-//       $('#amount').val(new Date(ui.values[0] * 1000).toDateString());
-//     },
-//   });
-//   $('#amount').val(
-//     new Date($('#slider-range').slider('values', 0) * 1000).toDateString()
-//   );
-// });
