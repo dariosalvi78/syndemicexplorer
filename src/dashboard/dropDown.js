@@ -360,6 +360,29 @@ async function fillCompareWith(param) {
                 'disposableincome?area3Code=' + myJson.area3_code
               );
             }
+
+            //Second Socioeconomic graph
+
+            if (socioDropText2.innerHTML == 'Foreign Background') {
+              compareForeignBackgroundChart2(
+                'foreignbackground?area3Code=' + myJson.area3_code
+              );
+            }
+            if (socioDropText2.innerHTML == 'Population') {
+              comparePopulationSocioChart2(
+                'population?area3Code=' + myJson.area3_code
+              );
+            }
+            if (socioDropText2.innerText == 'Educational Level') {
+              compareEducationalLevelChart2(
+                'educationallevel?area3Code=' + myJson.area3_code
+              );
+            }
+            if (socioDropText2.innerText == 'Disposable Income') {
+              compareDisposableIncomeChart2(
+                'disposableincome?area3Code=' + myJson.area3_code
+              );
+            }
           }
         });
         compareData.setAttribute('class', 'dropdown-item');
@@ -509,7 +532,7 @@ const heatmapDatePicker = document.getElementById('heatmapDate');
 heatmapDatePicker.addEventListener('change', () => {
   changeHeatmapWithDate();
   console.log(heatmapDate);
-
+  console.log(state);
   if (state.area2_code) {
     showHeatMapForSelectedLevel(
       `level=3&countryCode=SWE&date=${heatmapDate}&indicator=confirmed&area2Code=` +
@@ -519,8 +542,7 @@ heatmapDatePicker.addEventListener('change', () => {
 
   if (state.area3_code) {
     showHeatMapForSelectedLevel(
-      `level=3&countryCode=SWE&date=${heatmapDate}&indicator=confirmed&area3Code=` +
-        state.area3_code
+      `level=3&countryCode=SWE&date=${heatmapDate}&indicator=confirmed&area2Code=SWE.13.19_1`
     );
   }
 
@@ -532,7 +554,7 @@ heatmapDatePicker.addEventListener('change', () => {
   }
   if (state.country_name) {
     showHeatMapForSelectedLevel(
-      'level=2&countryCode=SWE&date=2021-11-22&indicator=confirmed'
+      `level=2&countryCode=SWE&date=${heatmapDate}&indicator=confirmed`
     );
   }
 });

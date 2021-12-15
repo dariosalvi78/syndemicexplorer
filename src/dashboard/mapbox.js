@@ -141,14 +141,14 @@ map.on('load', function () {
   );
 });
 
-const showHeatMapForSelectedLevel = (param) => {
-  let data = {};
+const showHeatMapForSelectedLevel = async (param) => {
+  const apiUrl = `http://localhost:5000/api/v1/heatmapdata?${param}`;
+  console.log('kommer vi in hit?');
+  console.log(apiUrl);
+  const response = await fetch(apiUrl);
+  const heatmapData = await response.json();
 
-  data = `http://localhost:5000/api/v1/heatmapdata?${param}`;
-
-  console.log(data);
-
-  map.getSource('confirmedcases').setData(data);
+  map.getSource('confirmedcases').setData(heatmapData);
 };
 map.on('draw.update', showHeatMapForSelectedLevel);
 
