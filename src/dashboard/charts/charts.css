@@ -4,7 +4,24 @@
   height: 300px !important;
   width: 100% !important;
 }
+input[type='date'] {
+  background-color: #f1efef;
+  padding: 15px;
+  /* transform: translate(-50%, -50%); */
+  font-family: 'Roboto Mono', monospace;
+  color: rgb(0, 0, 0);
+  font-size: 13px;
 
+  border: none;
+  margin-top: 3px;
+  border-radius: 7px;
+}
+
+::-webkit-calendar-picker-indicator {
+  padding: 0px;
+  cursor: pointer;
+  border-radius: 3px;
+}
 #myChart {
   margin-bottom: 200px;
   box-shadow: rgba(0, 0, 0, 0.2) 0 3px 5px 5px, rgba(0, 0, 0, 0.14) 0 6px 10px 0,
