@@ -65,7 +65,7 @@ input[type='date'] {
   font-family: 'Google Sans', Roboto, Arial, sans-serif;
   font-size: 14px;
   font-weight: 500;
-  height: 27px;
+  height: 40px;
   justify-content: center;
   letter-spacing: 0.25px;
   line-height: normal;
@@ -84,7 +84,6 @@ input[type='date'] {
   width: auto;
   /* will-change: transform, opacity; */
   z-index: 0;
-  top: -5px;
 }
 
 .dateButton:hover {

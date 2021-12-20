@@ -7,32 +7,7 @@ const map = new mapboxgl.Map({
   center: [-5.0, 52.47],
   zoom: 1,
 });
-map.on('load', () => {
-  map.addSource('custom', {
-    type: 'geojson',
-    data: {
-      type: 'Feature',
-      geometry: {
-        type: 'Polygon',
-        coordinates: [[]],
-      },
-    },
-  });
-});
-
-map.on('load', () => {
-  map.addSource('secondArea', {
-    type: 'geojson',
-    data: {
-      type: 'Feature',
-      geometry: {
-        type: 'Polygon',
-        coordinates: [[]],
-      },
-    },
-  });
-});
-
+//Adds a heatmap to the map with confirmed cases as indicator
 map.on('load', function () {
   map.addSource('confirmedcases', {
     type: 'geojson',
@@ -141,6 +116,7 @@ map.on('load', function () {
   );
 });
 
+// Adjusts the heatmap to selected area
 const showHeatMapForSelectedLevel = async (param) => {
   const apiUrl = `http://localhost:5000/api/v1/heatmapdata?${param}`;
   console.log('kommer vi in hit?');
@@ -161,15 +137,39 @@ map.on('mousemove', 'confirmed-point', function (e) {
     .addTo(map); /* Add layer to the map. */
 });
 
-//fits the map around the selected area
+//Fits the map around the selected area
 const setBoundingBox = (bound1, bound2) => {
   let bounds = new mapboxgl.LngLatBounds(bound1, bound2);
 
   map.fitBounds(bounds);
 };
 
-//sets a colored border around the selected area
+//Sets a colored border around the second selected area
+map.on('load', () => {
+  map.addSource('custom', {
+    type: 'geojson',
+    data: {
+      type: 'Feature',
+      geometry: {
+        type: 'Polygon',
+        coordinates: [[]],
+      },
+    },
+  });
+});
 
+map.on('load', () => {
+  map.addSource('secondArea', {
+    type: 'geojson',
+    data: {
+      type: 'Feature',
+      geometry: {
+        type: 'Polygon',
+        coordinates: [[]],
+      },
+    },
+  });
+});
 const borderAroundSecondArea = () => {
   map.getSource('secondArea').setData({
     type: 'Feature',
@@ -192,6 +192,7 @@ const borderAroundSecondArea = () => {
   );
 };
 
+// Creates a border around the selected with the same color as the graph
 const borderAroundSelectedArea = () => {
   map.getSource('custom').setData({
     type: 'Feature',

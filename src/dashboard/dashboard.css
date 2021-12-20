@@ -115,38 +115,3 @@ html {
   box-shadow: rgba(60, 64, 67, 0.3) 0 1px 3px 0,
     rgba(60, 64, 67, 0.15) 0 4px 8px 3px;
 }
-/* 
-.datepicker-toggle {
-  display: inline-block;
-  position: relative;
-  width: 18px;
-  height: 19px;
-}
-.datepicker-toggle-button {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background-image: url('data:image/svg+xml;base64,...');
-}
-.datepicker-input {
-  position: relative;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-  cursor: pointer;
-  box-sizing: border-box;
-}
-.datepicker-input::-webkit-calendar-picker-indicator {
-  position: relative;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  cursor: pointer;
-} */
