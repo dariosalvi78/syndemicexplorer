@@ -1,7 +1,6 @@
 let dateLabel = [],
   confirmedLabel = [],
   comparedConfirmedLabel = [],
-  comparedPopulationLabel = [],
   placeLabel = [],
   deathsLabel = [];
 
@@ -75,7 +74,7 @@ async function confirmedCasesChart(param) {
     hitRadius: 5,
     hoverRadius: 3,
     tension: 0.3,
-    opacity: 0.5,
+    opacity: 1.0,
   };
 
   //console.log(comparedConfirmedLabel);
@@ -120,10 +119,11 @@ async function deathsConfirmedChart(param) {
     borderColor: color,
     data: deathsLabel,
     fill: false,
-    radius: 3,
-    hitRadius: 10,
-    hoverRadius: 5,
+    radius: 1,
+    hitRadius: 5,
+    hoverRadius: 3,
     tension: 0.3,
+    opacity: 1.0,
   };
 
   chart.data.datasets.push(newDataset);
@@ -153,17 +153,19 @@ async function compareDataConfirmedChart(param) {
 
   const newDataset = {
     label: placeLabel,
-    backgroundColor: color,
-    borderColor: '#fff',
+    backgroundColor: compareColor,
+    borderColor: compareColor,
     data: comparedConfirmedLabel,
     fill: false,
-    radius: 3,
-    hitRadius: 10,
-    hoverRadius: 5,
+    radius: 1,
+    hitRadius: 5,
+    hoverRadius: 3,
     tension: 0.3,
+    opacity: 1.0,
   };
 
   chart.data.datasets.push(newDataset);
+  console.log(chart.data.datasets.length);
   chart.data.labels = dateLabel;
   chart.update();
 }
@@ -193,12 +195,21 @@ async function compareDataConfirmedData(param) {
   comparedConfirmedLabel = confirmed2;
 }
 
-function deleteAndAddEpidemChart() {
+function addAndDeleteEpidemChart() {
   let element = document.getElementById('myChart');
-  element.parentNode.removeChild(element);
+  if (element) {
+    element.parentNode.removeChild(element);
+  }
   const canvas = document.createElement('canvas');
   canvas.setAttribute('id', 'myChart');
   document.getElementById('chartArea').append(canvas);
+}
+
+function deleteEpidemChart() {
+  let element = document.getElementById('myChart');
+  if (element) {
+    element.parentNode.removeChild(element);
+  }
 }
 
 //modal

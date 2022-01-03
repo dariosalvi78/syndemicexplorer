@@ -1,5 +1,4 @@
 import fs from 'fs';
-import { Pool } from '../src/db.js';
 import readline from 'readline';
 
 let csvFiles = -1;
@@ -45,7 +44,8 @@ function StoreObjectsAndRunWhenFinished(objectCollection) {
     if (result.length == csvFiles) //All the files have been read
         PrintQuery();
 }
- function readLines(file) {
+
+function readLines(file) {
     var rs = fs.createReadStream(file);
 
     const rl = readline.createInterface({
@@ -90,14 +90,6 @@ async function PrintQuery() {
         for (let dataobject = 0; dataobject < result[file].length; dataobject++) {
             let obj = result[file][dataobject];
 
-            let area3Code = await fetchArea3Code(obj.area3_code, obj.area2_code);
-
-            if(area3Code.rowCount != 0) {
-                area3Code = area3Code.rows[0].area3_code;
-            } else {
-                area3Code = obj.area3_code
-            }
-
             let query = 'INSERT INTO public.socio_economic (source, year, country_code, area1_code, area2_code, area3_code, gid, indicator, '
             
             if (obj.sample_size != null)
@@ -105,7 +97,7 @@ async function PrintQuery() {
 
             query += 'value) VALUES ('
             
-            query += SurroundWith(obj.source) + ", " + SurroundWith(obj.year) + ", " + SurroundWith(obj.country_code) + ", " + SurroundWith(obj.area1_code) + ", " + SurroundWith(obj.area2_code) + ", " + SurroundWith(area3Code) + ", " + 
+            query += SurroundWith(obj.source) + ", " + SurroundWith(obj.year) + ", " + SurroundWith(obj.country_code) + ", " + SurroundWith(obj.area1_code) + ", " + SurroundWith(obj.area2_code) + ", " + SurroundWith(obj.area3_code) + ", " + 
             SurroundWith(obj.Gid) + ", " + SurroundWith(obj.indicator) + ", ";
 
             if (obj.sample_size != null)
@@ -121,16 +113,6 @@ async function PrintQuery() {
 
 function SurroundWith(theString) {
     return "'" + theString + "'";
-}
-
-async function fetchArea3Code(area3Name, area2Code) {
-    let query = `select area3_code from admin_areas where area3_name = $1 and area2_code = $2`;
-    let area3_name = " " + area3Name;
-    try {
-      return await Pool.query(query, [area3_name, area2Code]);
-    } catch (error) {
-        console.log(error)
-    }
 }
 
 class DataObject {
@@ -153,6 +135,24 @@ class DataObject {
     }
 }
 
-export default
-readCSVFiles(process.cwd() + "/csv files");
+function csvToArray(csv) {
+    const lines = csv.split('\n')
+    const res = []
+    const headers = lines[0].split(',')
+  
+    for (let i = 1; i < lines.length; i++) {        
+        if (!lines[i])
+            continue
+        const obj = []
+        const currentline = lines[i].split(',')
+  
+        for (let j = 0; j < headers.length; j++) {
+            obj.push(currentline[j])
+        }
+        res.push(obj)
+    }
+    return res
+}
 
+// readCSVFiles(process.cwd() + "/csv files"); //Used for generating insertion statements from the csv files in csv files folder
+export default csvToArray;

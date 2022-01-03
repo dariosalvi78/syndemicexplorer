@@ -1,71 +1,5 @@
-let xAxisLabel = {};
-let color = {};
-let chartSocio;
-let optionsSocio = {
-  scales: {},
-
-  responsive: true,
-  pan: {
-    enabled: true,
-    mode: 'x',
-  },
-  zoom: {
-    enabled: true,
-    mode: 'x', // or 'x' for "drag" version
-  },
-  transitions: {
-    show: {
-      animations: {
-        x: {
-          from: 0,
-          xAxis: true,
-        },
-        y: {
-          from: 0,
-          yAxis: true,
-        },
-      },
-    },
-    hide: {
-      animations: {
-        x: {
-          to: 0,
-          xAxis: true,
-        },
-        y: {
-          to: 0,
-          yAxis: true,
-        },
-      },
-    },
-  },
-};
-
-function deleteAndAddSocioChart() {
-  let element = document.getElementById('chart2');
-  element.parentNode.removeChild(element);
-  const canvas = document.createElement('canvas');
-  canvas.setAttribute('id', 'chart2');
-  document.getElementById('chartArea2').append(canvas);
-}
-
-async function createSocioChart() {
-  const ctx = document.getElementById('chart2').getContext('2d');
-  //Fill gradient
-
-  chartSocio = new Chart(ctx, {
-    // The type of chart we want to create
-    type: 'bar',
-
-    // The data for our dataset
-    data: {
-      labels: dateLabel,
-      datasets: [],
-    },
-    options: optionsSocio,
-  });
-  chartSocio.update('active');
-}
+let populationLabel = [],
+  comparedPopulationLabel = [];
 
 async function populationSocioChart(param) {
   console.log('DENNA FUNKAR');
@@ -73,9 +7,9 @@ async function populationSocioChart(param) {
   await populationSocioData(param);
 
   const newDataSet = {
-    label: 'Population ' + placeLabel,
+    label: placeLabel,
     backgroundColor: color,
-    borderColor: '#fff',
+    borderColor: color,
     pointBackgroundColor: 'rgb(189,195,199)',
     data: populationLabel,
     fill: true,
@@ -85,6 +19,9 @@ async function populationSocioChart(param) {
     tension: 0.3,
     opacity: 0.5,
   };
+  if (chartSocio.data.datasets != []) {
+    chartSocio.data.datasets = [];
+  }
 
   chartSocio.data.datasets.push(newDataSet);
   chartSocio.data.labels = xAxisLabel;
@@ -96,9 +33,9 @@ async function populationSocioData(param) {
   console.log(apiUrl);
   const response = await fetch(apiUrl);
   const barChartData = await response.json();
-  if (barChartData.length == 0) {
-    modalSoc.classList.add('is-active');
-  }
+  // if (barChartData.length == 0) {
+  //   modalSoc.classList.add('is-active');
+  // }
   console.log(barChartData);
 
   const population = barChartData.map((x) => x.value);
@@ -113,6 +50,7 @@ async function populationSocioData(param) {
   placeLabel = place;
   console.log(xAxisLabel);
 }
+
 async function comparePopulationSocioData(param) {
   const apiUrl = `http://localhost:5000/api/v1/socio_economics/${param}`;
   console.log(apiUrl);
@@ -139,9 +77,9 @@ async function comparePopulationSocioChart(param) {
   await comparePopulationSocioData(param);
 
   const newDataset = {
-    label: 'Population ' + placeLabel,
-    backgroundColor: color,
-    borderColor: '#fff',
+    label: placeLabel,
+    backgroundColor: compareColor,
+    borderColor: compareColor,
     data: comparedPopulationLabel,
   };
   console.log(comparedPopulationLabel);
@@ -150,7 +88,6 @@ async function comparePopulationSocioChart(param) {
 }
 
 function randomColor() {
-  var r = () => (Math.random() * 256) >> 0;
-  color = `rgba(${r()}, ${r()}, ${r()}, 0.5)`;
+  color = colorArray[Math.floor(Math.random() * colorArray.length)];
   return color;
 }

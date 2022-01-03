@@ -1,45 +1,34 @@
-'use strict';
-const dropdown1 = document.getElementById('level1');
-
 let state = {};
-let startDate = {};
-let endDate = {};
+let heatmapDate = {};
 let borderSelectedRegion = [];
 let borderSelectedMunicipality = [];
 let borderSelectedDistrict = [];
+let borderSecondSelectedDistrict = [];
 let borderArray = [];
+let secondBorderArray = [];
+const chart1 = document.getElementById('myChart');
+const chartColumn = document.getElementById('chartColumn');
 
+const startDateLabel = document.getElementById('startDateLabel');
+const endDateLabel = document.getElementById('endDateLabel');
+const startDateInput = document.getElementById('startDate');
+const endDateInput = document.getElementById('endDate');
+
+const socioEconomDrop = document.getElementById('socioEconomDrop');
+
+const mapContainer = document.getElementById('map');
+
+const dropdown1 = document.getElementById('level1');
 dropdown1.addEventListener('click', function () {
   dropDownContent1.innerHTML = '';
   fillDropDown1();
   dropdown1.classList.toggle('is-active');
 });
 
-const dropdown2 = document.getElementById('level2');
-dropdown2.addEventListener('click', function (event) {
-  dropDownContent2.innerHTML = '';
-  dropdown2.classList.toggle('is-active');
-  fillDropDown2();
-});
-
-const dropdown3 = document.getElementById('level3');
-dropdown3.addEventListener('click', function (event) {
-  dropDownContent3.innerHTML = '';
-  dropdown3.classList.toggle('is-active');
-  fillDropDown3();
-});
-
-const dropdown4 = document.getElementById('level4');
-dropdown4.addEventListener('click', function (event) {
-  dropDownContent4.innerHTML = '';
-  fillDropDown4();
-  dropdown4.classList.toggle('is-active');
-});
-
 const dropDownContent1 = document.querySelector('.dropContent1');
 const level1Text = document.getElementById('level1Text');
 const urlLevel1 = 'http://localhost:5000/api/v1/maps/countrynames';
-
+//Fills the level 1 dropdown with data
 async function fillDropDown1() {
   await fetch(urlLevel1)
     .then(function (response) {
@@ -52,13 +41,14 @@ async function fillDropDown1() {
         level1.innerHTML = myJson.country_name;
         level1.setAttribute('class', 'dropdown-item');
         dropDownContent1.appendChild(level1);
+        //Actionlistener for each element in the data, adjusts the map to selected area
         level1.addEventListener('click', function () {
           level1Text.innerHTML = myJson.country_name;
 
           state = myJson.country_code;
 
-          deleteAndAddEpidemChart();
-          deleteAndAddSocioChart();
+          deleteEpidemChart();
+          deleteSocioChart();
           if (myJson.country_name === 'Sweden') {
             level2Text.innerHTML = 'Region';
             level3Text.innerHTML = 'Municipality';
@@ -75,9 +65,16 @@ async function fillDropDown1() {
     });
 }
 
+const dropdown2 = document.getElementById('level2');
+dropdown2.addEventListener('click', function (event) {
+  dropDownContent2.innerHTML = '';
+  dropdown2.classList.toggle('is-active');
+  fillDropDown2();
+});
+
 const dropDownContent2 = document.querySelector('.dropContent2');
 const level2Text = document.getElementById('level2Text');
-
+//Fills the level 2 with data
 async function fillDropDown2() {
   await fetch(
     `http://localhost:5000/api/v1/maps/admareas1?countryCode=${state}`
@@ -89,22 +86,18 @@ async function fillDropDown2() {
       console.log(myJson);
       myJson.forEach(function (myJson) {
         const level2 = document.createElement('a');
-        level2.addEventListener('click', function () {
-          map.removeLayer('inline');
+        //Actionlistener for each element in the data, adjusts the map to selected area and creates a chart for selected area
+        level2.addEventListener('click', async function () {
           borderArray = [];
           borderSelectedDistrict = [];
           borderSelectedMunicipality = [];
           randomColor();
-          // myJson.coordinates.forEach((coordinate) => {
-          //   geoJsonRegion.push(coordinate);
-          // });
+          chartColumn.classList.remove('is-hidden');
+
           borderSelectedRegion = myJson.coordinates;
           console.log(myJson);
           level2Text.innerHTML = myJson.area1_name;
           epidemDataText.innerHTML = 'Confirmed cases';
-          // mapContainer.remove();
-          // document.getElementById('mapColumn').appendChild(mapContainer);
-          //geoJsonRegion = geoJsonRegion.map((x) => x.slice(0, 32));
 
           borderSelectedRegion.forEach((i) => {
             i.forEach((j) => {
@@ -118,12 +111,13 @@ async function fillDropDown2() {
 
           borderAroundSelectedArea();
 
-          state = myJson.area1_code;
+          state = myJson;
 
           setBoundingBox(
             [myJson.bounding_box[0], myJson.bounding_box[1]],
             [myJson.bounding_box[2], myJson.bounding_box[3]]
           );
+          mapContainer.style.width = '99%';
 
           showHeatMapForSelectedLevel(
             'level=2&countryCode=SWE&date=2021-11-22&indicator=confirmed&area1Code=' +
@@ -131,11 +125,12 @@ async function fillDropDown2() {
           );
 
           dropdownEpidem.classList.remove('is-hidden');
-          deleteAndAddEpidemChart();
+          addAndDeleteEpidemChart();
+          chart1.classList.remove('is-hidden');
+
           createEpidemChart();
 
           confirmedCasesChart('admareas1?area1Code=' + myJson.area1_code);
-          populationSocioChart('population?area3Code=' + myJson.area1_code);
         });
         const newLine = document.createElement('br');
         level2.innerHTML = myJson.area1_name;
@@ -146,17 +141,27 @@ async function fillDropDown2() {
     });
 }
 
+const dropdown3 = document.getElementById('level3');
+dropdown3.addEventListener('click', function (event) {
+  dropDownContent3.innerHTML = '';
+  dropdown3.classList.toggle('is-active');
+  fillDropDown3();
+});
+
 const dropDownContent3 = document.querySelector('.dropContent3');
 const level3Text = document.getElementById('level3Text');
-const urlLevel3 = `http://localhost:5000/api/v1/maps/admareas2?area1Code=${state}`;
+
 function fillDropDown3() {
-  fetch(`http://localhost:5000/api/v1/maps/admareas2?area1Code=${state}`)
+  fetch(
+    `http://localhost:5000/api/v1/maps/admareas2?area1Code=${state.area1_code}`
+  )
     .then(function (response) {
       return response.json();
     })
     .then(function (myJson) {
       myJson.forEach(function (myJson) {
         const level3 = document.createElement('a');
+        //Actionlistener for each element in the data, adjusts the map to selected area and creates a epidemiology chart for selected area
         level3.addEventListener('click', function () {
           map.removeLayer('inline');
           randomColor();
@@ -179,7 +184,6 @@ function fillDropDown3() {
               });
             });
           });
-
           borderAroundSelectedArea();
           showHeatMapForSelectedLevel(
             'level=3&countryCode=SWE&date=2021-11-22&indicator=confirmed&area2Code=' +
@@ -192,8 +196,8 @@ function fillDropDown3() {
           endDateInput.classList.remove('is-hidden');
           dateButton.classList.remove('is-hidden');
           dropCompareWith.classList.remove('is-hidden');
-          deleteAndAddEpidemChart();
-          deleteAndAddSocioChart();
+          addAndDeleteEpidemChart();
+
           createEpidemChart();
           compareWithDropContent.innerHTML = '';
           fillCompareWith('admareas2?area1Code=SWE.13_1');
@@ -209,9 +213,15 @@ function fillDropDown3() {
     });
 }
 
+const dropdown4 = document.getElementById('level4');
+dropdown4.addEventListener('click', function (event) {
+  dropDownContent4.innerHTML = '';
+  fillDropDown4();
+  dropdown4.classList.toggle('is-active');
+});
+
 const dropDownContent4 = document.querySelector('.dropContent4');
 const level4Text = document.getElementById('level4Text');
-const urlLevel4 = `http://localhost:5000/api/v1/maps/admareas3?area2Code=SWE.13.19_1${state}`;
 
 async function fillDropDown4() {
   await fetch(
@@ -223,16 +233,20 @@ async function fillDropDown4() {
     .then(function (myJson) {
       myJson.forEach(function (myJson) {
         const level4 = document.createElement('a');
+        //Actionlistener for each element in the data, adjusts the map to selected area and creates a socioeconomic and epidemiology chart for selected area
         level4.addEventListener('click', function () {
+          map.removeLayer('secondFill');
           map.removeLayer('inline');
           borderSelectedMunicipality = [];
           borderArray = [];
           borderSelectedDistrict = myJson.coordinates;
           level4Text.innerHTML = myJson.area3_name;
           epidemDataText.innerHTML = 'Confirmed cases';
+          socioDropText.innerHTML = 'Population';
           state = myJson;
           console.log(state);
           console.log(myJson);
+
           setBoundingBox(
             [myJson.bounding_box[0], myJson.bounding_box[1]],
             [myJson.bounding_box[2], myJson.bounding_box[3]]
@@ -249,8 +263,8 @@ async function fillDropDown4() {
 
           borderAroundSelectedArea();
 
-          deleteAndAddEpidemChart();
-          deleteAndAddSocioChart();
+          addAndDeleteEpidemChart();
+          addSocioChart();
           createEpidemChart();
           createSocioChart();
           compareWithDropContent.innerHTML = '';
@@ -262,6 +276,7 @@ async function fillDropDown4() {
           dropCompareWith.classList.remove('is-hidden');
           dropSocioYear.classList.remove('is-hidden');
           socioEconomDrop.classList.remove('is-hidden');
+          extraSocioEconomicGraph.classList.remove('is-hidden');
         });
         level4.setAttribute('class', 'dropdown-item');
         const newLine = document.createElement('br');
@@ -271,6 +286,16 @@ async function fillDropDown4() {
       });
     });
 }
+
+const compareWithDropContent = document.querySelector(
+  '.compareWithDropContent'
+);
+const dropCompareWithText = document.getElementById('dropCompareWithText');
+const dropCompareWith = document.getElementById('compareWithDropdown');
+
+dropCompareWith.addEventListener('click', function () {
+  dropCompareWith.classList.toggle('is-active');
+});
 
 async function fillCompareWith(param) {
   const compareUrl = `http://localhost:5000/api/v1/maps/${param}`;
@@ -283,8 +308,45 @@ async function fillCompareWith(param) {
       myJson.forEach(function (myJson) {
         const compareData = document.createElement('a');
         compareData.addEventListener('click', function () {
-          randomColor();
+          map.removeLayer('secondFill');
           console.log(myJson);
+
+          if (chart.data.datasets.length === 2) {
+            chart.data.datasets.pop();
+          }
+          if (chartSocio.data.datasets.length === 2) {
+            chartSocio.data.datasets.pop();
+          }
+          if (chartSocio2) {
+            if (chartSocio2.data.datasets.length === 2) {
+              chartSocio2.data.datasets.pop();
+            }
+          }
+
+          if (myJson.bounding_box[0] > state.bounding_box[0]) {
+            setBoundingBox(
+              [myJson.bounding_box[2], myJson.bounding_box[3]],
+              [state.bounding_box[0], state.bounding_box[1]]
+            );
+          }
+          if (myJson.bounding_box[0] < state.bounding_box[0]) {
+            setBoundingBox(
+              [myJson.bounding_box[0], myJson.bounding_box[1]],
+              [state.bounding_box[2], state.bounding_box[3]]
+            );
+          }
+
+          borderSecondSelectedDistrict = myJson.coordinates;
+
+          secondBorderArray = [];
+          borderSecondSelectedDistrict.forEach((i) => {
+            i.forEach((j) => {
+              secondBorderArray.push(j);
+            });
+          });
+          compareRandomColor();
+          borderAroundSecondArea();
+
           if (myJson.area2_code) {
             compareDataConfirmedChart(
               'admareas2?area2Code=' + myJson.area2_code
@@ -305,10 +367,49 @@ async function fillCompareWith(param) {
             compareDataConfirmedChart(
               'admareas3?area3Code=' + myJson.area3_code
             );
+            if (socioDropText.innerHTML == 'Foreign Background') {
+              compareForeignBackgroundChart(
+                'foreignbackground?area3Code=' + myJson.area3_code
+              );
+            }
+            if (socioDropText.innerHTML == 'Population') {
+              comparePopulationSocioChart(
+                'population?area3Code=' + myJson.area3_code
+              );
+            }
+            if (socioDropText.innerText == 'Educational Level') {
+              compareEducationalLevelChart(
+                'educationallevel?area3Code=' + myJson.area3_code
+              );
+            }
+            if (socioDropText.innerText == 'Disposable Income') {
+              compareDisposableIncomeChart(
+                'disposableincome?area3Code=' + myJson.area3_code
+              );
+            }
 
-            comparePopulationSocioChart(
-              'population?area3Code=' + myJson.area3_code
-            );
+            //Second Socioeconomic graph
+
+            if (socioDropText2.innerHTML == 'Foreign Background') {
+              compareForeignBackgroundChart2(
+                'foreignbackground?area3Code=' + myJson.area3_code
+              );
+            }
+            if (socioDropText2.innerHTML == 'Population') {
+              comparePopulationSocioChart2(
+                'population?area3Code=' + myJson.area3_code
+              );
+            }
+            if (socioDropText2.innerText == 'Educational Level') {
+              compareEducationalLevelChart2(
+                'educationallevel?area3Code=' + myJson.area3_code
+              );
+            }
+            if (socioDropText2.innerText == 'Disposable Income') {
+              compareDisposableIncomeChart2(
+                'disposableincome?area3Code=' + myJson.area3_code
+              );
+            }
           }
         });
         compareData.setAttribute('class', 'dropdown-item');
@@ -325,113 +426,3 @@ async function fillCompareWith(param) {
       });
     });
 }
-const compareWithDropContent = document.querySelector(
-  '.compareWithDropContent'
-);
-const dropCompareWithText = document.getElementById('dropCompareWithText');
-const dropCompareWith = document.getElementById('compareWithDropdown');
-
-dropCompareWith.addEventListener('click', function () {
-  dropCompareWith.classList.toggle('is-active');
-});
-
-const epidemDataText = document.getElementById('stats1');
-const dropdownEpidem = document.getElementById('statisticEpidem');
-dropdownEpidem.addEventListener('click', function (event) {
-  dropdownEpidem.classList.toggle('is-active');
-});
-
-const deathsOption = document.getElementById('deathsOption');
-deathsOption.addEventListener('click', function () {
-  if (state.area1_code) {
-    deathsConfirmedChart('admareas1?area1Code=' + state.area1_code);
-  }
-  if (state.area2_code) {
-    deathsConfirmedChart('admareas2?area2Code=' + state.area2_code);
-  }
-  if (state.area3_code) {
-    deathsConfirmedChart('admareas3?area3Code=' + state.area3_code);
-  }
-  epidemDataText.innerHTML = 'Deaths';
-});
-
-const confirmedOption = document.getElementById('confirmedOption');
-confirmedOption.addEventListener('click', function () {
-  if (state.area1_code) {
-    confirmedCasesChart('admareas1?area1Code=' + state.area1_code);
-  }
-  if (state.area2_code) {
-    confirmedCasesChart('admareas2?area2Code=' + state.area2_code);
-  }
-  if (state.area3_code) {
-    confirmedCasesChart('admareas3?area3Code=' + state.area3_code);
-  }
-
-  epidemDataText.innerHTML = 'Confirmed cases';
-});
-
-const dropSocioYearContent = document.querySelector('.dropSocioYearContent');
-const dropSocioYearText = document.getElementById('socioYearText');
-const dropSocioYear = document.getElementById('dropSocioYear');
-dropSocioYear.addEventListener('click', function () {
-  dropSocioYear.classList.toggle('is-active');
-});
-
-const optionYear2020 = document.getElementById('option2020');
-optionYear2020.addEventListener('click', function () {
-  populationSocioChart(
-    'population?area3Code=' + state.area3_code + '&year=2020'
-  );
-});
-const optionYear2021 = document.getElementById('option2021');
-optionYear2021.addEventListener('click', function () {
-  deleteAndAddSocioChart();
-  populationSocioChart(
-    'population?area3Code=' + state.area3_code + '&year=2021'
-  );
-  dropSocioYear.classList.toggle('is-visible');
-});
-
-const dateButton = document.getElementById('dateButton');
-dateButton.addEventListener('click', function () {
-  console.log('CLICKED');
-  console.log(state);
-  getValuesFromDates();
-  if (state.area3_code) {
-    confirmedCasesChart(
-      'admareas3?area3Code=' +
-        state.area3_code +
-        '&startDate=' +
-        startDate +
-        '&endDate=' +
-        endDate
-    );
-  } else if (state.area2_code) {
-    confirmedCasesChart(
-      'admareas2?area2Code=' +
-        state.area2_code +
-        '&startDate=' +
-        startDate +
-        '&endDate=' +
-        endDate
-    );
-  }
-
-  console.log(startDate);
-  console.log(endDate);
-});
-
-const getValuesFromDates = () => {
-  startDate = document.getElementById('startDate').value;
-  endDate = document.getElementById('endDate').value;
-};
-
-const startDateLabel = document.getElementById('startDateLabel');
-const endDateLabel = document.getElementById('endDateLabel');
-const startDateInput = document.getElementById('startDate');
-const endDateInput = document.getElementById('endDate');
-
-const socioEconomDrop = document.getElementById('socioEconomDrop');
-
-const mapContainer = document.getElementById('map');
-const mapColumn = document.getElementById('mapColumn');
