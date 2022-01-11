@@ -47,22 +47,49 @@ dropDownSocio.addEventListener('click', function (event) {
 
 const populationOption = document.getElementById('populationOption');
 populationOption.addEventListener('click', function () {
-  populationSocioChart('population?area3Code=' + state.area3_code);
+  if (secondChart) {
+    populationSocioChart('population?area3Code=' + state.area3_code);
+    comparePopulationSocioChart(
+      'population?area3Code=' + secondChartData.area3_code
+    );
+  } else {
+    populationSocioChart('population?area3Code=' + state.area3_code);
+  }
 
   socioDropText.innerHTML = 'Population';
 });
 
 const foreignBackgroundOption = document.getElementById('foreignOptions');
 foreignBackgroundOption.addEventListener('click', function () {
-  foreignBackgroundSocioChart(
-    'foreignbackground?area3Code=' + state.area3_code
-  );
+  if (secondChart) {
+    foreignBackgroundSocioChart(
+      'foreignbackground?area3Code=' + state.area3_code
+    );
+    compareForeignBackgroundChart(
+      'foreignbackground?area3Code=' + secondChartData.area3_code
+    );
+  } else {
+    foreignBackgroundSocioChart(
+      'foreignbackground?area3Code=' + state.area3_code
+    );
+  }
   socioDropText.innerHTML = 'Foreign Background';
 });
 
 const educationalOption = document.getElementById('educationalOption');
 educationalOption.addEventListener('click', function () {
-  educationalLevelSocioChart('educationallevel?area3Code=' + state.area3_code);
+  if (secondChart) {
+    educationalLevelSocioChart(
+      'educationallevel?area3Code=' + state.area3_code
+    );
+    compareEducationalLevelChart(
+      'educationallevel?area3Code=' + secondChartData.area3_code
+    );
+  } else {
+    educationalLevelSocioChart(
+      'educationallevel?area3Code=' + state.area3_code
+    );
+  }
 
   socioDropText.innerHTML = 'Educational Level';
 });
@@ -70,7 +97,18 @@ educationalOption.addEventListener('click', function () {
 const incomeOption = document.getElementById('incomeOptions');
 incomeOption.addEventListener('click', function () {
   socioDropText.innerHTML = 'Disposable Income';
-  disposableIncomeSocioChart('disposableincome?area3Code=' + state.area3_code);
+  if (secondChart) {
+    disposableIncomeSocioChart(
+      'disposableincome?area3Code=' + state.area3_code
+    );
+    compareDisposableIncomeChart(
+      'disposableincome?area3Code=' + secondChartData.area3_code
+    );
+  } else {
+    disposableIncomeSocioChart(
+      'disposableincome?area3Code=' + state.area3_code
+    );
+  }
 });
 
 //Change year for socio indicator for Population stats
@@ -108,7 +146,7 @@ const getValuesFromDates = () => {
 const dateButton = document.getElementById('dateButton');
 dateButton.addEventListener('click', function () {
   getValuesFromDates();
-  if (state.area3_code) {
+  if (secondChart) {
     confirmedCasesChart(
       'admareas3?area3Code=' +
         state.area3_code +
@@ -117,10 +155,18 @@ dateButton.addEventListener('click', function () {
         '&endDate=' +
         endDate
     );
-  } else if (state.area2_code) {
+    compareDataConfirmedChart(
+      'admareas3?area3Code=' +
+        secondChartData.area3_code +
+        '&startDate=' +
+        startDate +
+        '&endDate=' +
+        endDate
+    );
+  } else {
     confirmedCasesChart(
-      'admareas2?area2Code=' +
-        state.area2_code +
+      'admareas3?area3Code=' +
+        state.area3_code +
         '&startDate=' +
         startDate +
         '&endDate=' +
@@ -183,22 +229,50 @@ dropSocioEconom2.addEventListener('click', function (event) {
 
 const populationOption2 = document.getElementById('populationOption2');
 populationOption2.addEventListener('click', function () {
-  populationSocioChart2('population?area3Code=' + state.area3_code);
+  if (secondChart) {
+    populationSocioChart2('population?area3Code=' + state.area3_code);
+    comparePopulationSocioChart2(
+      'population?area3Code=' + secondChartData.area3_code
+    );
+  } else {
+    populationSocioChart2('population?area3Code=' + state.area3_code);
+  }
 
   socioDropText2.innerHTML = 'Population';
 });
 
 const foreignBackgroundOption2 = document.getElementById('foreignOption2');
 foreignBackgroundOption2.addEventListener('click', function () {
-  foreignBackgroundSocioChart2(
-    'foreignbackground?area3Code=' + state.area3_code
-  );
+  if (secondChart) {
+    foreignBackgroundSocioChart2(
+      'foreignbackground?area3Code=' + state.area3_code
+    );
+    compareForeignBackgroundChart2(
+      'foreignbackground?area3Code=' + secondChartData.area3_code
+    );
+  } else {
+    foreignBackgroundSocioChart2(
+      'foreignbackground?area3Code=' + state.area3_code
+    );
+  }
+
   socioDropText2.innerHTML = 'Foreign Background';
 });
 
 const educationalOption2 = document.getElementById('educationalOption2');
 educationalOption2.addEventListener('click', function () {
-  educationalLevelSocioChart2('educationallevel?area3Code=' + state.area3_code);
+  if (secondChart) {
+    educationalLevelSocioChart2(
+      'educationallevel?area3Code=' + state.area3_code
+    );
+    compareEducationalLevelChart2(
+      'educationallevel?area3Code=' + secondChartData.area3_code
+    );
+  } else {
+    educationalLevelSocioChart2(
+      'educationallevel?area3Code=' + state.area3_code
+    );
+  }
 
   socioDropText2.innerHTML = 'Educational Level';
 });
@@ -206,5 +280,16 @@ educationalOption2.addEventListener('click', function () {
 const incomeOption2 = document.getElementById('incomeOption2');
 incomeOption2.addEventListener('click', function () {
   socioDropText2.innerHTML = 'Disposable Income';
-  disposableIncomeSocioChart2('disposableincome?area3Code=' + state.area3_code);
+  if (secondChart) {
+    disposableIncomeSocioChart2(
+      'disposableincome?area3Code=' + state.area3_code
+    );
+    compareDisposableIncomeChart2(
+      'disposableincome?area3Code=' + secondChartData.area3_code
+    );
+  } else {
+    disposableIncomeSocioChart2(
+      'disposableincome?area3Code=' + state.area3_code
+    );
+  }
 });

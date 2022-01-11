@@ -6,6 +6,7 @@ let borderSelectedDistrict = [];
 let borderSecondSelectedDistrict = [];
 let borderArray = [];
 let secondBorderArray = [];
+let secondChartData = {};
 const chart1 = document.getElementById('myChart');
 const chartColumn = document.getElementById('chartColumn');
 
@@ -310,6 +311,8 @@ async function fillCompareWith(param) {
         compareData.addEventListener('click', function () {
           map.removeLayer('secondFill');
           console.log(myJson);
+          secondChart = true;
+          secondChartData = myJson;
 
           if (chart.data.datasets.length === 2) {
             chart.data.datasets.pop();
