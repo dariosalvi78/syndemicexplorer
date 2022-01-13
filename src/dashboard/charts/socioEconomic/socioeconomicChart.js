@@ -2,6 +2,7 @@ let xAxisLabel = {};
 let color = {};
 let compareColor = {};
 let chartSocio;
+let secondChart = false;
 
 let overcrowdednessLabel = [],
   comparedOvercrowdednessLabel = [];
@@ -34,6 +35,7 @@ async function createSocioChart() {
     },
     options: options,
   });
+
   chartSocio.update('active');
 }
 
